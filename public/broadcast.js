@@ -96,8 +96,8 @@ function getStream() {
         const displayConstraints = {
             video: {
                 mediaSource: "screen",
-                width: { max: '1920' },
-                height: { max: '1080' },
+                width: { max: '1280' },
+                height: { max: '720' },
                 frameRate: { max: '10' }
             }
         };
