@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Viewer</title>
+        <meta charset="UTF-8" />
+        <link href="/styles.css" rel="stylesheet">
+        <link rel="stylesheet" href="scripts/semantic-ui-css/semantic.min.css">
+        <h1>Scholars Direct Chat</h1>
+    </head>
+    <body>
+        <div id="container">
+            <div id="video-window">
+                <video playsinline autoplay id="self-video"></video>
+            </div>
+            <div id="scholars-chat">
+                <h2>Scholars Chat</h2>
+                <div id="chat-window">
+                    <div id="output"></div>
+                    <div id="feedback"></div>
+                </div>
+                <input id="handle" type="text" placeholder="Handle" />
+                <input id="message" type="text" placeholder="Message" />
+                <button id="send">Send</button>
+            </div>
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/watch.js"></script>
+    </body>
+</html>
