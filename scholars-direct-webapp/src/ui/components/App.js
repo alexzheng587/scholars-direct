@@ -1,10 +1,10 @@
 import React from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
-import {history} from './helpers/history';
-import Login from './ui/LoginPage/Login';
-import Home from './ui/HomePage/Home';
-import AboutUs from './ui/HomePage/AboutUs';
-import Header from './ui/components/Header';
+import {history} from '../../helpers/history';
+import Login from './LoginPage/Login';
+import Home from './HomePage/Home';
+import AboutUs from './HomePage/AboutUs';
+import Header from './Header';
 import Divider from '@material-ui/core/Divider';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import Typography from "@material-ui/core/Typography";
