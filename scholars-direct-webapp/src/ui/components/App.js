@@ -10,12 +10,14 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import Typography from "@material-ui/core/Typography";
 import '../styles/App.css';
 import LoginForm from "./LoginPage/LoginForm";
+import QuestionForm from "./QuestionForm";
+import QuestionEntry from "./QuestionEntry";
+import QuestionView from "./QuestionView";
 
 class App extends React.Component {
   render() {
     return (
         <div>
-            {/*<LoginForm/>*/}
           <Router history={history}>
             <Header />
             <Switch>
@@ -24,6 +26,8 @@ class App extends React.Component {
               <Route component={Home} path="/" />
             </Switch>
           </Router>
+            <QuestionForm/>
+            <QuestionView/>
           <Divider />
           <BottomNavigation value="footer" showLabels >
             <Typography variant="caption" align={"center"}>

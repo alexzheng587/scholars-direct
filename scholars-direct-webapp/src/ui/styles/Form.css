@@ -15,6 +15,7 @@
     margin: -16px -16px 16px -16px;
 }
 .login-form input[type="text"],
+.login-form input[type="password"],
 .login-form input[type="date"],
 .login-form input[type="datetime"],
 .login-form input[type="email"],
@@ -42,6 +43,7 @@
     font: 95% Arial, Helvetica, sans-serif;
 }
 .login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus,
 .login-form input[type="date"]:focus,
 .login-form input[type="datetime"]:focus,
 .login-form input[type="email"]:focus,

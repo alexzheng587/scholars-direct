@@ -8,7 +8,7 @@ class LoginForm extends React.Component {
                 <h1>Login with your account</h1>
                 <form>
                     <input type="text" name="field1" placeholder="Username"/>
-                    <input type="email" name="field2" placeholder="Password"/>
+                    <input type="password" name="field2" placeholder="Password"/>
                     <input type="submit" value="Login"/>
                 </form>
             </div>
