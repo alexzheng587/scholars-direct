@@ -1,14 +1,14 @@
 
 import React from "react";
 
-function Login() {
+function AboutUs() {
     return (
         <div>
-            Login
+            AboutUs
         </div>
     );
 }
 
 
 
-export default Login;
+export default AboutUs;

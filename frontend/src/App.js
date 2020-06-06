@@ -3,6 +3,8 @@ import { Router, Switch, Route } from 'react-router-dom';
 import {history} from './helpers/history';
 import Login from './ui/LoginPage/Login';
 import Home from './ui/HomePage/Home';
+import AboutUs from './ui/HomePage/AboutUs';
+import Header from './ui/components/Header';
 import Divider from '@material-ui/core/Divider';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import Typography from "@material-ui/core/Typography";
@@ -13,9 +15,11 @@ class App extends React.Component {
     return (
         <div>
           <Router history={history}>
+              <Header />
             <Switch>
-              <Route component={Home} path="/" />
               <Route component={Login} path="/login" />
+              <Route component={AboutUs} path="/aboutUs" />
+              <Route component={Home} path="/" />
             </Switch>
           </Router>
           <Divider />
