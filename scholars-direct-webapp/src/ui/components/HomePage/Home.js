@@ -1,12 +1,13 @@
-
 import React from "react";
 
-function Home() {
-    return (
-        <div>
-            Home
-        </div>
-    );
+class Home extends React.Component {
+    render() {
+        return (
+            <div>
+                Home
+            </div>
+        );
+    }
 }
 
 

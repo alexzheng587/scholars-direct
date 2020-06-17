@@ -1,12 +1,14 @@
-
 import React from "react";
+import QuestionView from "../QuestionView";
 
-function AboutUs() {
-    return (
-        <div>
-            AboutUs
-        </div>
-    );
+class AboutUs extends React.Component {
+    render() {
+        return (
+            <div>
+                About Us
+            </div>
+        );
+    }
 }
 
 

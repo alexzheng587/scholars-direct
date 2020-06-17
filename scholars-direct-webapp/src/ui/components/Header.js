@@ -11,6 +11,8 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Typography from '@material-ui/core/Typography';
 
+import '../styles/Header.css';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -52,9 +54,15 @@ export default function Header() {
             </IconButton>
             </Link>
 
-            <Typography variant="h8" className={classes.title}>
-                <Link to="/aboutUs" >
-                About Us
+            <Typography variant="h7" className={classes.title}>
+                <Link to="/questions">
+                    Questions
+                </Link>
+            </Typography>
+
+            <Typography variant="h7" className={classes.title}>
+                <Link to="/aboutUs">
+                    About Us
                 </Link>
             </Typography>
 

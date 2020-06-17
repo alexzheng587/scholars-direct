@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Switch, Route } from 'react-router-dom';
+import {Router, Switch, Route, Link} from 'react-router-dom';
 import {history} from '../../helpers/history';
 import Login from './LoginPage/Login';
 import Home from './HomePage/Home';
@@ -13,21 +13,28 @@ import LoginForm from "./LoginPage/LoginForm";
 import QuestionForm from "./QuestionForm";
 import QuestionEntry from "./QuestionEntry";
 import QuestionView from "./QuestionView";
+import IconButton from "@material-ui/core/IconButton";
+import HomeIcon from "@material-ui/core/SvgIcon/SvgIcon";
+import Toolbar from "@material-ui/core/Toolbar";
 
 class App extends React.Component {
   render() {
     return (
         <div>
           <Router history={history}>
-            <Header />
-            <Switch>
-              <Route component={Login} path="/login" />
-              <Route component={AboutUs} path="/aboutUs" />
-              <Route component={Home} path="/" />
-            </Switch>
+              <Header/>
+              <Switch>
+                <Route exact path="/">
+                    <Home/>
+                </Route>
+                <Route path="/questions">
+                    <QuestionView/>
+                </Route>
+                <Route path="/aboutUs">
+                    <AboutUs/>
+                </Route>
+              </Switch>
           </Router>
-            <QuestionForm/>
-            <QuestionView/>
           <Divider />
           <BottomNavigation value="footer" showLabels >
             <Typography variant="caption" align={"center"}>

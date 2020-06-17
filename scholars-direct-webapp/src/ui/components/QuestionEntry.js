@@ -5,7 +5,7 @@ import '../styles/QuestionPage.css';
 class QuestionEntry extends React.Component {
     render() {
         return (<div className="question-entry">
-            <div>{this.props.title}</div>
+            <h4>{this.props.title}</h4>
             <div>
                 <span>{this.props.name}</span>
                 <span>{this.props.details}</span>
