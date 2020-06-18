@@ -5,6 +5,4 @@ from any 2 users using a peer-to-peer connection. This application was written u
 WebRTC, and socket.io.
 
 ## Screenshots
-
-![chat_app](images/chat_app.PNG)
-![chat_app_broadcast](images/chat_app_broadcast.PNG)
+![dashboard](images/d2_dashboard.png)
