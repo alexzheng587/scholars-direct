@@ -1,5 +1,5 @@
 import React from "react";
-import QuestionView from "../QuestionView";
+import QuestionView from "../QuestionPage/QuestionView";
 
 class AboutUs extends React.Component {
     render() {

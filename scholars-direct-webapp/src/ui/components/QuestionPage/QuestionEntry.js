@@ -1,6 +1,6 @@
 import React from "react";
-import '../styles/Form.css';
-import '../styles/QuestionPage.css';
+import '../../styles/Form.css';
+import '../../styles/QuestionPage.css';
 
 class QuestionEntry extends React.Component {
     render() {

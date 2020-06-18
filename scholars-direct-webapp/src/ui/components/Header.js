@@ -10,19 +10,23 @@ import {AccountCircle} from "@material-ui/icons";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Typography from '@material-ui/core/Typography';
-
 import '../styles/Header.css';
 
 const useStyles = makeStyles((theme) => ({
+    navbar: {
+        background: "#43D1AF"
+    },
     root: {
         flexGrow: 1,
     },
     menuButton: {
-        color: 'black',
+        color: 'white',
         marginRight: theme.spacing(2),
     },
     title: {
         flexGrow: 1,
+        marginRight: 16,
+        marginLeft: -12
     },
 }));
 
@@ -46,7 +50,7 @@ export default function Header() {
 
     return (
         <div className={classes.root}>
-        <AppBar position="sticky" color='white'>
+        <AppBar position="static" className={classes.navbar}>
         <Toolbar>
             <Link to="/" >
             <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
@@ -55,13 +59,13 @@ export default function Header() {
             </Link>
 
             <Typography variant="h7" className={classes.title}>
-                <Link to="/questions">
+                <Link to="/questions" style={{ textDecoration: 'none' }}>
                     Questions
                 </Link>
             </Typography>
 
             <Typography variant="h7" className={classes.title}>
-                <Link to="/aboutUs">
+                <Link to="/aboutUs" style={{ textDecoration: 'none' }}>
                     About Us
                 </Link>
             </Typography>
