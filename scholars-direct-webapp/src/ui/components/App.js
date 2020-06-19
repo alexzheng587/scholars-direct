@@ -9,22 +9,14 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import Typography from "@material-ui/core/Typography";
 import '../styles/App.css';
 import {Login} from './LoginPage/Login.jsx';
+import {RegisterPage} from './RegisterPage/Register.jsx';
 import QuestionView from "./QuestionView";
 
 
 class App extends React.Component {
 
-    constructor(props) {
-        super(props);
-
-        history.listen((location, action) => {
-            // clear alert on location change
-            this.props.clearAlerts();
-        });
-    }
-
     render() {
-        const { alert } = this.props;
+
         return (
             <div>
                 <Router history={history}>
@@ -41,6 +33,9 @@ class App extends React.Component {
                         </Route>
                         <Route path="/login" component={Login}>
                             <Login/>
+                        </Route>
+                        <Route path="/register" component={Login}>
+                            <RegisterPage/>
                         </Route>
                     </Switch>
                 </Router>
