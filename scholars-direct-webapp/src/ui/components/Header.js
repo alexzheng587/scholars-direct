@@ -59,13 +59,13 @@ export default function Header() {
             </Link>
 
             <Typography variant="h7" className={classes.title}>
-                <Link to="/questions" style={{ textDecoration: 'none' }}>
+                <Link to="/questions" style={{ textDecoration: 'none', color: "#FFF", }}>
                     Questions
                 </Link>
             </Typography>
 
             <Typography variant="h7" className={classes.title}>
-                <Link to="/aboutUs" style={{ textDecoration: 'none' }}>
+                <Link to="/aboutUs" style={{ textDecoration: 'none', color: "#FFF", }}>
                     About Us
                 </Link>
             </Typography>

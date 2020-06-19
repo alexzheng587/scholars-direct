@@ -12,7 +12,7 @@ import '../styles/App.css';
 import LoginForm from "./LoginPage/LoginForm";
 import QuestionForm from "./QuestionPage/QuestionForm";
 import QuestionEntry from "./QuestionPage/QuestionEntry";
-import QuestionView from "./QuestionPage/QuestionView";
+import QuestionPage from "./QuestionPage/QuestionPage";
 import IconButton from "@material-ui/core/IconButton";
 import HomeIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -28,7 +28,7 @@ class App extends React.Component {
                     <Home/>
                 </Route>
                 <Route path="/questions">
-                    <QuestionView/>
+                    <QuestionPage/>
                 </Route>
                 <Route path="/aboutUs">
                     <AboutUs/>

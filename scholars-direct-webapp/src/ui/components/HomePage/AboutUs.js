@@ -1,11 +1,11 @@
 import React from "react";
-import QuestionView from "../QuestionPage/QuestionView";
 
 class AboutUs extends React.Component {
     render() {
         return (
             <div>
-                About Us
+                <h1>About Us</h1>
+                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
             </div>
         );
     }
