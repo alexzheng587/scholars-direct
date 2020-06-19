@@ -3,6 +3,8 @@ import '../../styles/Form.css';
 import '../../styles/QuestionPage.css';
 import {Item, Image, Button} from 'semantic-ui-react';
 import {Card} from '@material-ui/core';
+import { connect } from 'react-redux';
+import {deleteQuestion} from "../../../actions";
 
 class Question extends React.Component {
     render() {
@@ -14,10 +16,19 @@ class Question extends React.Component {
                 <Item.Description>
                     {this.props.desc}
                 </Item.Description>
-                <Item.Extra>{this.props.status}</Item.Extra>
+                <Item.Extra>
+                    {this.props.status}
+                    <Button circular icon='delete' floated='right' onClick={() => this.props.deleteQuestion(this.props.id)}/>
+                </Item.Extra>
             </Item.Content>
         </Item>);
     }
 }
 
-export default Question;
+const mapStateToProps = (state) => {
+    return {
+        messages: state.messages,
+    }
+};
+
+export default connect(mapStateToProps, {deleteQuestion})(Question);

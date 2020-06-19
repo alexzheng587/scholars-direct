@@ -1,6 +1,11 @@
+import initialMessageList from "../reducers/index";
+
+let messageID = initialMessageList.length;
+
 export const addQuestion = (state) => {
     return {
         type: "ADD_QUESTION",
+        id: messageID++,
         title: state.title,
         username: state.username,
         description: state.description,
@@ -9,11 +14,16 @@ export const addQuestion = (state) => {
     };
 };
 
-export const deleteQuestion = (state) => {
+export const deleteQuestion = (qid) => {
     return {
         type: "DELETE_QUESTION",
-        message: state.question,
-        user: state.user
-        // more props needed to be added
+        qid
+    };
+};
+
+export const login = (user) => {
+    return {
+        type: "LOGIN",
+        user
     };
 };

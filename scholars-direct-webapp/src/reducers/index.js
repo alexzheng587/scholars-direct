@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 
-// placeholder
 const initialQuestionList = [
     {
     "title": "How to solve this calculus problem?",
@@ -42,8 +41,9 @@ const questionListReducer = (questionList = initialQuestionList, action) => {
             status: action.status
         });
     } else if (action.type === "DELETE_QUESTION") {
-        // change
-        return questionList;
+        let newQuestions = questionList.slice(0);
+        newQuestions.splice(action.qid, 1);
+        return newQuestions;
     } else {
         return questionList;
     }

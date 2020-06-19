@@ -11,13 +11,14 @@ class QuestionList extends React.Component {
     render() {
         return (<div className="questionList-container">
             <Item.Group divided>
-                {this.props.questions.map((question) =>
+                {this.props.questions.map((question, index) =>
                     <Question
                         title={question.title}
                         username={question.username}
                         time={question.time}
                         desc={question.description}
                         status={question.status}
+                        id={index}
                     />
                 )}
             </Item.Group>
