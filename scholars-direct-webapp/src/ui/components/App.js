@@ -9,7 +9,12 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import Typography from "@material-ui/core/Typography";
 import '../styles/App.css';
 import {Login} from './LoginPage/Login.jsx';
-import QuestionView from "./QuestionView";
+import QuestionForm from "./QuestionPage/QuestionForm";
+import QuestionEntry from "./QuestionPage/QuestionEntry";
+import QuestionPage from "./QuestionPage/QuestionPage";
+import IconButton from "@material-ui/core/IconButton";
+import HomeIcon from "@material-ui/core/SvgIcon/SvgIcon";
+import Toolbar from "@material-ui/core/Toolbar";
 
 
 class App extends React.Component {
@@ -34,7 +39,7 @@ class App extends React.Component {
                             <Home/>
                         </Route>
                         <Route path="/questions">
-                            <QuestionView/>
+                            <QuestionPage/>
                         </Route>
                         <Route path="/aboutUs">
                             <AboutUs/>

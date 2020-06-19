@@ -3,3 +3,17 @@
     box-sizing: border-box;
     padding: 5px
 }
+.question-container {
+    display:flex;
+    flex-direction:row;
+    padding: 24px 24px 24px 24px;
+}
+.questionList-container {
+    margin-left: 20px;
+    padding-top: 10px;
+    position: relative;
+    float: right;
+}
+.question-item {
+    max-width: 60%;
+}
