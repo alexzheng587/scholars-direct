@@ -5,10 +5,16 @@ import App from './ui/components/App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import reducers from './reducers';
+import {store} from './helpers/store';
+
+
+// setup mock backend
+import { configureFakeBackend } from './helpers/mockBackend';
+configureFakeBackend();
+
 
 ReactDOM.render(
-    <Provider store={createStore(reducers)}>
+    <Provider store={store}>
         <App />
     </Provider>,
     document.getElementById('root')

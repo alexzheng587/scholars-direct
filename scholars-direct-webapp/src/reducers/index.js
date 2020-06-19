@@ -1,5 +1,9 @@
 import { combineReducers } from 'redux';
-
+import { authentication } from './authenticationReducer';
+import { registration } from './registrationReducer';
+import { alert } from './alertReducer';
 export default combineReducers({
-    //anotherKey: anotherReducer //all your reducers should be combined
+    authentication,
+    registration,
+    alert
 });
