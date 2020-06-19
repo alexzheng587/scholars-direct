@@ -53,7 +53,7 @@ const questionListReducer = (questionList = initialQuestionList, action) => {
 }
 
 export default combineReducers({
-    questions: questionListReducer
+    questions: questionListReducer,
     authentication,
     registration,
     alert

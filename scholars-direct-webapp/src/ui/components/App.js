@@ -24,7 +24,8 @@ class App extends React.Component {
 
         history.listen((location, action) => {
             // clear alert on location change
-            this.props.clearAlerts();
+            // fix
+            //this.props.clearAlerts();
         });
     }
 
