@@ -1,4 +1,7 @@
 import { combineReducers } from 'redux';
+import { authentication } from './authenticationReducer';
+import { registration } from './registrationReducer';
+import { alert } from './alertReducer';
 
 const initialQuestionList = [
     {
@@ -51,5 +54,7 @@ const questionListReducer = (questionList = initialQuestionList, action) => {
 
 export default combineReducers({
     questions: questionListReducer
-    //anotherKey: anotherReducer //all your reducers should be combined
+    authentication,
+    registration,
+    alert
 });
