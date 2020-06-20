@@ -26,6 +26,14 @@ const useStyles = makeStyles((theme) => ({
         color: 'white',
         marginRight: theme.spacing(2),
     },
+    menuItem: {
+        marginLeft: 16,
+        marginRight: 2
+    },
+    rightToolbar: {
+        marginLeft: "auto",
+        marginRight: 2
+    },
     title: {
         flexGrow: 1,
         marginRight: 16,
@@ -68,13 +76,13 @@ function Header(props) {
             </IconButton>
             </Link>
 
-            <Typography variant="h7" className={classes.title}>
+            <Typography variant="h7" className={classes.menuItem}>
                 <Link to="/questions" style={{ textDecoration: 'none', color: "#FFF", }}>
                     Questions
                 </Link>
             </Typography>
 
-            <Typography variant="h7" className={classes.title}>
+            <Typography variant="h7" className={classes.menuItem}>
                 <Link to="/aboutUs" style={{ textDecoration: 'none', color: "#FFF", }}>
                     About Us
                 </Link>
@@ -82,7 +90,7 @@ function Header(props) {
 
             {!props.auth.loggedIn && (
                 <div>
-                    <Typography variant="h7" className={classes.title}>
+                    <Typography variant="h7" className={classes.menuItem}>
                         <Link to="/login" style={{ textDecoration: 'none', color: "#FFF", }}>
                             Login
                         </Link>
@@ -90,7 +98,7 @@ function Header(props) {
                 </div>
             )}
             {props.auth.loggedIn && (
-                <div>
+                <section className={classes.rightToolbar}>
                     <IconButton
                         edge="end"
                         aria-label="account of current user"
@@ -120,7 +128,7 @@ function Header(props) {
                         <MenuItem onClick={handleClose}>My account</MenuItem>
                         <MenuItem onClick={handleLogout}>Logout</MenuItem>
                     </Menu>
-                </div>
+                </section>
             )}
         </Toolbar>
         </AppBar>
@@ -129,7 +137,7 @@ function Header(props) {
 }
 const mapStateToProps = (state) => { //name is by convention
     return { auth: state.authentication}; //now it will appear as props
-}
+};
 
 export default connect(mapStateToProps, {})(Header);
 
