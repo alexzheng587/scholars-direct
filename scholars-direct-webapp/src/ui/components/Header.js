@@ -70,6 +70,12 @@ export default function Header() {
                 </Link>
             </Typography>
 
+            <Typography variant="h7" className={classes.title}>
+                <Link to="/roomSelect" style={{ textDecoration: 'none', color: "#FFF", }}>
+                    Select Room
+                </Link>
+            </Typography>
+
             {auth && (
                 <div>
                     <IconButton

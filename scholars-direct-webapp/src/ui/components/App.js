@@ -15,6 +15,8 @@ import QuestionPage from "./QuestionPage/QuestionPage";
 import IconButton from "@material-ui/core/IconButton";
 import HomeIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import Toolbar from "@material-ui/core/Toolbar";
+import VideoChat from "./VideoChat/VideoChat";
+import { SelectRoom } from "./VideoChat/SelectRoom";
 
 
 class App extends React.Component {
@@ -48,6 +50,8 @@ class App extends React.Component {
                         <Route path="/login" component={Login}>
                             <Login/>
                         </Route>
+                        <Route path="/roomSelect" exact component={SelectRoom}/>
+                        <Route path="/:roomId" exact component={VideoChat}/>
                     </Switch>
                 </Router>
                 <Divider/>

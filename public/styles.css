@@ -28,7 +28,7 @@ h2{
     font-family: Nunito;
 }
 
-#video-window {
+.video-window {
     width: auto;
     height: 50%;
     display: block;
@@ -38,7 +38,7 @@ h2{
     float:left;
 }
 
-#scholars-chat{
+.chat-form-container{
     max-width: 600px;
     margin: 30px auto;
     border: 1px solid #ddd;
@@ -98,4 +98,15 @@ button{
     padding: 12px 0;
     width: 100%;
     border-radius: 0 0 2px 2px;
+}
+
+video {
+    width: 720px;
+    height: 480px;
+    border: 10px outset #ddd;
+    float: left;
+}
+
+.select {
+    position: relative;
 }
