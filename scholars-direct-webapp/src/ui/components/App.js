@@ -9,12 +9,8 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import Typography from "@material-ui/core/Typography";
 import '../styles/App.css';
 import {Login} from './LoginPage/Login.jsx';
-import QuestionForm from "./QuestionPage/QuestionForm";
-import QuestionEntry from "./QuestionPage/QuestionEntry";
 import QuestionPage from "./QuestionPage/QuestionPage";
-import IconButton from "@material-ui/core/IconButton";
-import HomeIcon from "@material-ui/core/SvgIcon/SvgIcon";
-import Toolbar from "@material-ui/core/Toolbar";
+import {RegisterPage} from './RegisterPage/Register.jsx';
 
 
 class App extends React.Component {

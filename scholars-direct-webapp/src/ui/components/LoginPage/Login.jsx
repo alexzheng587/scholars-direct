@@ -2,8 +2,8 @@ import React from "react";
 import '../../styles/Form.css';
 import { userAction } from '../../../action/userAction';
 
-import Link from "@material-ui/core/Link";
-//import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { connect } from 'react-redux';
 import { alertActions } from '../../../action/alertLogin';
 import { history } from '../../../helpers/history';
