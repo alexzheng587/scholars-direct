@@ -93,7 +93,6 @@ class Login extends React.Component {
 function mapState(state) {
     const { loggingIn } = state.authentication;
     const { alert } = state;
-
     return { loggingIn,alert };
 }
 

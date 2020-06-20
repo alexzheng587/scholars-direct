@@ -19,18 +19,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 
 class App extends React.Component {
 
-    constructor(props) {
-        super(props);
-
-        history.listen((location, action) => {
-            // clear alert on location change
-            // fix
-            //this.props.clearAlerts();
-        });
-    }
-
     render() {
-        const { alert } = this.props;
+
         return (
             <div>
                 <Router history={history}>
@@ -47,6 +37,9 @@ class App extends React.Component {
                         </Route>
                         <Route path="/login" component={Login}>
                             <Login/>
+                        </Route>
+                        <Route path="/register" component={Login}>
+                            <RegisterPage/>
                         </Route>
                     </Switch>
                 </Router>
