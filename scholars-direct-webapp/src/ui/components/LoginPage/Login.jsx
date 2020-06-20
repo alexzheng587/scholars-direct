@@ -1,11 +1,11 @@
 import React from "react";
 import '../../styles/Form.css';
-import { userAction } from '../../../action/userAction';
+import { userAction } from '../../../actions/userAction';
 
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { connect } from 'react-redux';
-import { alertActions } from '../../../action/alertLogin';
+import { alertActions } from '../../../actions/alertLogin';
 import { history } from '../../../helpers/history';
 
 class Login extends React.Component {

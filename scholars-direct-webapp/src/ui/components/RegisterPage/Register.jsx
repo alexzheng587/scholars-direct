@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { userAction } from '../../../action/userAction';
+import { userAction } from '../../../actions/userAction';
 
 class RegisterPage extends React.Component {
     constructor(props) {
