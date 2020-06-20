@@ -12,7 +12,6 @@ import {Login} from './LoginPage/Login.jsx';
 import QuestionPage from "./QuestionPage/QuestionPage";
 import {RegisterPage} from './RegisterPage/Register.jsx';
 
-
 class App extends React.Component {
 
     render() {
@@ -34,7 +33,7 @@ class App extends React.Component {
                         <Route path="/login" component={Login}>
                             <Login/>
                         </Route>
-                        <Route path="/register" component={Login}>
+                        <Route path="/register" component={RegisterPage}>
                             <RegisterPage/>
                         </Route>
                     </Switch>
@@ -47,6 +46,7 @@ class App extends React.Component {
                 </BottomNavigation>
             </div>
         );
+
     }
 }
 

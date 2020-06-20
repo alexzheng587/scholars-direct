@@ -11,6 +11,9 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Typography from '@material-ui/core/Typography';
 import '../styles/Header.css';
+import { connect } from 'react-redux';
+import {userAction} from "../../actions/userAction";
+import { history } from '../../helpers/history';
 
 const useStyles = makeStyles((theme) => ({
     navbar: {
@@ -30,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Header() {
+function Header(props) {
     const classes = useStyles();
     const [auth, setAuth] = React.useState(true);
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -47,7 +50,14 @@ export default function Header() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    console.log(props.auth);
 
+
+    const handleLogout = () => {
+        handleClose();
+        userAction.logout();
+        history.push("/login");
+    }
     return (
         <div className={classes.root}>
         <AppBar position="static" className={classes.navbar}>
@@ -70,7 +80,16 @@ export default function Header() {
                 </Link>
             </Typography>
 
-            {auth && (
+            {!props.auth.loggedIn && (
+                <div>
+                    <Typography variant="h7" className={classes.title}>
+                        <Link to="/login" style={{ textDecoration: 'none', color: "#FFF", }}>
+                            Login
+                        </Link>
+                    </Typography>
+                </div>
+            )}
+            {props.auth.loggedIn && (
                 <div>
                     <IconButton
                         edge="end"
@@ -99,6 +118,7 @@ export default function Header() {
                     >
                         <MenuItem onClick={handleClose}>Profile</MenuItem>
                         <MenuItem onClick={handleClose}>My account</MenuItem>
+                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
                     </Menu>
                 </div>
             )}
@@ -107,5 +127,10 @@ export default function Header() {
         </div>
     );
 }
+const mapStateToProps = (state) => { //name is by convention
+    return { auth: state.authentication}; //now it will appear as props
+}
+
+export default connect(mapStateToProps, {})(Header);
 
 
