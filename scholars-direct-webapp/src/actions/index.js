@@ -27,3 +27,15 @@ export const login = (user) => {
         user
     };
 };
+
+export const offerHelp = (state) => {
+    return {
+        type: "OFFER_HELP",
+        tutorID: state.tutor,
+        posterID:state.poster,
+        pid:state.pid,
+        message: state.message,
+        time: state.time,
+        isAccepted: false,
+    };
+};

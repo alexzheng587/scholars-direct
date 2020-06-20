@@ -9,30 +9,18 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import Typography from "@material-ui/core/Typography";
 import '../styles/App.css';
 import {Login} from './LoginPage/Login.jsx';
-import QuestionForm from "./QuestionPage/QuestionForm";
-import QuestionEntry from "./QuestionPage/QuestionEntry";
 import QuestionPage from "./QuestionPage/QuestionPage";
 import IconButton from "@material-ui/core/IconButton";
 import HomeIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import Toolbar from "@material-ui/core/Toolbar";
 import VideoChat from "./VideoChat/VideoChat";
 import { SelectRoom } from "./VideoChat/SelectRoom";
-
+import {RegisterPage} from './RegisterPage/Register.jsx';
 
 class App extends React.Component {
 
-    constructor(props) {
-        super(props);
-
-        history.listen((location, action) => {
-            // clear alert on location change
-            // fix
-            //this.props.clearAlerts();
-        });
-    }
-
     render() {
-        const { alert } = this.props;
+
         return (
             <div>
                 <Router history={history}>
@@ -52,6 +40,9 @@ class App extends React.Component {
                         </Route>
                         <Route path="/roomSelect" exact component={SelectRoom}/>
                         <Route path="/:roomId" exact component={VideoChat}/>
+                        <Route path="/register" component={RegisterPage}>
+                            <RegisterPage/>
+                        </Route>
                     </Switch>
                 </Router>
                 <Divider/>
@@ -62,6 +53,7 @@ class App extends React.Component {
                 </BottomNavigation>
             </div>
         );
+
     }
 }
 
