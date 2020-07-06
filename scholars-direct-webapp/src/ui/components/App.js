@@ -35,14 +35,14 @@ class App extends React.Component {
                         <Route path="/aboutUs">
                             <AboutUs/>
                         </Route>
-                        <Route path="/login" component={Login}>
+                        <Route exact path="/login" component={Login}>
                             <Login/>
                         </Route>
-                        <Route path="/roomSelect" exact component={SelectRoom}/>
-                        <Route path="/:roomId" exact component={VideoChat}/>
-                        <Route path="/register" component={RegisterPage}>
+                        <Route exact path="/register" component={RegisterPage}>
                             <RegisterPage/>
                         </Route>
+                        <Route exact path="/roomSelect" component={SelectRoom}/>
+                        <Route exact path="/:roomId" component={VideoChat}/>
                     </Switch>
                 </Router>
                 <Divider/>
