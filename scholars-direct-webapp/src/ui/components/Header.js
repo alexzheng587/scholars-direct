@@ -11,6 +11,9 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Typography from '@material-ui/core/Typography';
 import '../styles/Header.css';
+import { connect } from 'react-redux';
+import {userAction} from "../../actions/userAction";
+import { history } from '../../helpers/history';
 
 const useStyles = makeStyles((theme) => ({
     navbar: {
@@ -23,6 +26,14 @@ const useStyles = makeStyles((theme) => ({
         color: 'white',
         marginRight: theme.spacing(2),
     },
+    menuItem: {
+        marginLeft: 16,
+        marginRight: 2
+    },
+    rightToolbar: {
+        marginLeft: "auto",
+        marginRight: 2
+    },
     title: {
         flexGrow: 1,
         marginRight: 16,
@@ -30,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Header() {
+function Header(props) {
     const classes = useStyles();
     const [auth, setAuth] = React.useState(true);
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -47,7 +58,14 @@ export default function Header() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    console.log(props.auth);
 
+
+    const handleLogout = () => {
+        handleClose();
+        userAction.logout();
+        history.push("/login");
+    }
     return (
         <div className={classes.root}>
         <AppBar position="static" className={classes.navbar}>
@@ -58,20 +76,35 @@ export default function Header() {
             </IconButton>
             </Link>
 
-            <Typography variant="h7" className={classes.title}>
+            <Typography variant="h7" className={classes.menuItem}>
                 <Link to="/questions" style={{ textDecoration: 'none', color: "#FFF", }}>
                     Questions
                 </Link>
             </Typography>
 
-            <Typography variant="h7" className={classes.title}>
+            <Typography variant="h7" className={classes.menuItem}>
                 <Link to="/aboutUs" style={{ textDecoration: 'none', color: "#FFF", }}>
                     About Us
                 </Link>
             </Typography>
 
-            {auth && (
+            <Typography variant="h7" className={classes.menuItem}>
+                <Link to="/roomSelect" style={{ textDecoration: 'none', color: "#FFF", }}>
+                    Select Room
+                </Link>
+            </Typography>
+
+            {!props.auth.loggedIn && (
                 <div>
+                    <Typography variant="h7" className={classes.menuItem}>
+                        <Link to="/login" style={{ textDecoration: 'none', color: "#FFF", }}>
+                            Login
+                        </Link>
+                    </Typography>
+                </div>
+            )}
+            {props.auth.loggedIn && (
+                <section className={classes.rightToolbar}>
                     <IconButton
                         edge="end"
                         aria-label="account of current user"
@@ -99,13 +132,19 @@ export default function Header() {
                     >
                         <MenuItem onClick={handleClose}>Profile</MenuItem>
                         <MenuItem onClick={handleClose}>My account</MenuItem>
+                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
                     </Menu>
-                </div>
+                </section>
             )}
         </Toolbar>
         </AppBar>
         </div>
     );
 }
+const mapStateToProps = (state) => { //name is by convention
+    return { auth: state.authentication}; //now it will appear as props
+};
+
+export default connect(mapStateToProps, {})(Header);
 
 
