@@ -83,25 +83,25 @@ function Header(props) {
             </Typography>
 
             <Typography variant="h7" className={classes.menuItem}>
-                <Link to="/aboutUs" style={{ textDecoration: 'none', color: "#FFF", }}>
-                    About Us
-                </Link>
-            </Typography>
-
-            <Typography variant="h7" className={classes.menuItem}>
                 <Link to="/roomSelect" style={{ textDecoration: 'none', color: "#FFF", }}>
                     Select Room
                 </Link>
             </Typography>
 
+            <Typography variant="h7" className={classes.menuItem}>
+                <Link to="/aboutUs" style={{ textDecoration: 'none', color: "#FFF", }}>
+                    About Us
+                </Link>
+            </Typography>
+
             {!props.auth.loggedIn && (
-                <div>
+                <section className={classes.rightToolbar}>
                     <Typography variant="h7" className={classes.menuItem}>
                         <Link to="/login" style={{ textDecoration: 'none', color: "#FFF", }}>
                             Login
                         </Link>
                     </Typography>
-                </div>
+                </section>
             )}
             {props.auth.loggedIn && (
                 <section className={classes.rightToolbar}>
