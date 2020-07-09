@@ -5,7 +5,7 @@ export function configureFakeBackend() {
     let realFetch = window.fetch;
     window.fetch = function (url, opts) {
         return new Promise((resolve, reject) => {
-            // wrap in timeout to simulate server api call
+            // wrap in timeout to simulate server server call
             setTimeout(() => {
 
                 // authenticate

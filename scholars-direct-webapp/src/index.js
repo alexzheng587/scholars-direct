@@ -5,7 +5,6 @@ import 'semantic-ui-css/semantic.min.css';
 import App from './ui/components/App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
 import {store} from './helpers/store';
 
 

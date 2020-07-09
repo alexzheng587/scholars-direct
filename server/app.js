@@ -5,10 +5,11 @@ const mongoose = require('mongoose');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const passport = require("passport");
 
 require('dotenv').config();
 
-const indexRouter = require('./routes/index');
+const indexRouter = require('./routes');
 const usersRouter = require('./routes/users');
 
 const app = express();
@@ -24,15 +25,24 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const uri = process.env.ATLAS_URI;
+// DB Config
+const db = require("./config/keys").mongoURI;
 
-mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
+mongoose.connect(db, { useNewUrlParser: true, useCreateIndex: true })
+    .then(() => console.log("MongoDB database connection established successfully"))
+    .catch(err => console.log(err));
 
-const connection = mongoose.connection;
+// const connection = mongoose.connection;
+//
+// connection.once('open', () => {
+//   console.log("MongoDB database connection established successfully");
+// });
 
-connection.once('open', () => {
-  console.log("MongoDB database connection established successfully");
-});
+// Passport middleware
+app.use(passport.initialize());
+// Passport config
+require("./config/passport")(passport);
+// Routes
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
