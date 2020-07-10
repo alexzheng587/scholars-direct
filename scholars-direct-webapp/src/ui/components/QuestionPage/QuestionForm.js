@@ -1,7 +1,7 @@
 import React from "react";
 import '../../styles/Form.css';
 import { connect } from 'react-redux';
-import {addQuestion} from "../../../actions";
+import {addQuestion} from "../../../actions/questionAction";
 
 let initialState = {
     title: "",
@@ -20,6 +20,7 @@ class QuestionForm extends React.Component {
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.handleUserChange = this.handleUserChange.bind(this);
         this.handleTimeChange = this.handleTimeChange.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
         this.handleDescChange = this.handleDescChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -32,7 +33,13 @@ class QuestionForm extends React.Component {
 
     handleUserChange(e) {
         this.setState({
-            user: e.target.value
+            username: e.target.value
+        });
+    }
+
+    handleDateChange(e) {
+        this.setState({
+            date: e.target.value
         });
     }
 
@@ -51,7 +58,7 @@ class QuestionForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         const s = this.state.title.trim();
-        const u = this.state.user.trim();
+        const u = this.state.username.trim();
         if (s && u) {
             this.props.addQuestion(this.state);
             this.setState(initialState);
@@ -65,8 +72,8 @@ class QuestionForm extends React.Component {
                 <form onSubmit={this.handleSubmit}>
                     <input type="text" name="field1" placeholder="Question Title" onChange={this.handleTitleChange}/>
                     <input type="text" name="field2" placeholder="Display Name" onChange={this.handleUserChange}/>
-                    <input type="time" name="field3" placeholder="Latest Time" onChange={this.handleTimeChange}/>
-                    <textarea name="field3" rows="8" placeholder="Specify your question..." onChange={this.handleDescChange}/>
+                    <input type="datetime-local" name="field3" placeholder="Date" onfocus="(this.type='date')" onChange={this.handleTimeChange}/>
+                    <textarea name="field4" rows="8" placeholder="Specify your question..." onChange={this.handleDescChange}/>
                     <input type="submit" value="Submit Question"/>
                 </form>
             </div>
@@ -76,7 +83,9 @@ class QuestionForm extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        questions: state.questions
+        questions: state.questions.questionList,
+        isQuestionsLoading: state.questions.isQuestionsLoading,
+        questionError: state.questions.questionError
     }
 };
 

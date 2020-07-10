@@ -2,10 +2,19 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const questionSchema = new Schema({
-    message: {
+    title: {
         type: String
     },
-    user: {
+    username: {
+        type: String
+    },
+    description: {
+        type: String
+    },
+    time: {
+        type: String
+    },
+    status: {
         type: String
     }
 });
