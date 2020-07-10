@@ -28,7 +28,7 @@ export const fetchQuestions = () => {
     return dispatch => {
         dispatch(fetchQuestionsRequested());
 
-        axios.get(`http://localhost:8083/questions/`)
+        axios.get(`http://localhost:9000/questions/`)
             .then(res => {
                 dispatch(fetchQuestionsSuccess(res.data));
             })
@@ -74,7 +74,7 @@ export const addQuestion = (Question) => {
     return dispatch => {
         dispatch(addQuestionsRequested());
 
-        axios.post(`http://localhost:8083/questions/`, Question)
+        axios.post(`http://localhost:9000/questions/`, Question)
             .then(res => {
                 dispatch(addQuestionsSuccess(res.data));
             })
@@ -115,7 +115,7 @@ export const deleteQuestion = (state) => {
     return dispatch => {
         dispatch(deleteMessageRequested());
 
-        axios.delete(`http://localhost:8083/questions/${state.id}`)
+        axios.delete(`http://localhost:9000/questions/${state.id}`)
             .then(res => {
                 dispatch(deleteMessageSuccess(state.key));
             })
