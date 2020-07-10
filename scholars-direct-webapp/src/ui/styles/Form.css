@@ -15,10 +15,13 @@
     color: #fff;
     margin: -16px -16px 16px -16px;
 }
+.login-form label{
+
+}
 .login-form input[type="text"],
 .login-form input[type="password"],
 .login-form input[type="date"],
-.login-form input[type="datetime"],
+.login-form input[type="datetime-local"],
 .login-form input[type="email"],
 .login-form input[type="number"],
 .login-form input[type="search"],
@@ -47,7 +50,7 @@
 .login-form input[type="text"]:focus,
 .login-form input[type="password"]:focus,
 .login-form input[type="date"]:focus,
-.login-form input[type="datetime"]:focus,
+.login-form input[type="datetime-local"]:focus,
 .login-form input[type="email"]:focus,
 .login-form input[type="number"]:focus,
 .login-form input[type="search"]:focus,

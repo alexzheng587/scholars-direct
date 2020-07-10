@@ -1,0 +1,138 @@
+import initialMessageList from "../reducers/index";
+import axios from 'axios';
+
+import {questionConstants} from "../constants/questionConstant";
+let messageID = initialMessageList.length;
+
+export const fetchQuestionsRequested = () => {
+    return {
+        type: questionConstants.FETCH_REQUEST
+    };
+};
+
+export const fetchQuestionsSuccess = (questions) => {
+    return {
+        type: questionConstants.FETCH_SUCCESS,
+        questions
+    };
+};
+
+export const fetchQuestionsFailure = (e) => {
+    return {
+        type: questionConstants.FETCH_ERROR,
+        e
+    };
+};
+
+export const fetchQuestions = () => {
+    return dispatch => {
+        dispatch(fetchQuestionsRequested());
+
+        axios.get(`http://localhost:8083/questions/`)
+            .then(res => {
+                dispatch(fetchQuestionsSuccess(res.data));
+            })
+            .catch(e => {
+                dispatch(fetchQuestionsFailure(e));
+            });
+    }
+};
+
+export const addQuestionsRequested = () => {
+    return {
+        type: questionConstants.ADD_REQUEST
+    };
+};
+
+export const addQuestionsSuccess = (question) => {
+    return {
+        type: questionConstants.ADD_SUCCESS,
+        ...question
+    };
+};
+
+export const addQuestionsFailure = (e) => {
+    return {
+        type: questionConstants.ADD_ERROR,
+        e
+    };
+};
+
+// export const addQuestion = (state) => {
+//     return {
+//         type: "ADD_QUESTION",
+//         id: messageID++,
+//         title: state.title,
+//         username: state.username,
+//         description: state.description,
+//         time: state.time,
+//         status: state.status
+//     };
+// };
+
+export const addQuestion = (Question) => {
+    return dispatch => {
+        dispatch(addQuestionsRequested());
+
+        axios.post(`http://localhost:8083/questions/`, Question)
+            .then(res => {
+                dispatch(addQuestionsSuccess(res.data));
+            })
+            .catch(e => {
+                dispatch(addQuestionsFailure(e.message))
+            });
+    };
+};
+
+export const deleteMessageRequested = () => {
+    return {
+        type: questionConstants.DELETE_REQUEST
+    };
+};
+
+export const deleteMessageSuccess = (targetQuestionKey) => {
+    return {
+        type: questionConstants.DELETE_SUCCESS,
+        targetQuestionKey
+    };
+};
+
+export const deleteMessageFailure = (e) => {
+    return {
+        type: questionConstants.DELETE_ERROR,
+        e
+    };
+};
+
+// export const deleteQuestion = (qid) => {
+//     return {
+//         type: "DELETE_QUESTION",
+//         qid
+//     };
+// };
+
+export const deleteQuestion = (state) => {
+    return dispatch => {
+        dispatch(deleteMessageRequested());
+
+        axios.delete(`http://localhost:8083/questions/${state.id}`)
+            .then(res => {
+                dispatch(deleteMessageSuccess(state.key));
+            })
+            .catch(e => {
+                dispatch(deleteMessageFailure(e.message))
+            });
+    };
+};
+
+export const offerHelp = (state) => {
+    return {
+        type: "OFFER_HELP",
+        tutorID: state.tutor,
+        posterID:state.poster,
+        pid:state.pid,
+        message: state.message,
+        time: state.time,
+        isAccepted: false,
+    };
+};

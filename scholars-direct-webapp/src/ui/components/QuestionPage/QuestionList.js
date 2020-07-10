@@ -3,11 +3,15 @@ import '../../styles/Form.css';
 import '../../styles/QuestionPage.css';
 import {Item, Button} from 'semantic-ui-react';
 import {connect} from "react-redux";
-import {addQuestion} from "../../../actions";
+import { fetchQuestions } from "../../../actions/questionAction";
 import Question from "./Question";
 
 
 class QuestionList extends React.Component {
+    componentDidMount() {
+        this.props.fetchQuestions();
+    }
+
     render() {
         return (<div className="questionList-container">
             <Item.Group divided>
@@ -18,7 +22,8 @@ class QuestionList extends React.Component {
                         time={question.time}
                         desc={question.description}
                         status={question.status}
-                        id={index}
+                        msgKey={index}
+                        id={(question._id)}
                     />
                 )}
             </Item.Group>
@@ -28,8 +33,10 @@ class QuestionList extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        questions: state.questions
+        questions: state.questions.questionList,
+        isQuestionsLoading: state.questions.isQuestionsLoading,
+        questionError: state.questions.questionError
     }
 };
 
-export default connect(mapStateToProps)(QuestionList);
+export default connect(mapStateToProps, {fetchQuestions})(QuestionList);

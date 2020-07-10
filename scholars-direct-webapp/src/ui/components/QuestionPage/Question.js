@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import {deleteQuestion} from "../../../actions";
+import {deleteQuestion} from "../../../actions/questionAction";
 
 import '../../styles/Form.css';
 import '../../styles/QuestionPage.css';
@@ -24,7 +24,10 @@ class Question extends React.Component {
                 <Item.Extra>
                     <div>{this.props.status}</div>
                     <OfferDialog/>
-                    <Button circular icon='delete' floated='right' onClick={() => this.props.deleteQuestion(this.props.id)}/>
+                    <Button circular icon='delete' floated='right' onClick={() => this.props.deleteQuestion({
+                        id: this.props.id,
+                        key: this.props.msgKey
+                    })}/>
                 </Item.Extra>
             </Item.Content>
         </Item>);
@@ -33,7 +36,9 @@ class Question extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        messages: state.messages,
+        questions: state.questions.questionList,
+        isQuestionsLoading: state.questions.isQuestionsLoading,
+        questionError: state.questions.questionError
     }
 };
 
