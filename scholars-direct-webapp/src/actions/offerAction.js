@@ -14,7 +14,7 @@ export const offerHelp = (state) => {
     return dispatch => {
         dispatch(helper());
         console.log(state);
-        axios.post('http://localhost:8080/offers/',state);
+        axios.post('http://localhost:9000/offers/',state);
 
     };
 };

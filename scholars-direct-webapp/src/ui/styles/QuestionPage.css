@@ -7,6 +7,7 @@
     display: inline-flex;
     flex-direction:row;
     padding: 24px 24px 24px 24px;
+
 }
 .questionList-container {
     margin-left: 20px;
@@ -15,5 +16,5 @@
     float: left;
 }
 .question-item {
-    max-width: 60%;
+    max-width: 100%;
 }
