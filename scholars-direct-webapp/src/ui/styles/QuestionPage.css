@@ -4,7 +4,7 @@
     padding: 5px
 }
 .question-container {
-    display:flex;
+    display: inline-flex;
     flex-direction:row;
     padding: 24px 24px 24px 24px;
 }
@@ -12,7 +12,7 @@
     margin-left: 20px;
     padding-top: 10px;
     position: relative;
-    float: right;
+    float: left;
 }
 .question-item {
     max-width: 60%;
