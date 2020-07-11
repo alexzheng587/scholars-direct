@@ -5,6 +5,7 @@ import {Item, Button} from 'semantic-ui-react';
 import {connect} from "react-redux";
 import { fetchQuestions } from "../../../actions/questionAction";
 import Question from "./Question";
+import Loader from "../Loader";
 
 
 class QuestionList extends React.Component {
@@ -13,6 +14,14 @@ class QuestionList extends React.Component {
     }
 
     render() {
+        if (this.props.isQuestionsLoading) {
+            return <div className="questionList-container"><Loader/></div>;
+        }
+        if (this.props.questions.length === 0) {
+            return <div className="questionList-container">
+                <h4>No questions to display at the moment. Feel free to add some to get your inquiries answered!</h4>
+            </div>;
+        }
         return (<div className="questionList-container">
             <Item.Group divided>
                 {this.props.questions.map((question, index) =>

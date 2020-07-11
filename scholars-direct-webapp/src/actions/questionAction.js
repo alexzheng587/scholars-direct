@@ -59,18 +59,6 @@ export const addQuestionsFailure = (e) => {
     };
 };
 
-// export const addQuestion = (state) => {
-//     return {
-//         type: "ADD_QUESTION",
-//         id: messageID++,
-//         title: state.title,
-//         username: state.username,
-//         description: state.description,
-//         time: state.time,
-//         status: state.status
-//     };
-// };
-
 export const addQuestion = (Question) => {
     return dispatch => {
         dispatch(addQuestionsRequested());
@@ -104,13 +92,6 @@ export const deleteMessageFailure = (e) => {
         e
     };
 };
-
-// export const deleteQuestion = (qid) => {
-//     return {
-//         type: "DELETE_QUESTION",
-//         qid
-//     };
-// };
 
 export const deleteQuestion = (state) => {
     return dispatch => {

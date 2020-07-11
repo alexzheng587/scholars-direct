@@ -26,9 +26,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// DB Config
+// TODO CHANGE TO YOUR OWN DB Config
+
 // const db = process.env.ATLAS_URI;
 const db = require("./config/keys").mongoURI2;
+
 
 mongoose.connect(db, { useNewUrlParser: true, useCreateIndex: true })
     .then(() => console.log("MongoDB database connection established successfully"))
