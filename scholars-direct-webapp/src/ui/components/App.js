@@ -1,7 +1,10 @@
 import React from 'react';
 import {Router, Switch, Route} from 'react-router-dom';
+
+
 import {history} from '../../helpers/history';
 import Home from './HomePage/Home';
+import Profile from './HomePage/Profile';
 import AboutUs from './HomePage/AboutUs';
 import Header from './Header';
 import Divider from '@material-ui/core/Divider';
@@ -10,19 +13,19 @@ import Typography from "@material-ui/core/Typography";
 import '../styles/App.css';
 import {Login} from './LoginPage/Login.jsx';
 import QuestionPage from "./QuestionPage/QuestionPage";
-import IconButton from "@material-ui/core/IconButton";
-import HomeIcon from "@material-ui/core/SvgIcon/SvgIcon";
-import Toolbar from "@material-ui/core/Toolbar";
+import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import VideoChat from "./VideoChat/VideoChat";
 import { SelectRoom } from "./VideoChat/SelectRoom";
 import {RegisterPage} from './RegisterPage/Register.jsx';
+import PrivateRoute from "../../helpers/PrivateRoute";
+
+
 
 class App extends React.Component {
 
     render() {
-
         return (
-            <div>
+            <div className="App">
                 <Router history={history}>
                     <Header/>
                     <Switch>
@@ -35,12 +38,16 @@ class App extends React.Component {
                         <Route path="/aboutUs">
                             <AboutUs/>
                         </Route>
+
                         <Route exact path="/login" component={Login}>
                             <Login/>
                         </Route>
                         <Route exact path="/register" component={RegisterPage}>
                             <RegisterPage/>
                         </Route>
+
+                        <PrivateRoute exact path="/profile" component={Profile} />
+
                         <Route exact path="/roomSelect" component={SelectRoom}/>
                         <Route exact path="/:roomId" component={VideoChat}/>
                     </Switch>

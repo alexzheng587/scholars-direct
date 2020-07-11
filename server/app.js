@@ -27,6 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // DB Config
+// const db = require("./config/keys").mongoURI;
 const db = process.env.ATLAS_URI;
 
 mongoose.connect(db, { useNewUrlParser: true, useCreateIndex: true })

@@ -51,6 +51,8 @@ function Header(props) {
         setAuth(event.target.checked);
     };
 
+
+
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -66,6 +68,13 @@ function Header(props) {
         userAction.logout();
         history.push("/login");
     }
+
+
+    const redirectToProfile = () => {
+        handleClose();
+        history.push("/profile");
+    }
+
     return (
         <div className={classes.root}>
         <AppBar position="static" className={classes.navbar}>
@@ -130,7 +139,7 @@ function Header(props) {
                         open={open}
                         onClose={handleClose}
                     >
-                        <MenuItem onClick={handleClose}>Profile</MenuItem>
+                        <MenuItem onClick={redirectToProfile}>Profile</MenuItem>
                         <MenuItem onClick={handleClose}>My account</MenuItem>
                         <MenuItem onClick={handleLogout}>Logout</MenuItem>
                     </Menu>

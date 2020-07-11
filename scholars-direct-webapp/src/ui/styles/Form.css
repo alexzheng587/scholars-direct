@@ -16,8 +16,14 @@
     margin: -16px -16px 16px -16px;
 }
 .login-form label{
-
+    float: left;
 }
+div.invalid{
+    color: red;
+    float: left;
+    font-size: 120%;
+}
+
 .login-form input[type="text"],
 .login-form input[type="password"],
 .login-form input[type="date"],
