@@ -28,8 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // TODO CHANGE TO YOUR OWN DB Config
 
-// const db = process.env.ATLAS_URI;
-const db = require("./config/keys").mongoURI2;
+ const db = process.env.ATLAS_URI;
+// const db = require("./config/keys").mongoURI2;
 
 
 mongoose.connect(db, { useNewUrlParser: true, useCreateIndex: true })
