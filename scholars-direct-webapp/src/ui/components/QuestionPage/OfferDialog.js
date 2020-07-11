@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 
-import { offerHelp } from "../../../actions/questionAction";
+import { offerHelp } from "../../../actions/offerAction";
 import {Button} from 'semantic-ui-react';
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContentText from "@material-ui/core/DialogContentText";
@@ -14,7 +14,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 class OfferDialog extends React.Component {
     constructor() {
         super();
-        this.state = {open: false, time:"", message:"",pid:"",posterID:"",tutorID:""};
+        this.state = {open: false, time:null, message:"",pid:"abc",studentID:"",tutorID:""};
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.setMessage = this.setMessage.bind(this);
@@ -33,7 +33,7 @@ class OfferDialog extends React.Component {
         }));
     }
     setTime(e) {
-        this.setState({
+        this.setState({... this.state,
             time: e.target.value
         });
     }
@@ -43,13 +43,19 @@ class OfferDialog extends React.Component {
         });
     }
     handleSubmit(e) {
+        // todo get tutorID and studentID
+        let i = {
+            from: "tutor1",
+            to: "student1",
+            time: this.state.time,
+            question:this.state.pid,
+            detail: this.state.message,
+            status: "IN_PROGRESS"
+        }
+        this.props.offerHelp(i);
         this.handleClose();
-        // todo get tutorID and posterID
-        this.setState({
-            tutorID: "",
-            posterID: ""
-        });
-        this.props.offerHelp(this.state);
+
+
     }
 
     render() {
@@ -59,9 +65,10 @@ class OfferDialog extends React.Component {
                     <DialogTitle id="simple-dialog-title">Offer To Help</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Post your solution, or schedule a video meeting with the poster.
+                            Post your solution, or schedule a video meeting with the student who posts the question.
                         </DialogContentText>
                         <TextField
+                            onChange={this.setMessage}
                             id="outlined-multiline-flexible"
                             label="Response"
                             placeholder="Type your solution here"
@@ -72,6 +79,7 @@ class OfferDialog extends React.Component {
                         />
 
                         <TextField
+                            onChange={this.setTime}
                             id="datetime-local"
                             label="Book a meeting"
                             type="datetime-local"
@@ -83,7 +91,7 @@ class OfferDialog extends React.Component {
                         />
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">
+                        <Button onClick={this.handleSubmit} color="primary">
                             Send
                         </Button>
                     </DialogActions>

@@ -12,7 +12,7 @@ require('dotenv').config();
 const indexRouter = require('./routes');
 const usersRouter = require('./routes/users');
 const questionsRouter = require('./routes/questions');
-
+const offersRouter = require('./routes/offers');
 const app = express();
 
 // view engine setup
@@ -27,7 +27,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // DB Config
-const db = process.env.ATLAS_URI;
+// const db = process.env.ATLAS_URI;
+const db = require("./config/keys").mongoURI2;
 
 mongoose.connect(db, { useNewUrlParser: true, useCreateIndex: true })
     .then(() => console.log("MongoDB database connection established successfully"))
@@ -48,6 +49,7 @@ require("./config/passport")(passport);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/questions', questionsRouter);
+app.use('/offers', offersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

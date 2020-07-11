@@ -12,5 +12,5 @@ export default combineReducers({
     authentication,
     registration,
     alert,
-    offers
+    offers,
 });

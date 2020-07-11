@@ -2,6 +2,7 @@ import initialMessageList from "../reducers/index";
 import axios from 'axios';
 
 import {questionConstants} from "../constants/questionConstant";
+import {offerConstants} from "../constants/offerConstants";
 let messageID = initialMessageList.length;
 
 export const fetchQuestionsRequested = () => {
@@ -28,7 +29,7 @@ export const fetchQuestions = () => {
     return dispatch => {
         dispatch(fetchQuestionsRequested());
 
-        axios.get(`http://localhost:9000/questions/`)
+        axios.get(`http://localhost:8080/questions/`)
             .then(res => {
                 dispatch(fetchQuestionsSuccess(res.data));
             })
@@ -74,7 +75,7 @@ export const addQuestion = (Question) => {
     return dispatch => {
         dispatch(addQuestionsRequested());
 
-        axios.post(`http://localhost:9000/questions/`, Question)
+        axios.post(`http://localhost:8080/questions/`, Question)
             .then(res => {
                 dispatch(addQuestionsSuccess(res.data));
             })
@@ -115,7 +116,7 @@ export const deleteQuestion = (state) => {
     return dispatch => {
         dispatch(deleteMessageRequested());
 
-        axios.delete(`http://localhost:9000/questions/${state.id}`)
+        axios.delete(`http://localhost:8080/questions/${state.id}`)
             .then(res => {
                 dispatch(deleteMessageSuccess(state.key));
             })
@@ -125,14 +126,3 @@ export const deleteQuestion = (state) => {
     };
 };
 
-export const offerHelp = (state) => {
-    return {
-        type: "OFFER_HELP",
-        tutorID: state.tutor,
-        posterID:state.poster,
-        pid:state.pid,
-        message: state.message,
-        time: state.time,
-        isAccepted: false,
-    };
-};

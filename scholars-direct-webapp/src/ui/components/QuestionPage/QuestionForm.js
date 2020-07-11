@@ -59,6 +59,7 @@ class QuestionForm extends React.Component {
         e.preventDefault();
         const s = this.state.title.trim();
         const u = this.state.username.trim();
+        console.log(this.state);
         if (s && u) {
             this.props.addQuestion(this.state);
             this.setState(initialState);
