@@ -18,54 +18,54 @@ import Post from './ui/components/Post.js';
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
-class App extends React.Component {
+class Dashboard extends React.Component {
 
     render() {
-    return (
-        <Layout>
-            <Header style={{ zIndex: 1, width: '100%'}}>
-                <Menu
-                    theme="dark"
-                    mode="horizontal"
-                    defaultSelectedKeys={['2']}
-                    style={{ lineHeight: '55px' }}>
-                    <Menu.Item key="1">Dashboard</Menu.Item>
-                    <Menu.Item key="2">Make a new post</Menu.Item>
-                    <Menu.Item key="3">Account</Menu.Item>
-                </Menu>
-            </Header>
+        return (
             <Layout>
-            <Sider  theme="light" width={200} className="site-layout-background">
-                <div>FILTER BOX</div>
-            </Sider>
+                <Header style={{ zIndex: 1, width: '100%'}}>
+                    <Menu
+                        theme="dark"
+                        mode="horizontal"
+                        defaultSelectedKeys={['2']}
+                        style={{ lineHeight: '55px' }}>
+                        <Menu.Item key="1">Dashboard</Menu.Item>
+                        <Menu.Item key="2">Make a new post</Menu.Item>
+                        <Menu.Item key="3">Account</Menu.Item>
+                    </Menu>
+                </Header>
                 <Layout>
-                    <Content
-                        className="site-layout-background"
-                        style={{
-                            display: "inline-block",
-                            padding: 24,
-                            margin: 0,
-                            minHeight: 500,
-                        }}
-                    >
-                        {/*<Box minWidth = {40} minHeight="100%" bgcolor= '#cfd8dc' >Filter box</Box>*/}
-                        <Box display="flex" flexWrap="wrap" p={1} bgcolor="background.paper" minWidth={100} minHeight={100}>
+                    <Sider  theme="light" width={200} className="site-layout-background">
+                        <div>FILTER BOX</div>
+                    </Sider>
+                    <Layout>
+                        <Content
+                            className="site-layout-background"
+                            style={{
+                                display: "inline-block",
+                                padding: 24,
+                                margin: 0,
+                                minHeight: 500,
+                            }}
+                        >
+                            {/*<Box minWidth = {40} minHeight="100%" bgcolor= '#cfd8dc' >Filter box</Box>*/}
+                            <Box display="flex" flexWrap="wrap" p={1} bgcolor="background.paper" minWidth={100} minHeight={100}>
 
-                            {generatePosts(listExamples)}
-                        </Box>
+                                {generatePosts(listExamples)}
+                            </Box>
 
-                    </Content>
+                        </Content>
+                    </Layout>
                 </Layout>
             </Layout>
-        </Layout>
 
-    );
-  }
+        );
+    }
 }
 function generatePosts(array) {
     return array.map((item)=>{return <Box><Post post={item}/></Box>});
 }
-export default App;
+export default Dashboard;
 
 
 let example = {
