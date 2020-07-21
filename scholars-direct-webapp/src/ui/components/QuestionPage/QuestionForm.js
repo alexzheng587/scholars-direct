@@ -17,11 +17,7 @@ class QuestionForm extends React.Component {
 
         this.state = initialState;
 
-        this.handleTitleChange = this.handleTitleChange.bind(this);
-        this.handleUserChange = this.handleUserChange.bind(this);
-        this.handleTimeChange = this.handleTimeChange.bind(this);
-        this.handleDateChange = this.handleDateChange.bind(this);
-        this.handleDescChange = this.handleDescChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -66,15 +62,35 @@ class QuestionForm extends React.Component {
         }
     }
 
+    handleChange(e) {
+        const {name, value} = e.target;
+        this.setState({
+            [name]: value
+        });
+    }
+
     render() {
         return (
             <div className="login-form">
                 <h1>Input your question</h1>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="field1" placeholder="Question Title" onChange={this.handleTitleChange}/>
-                    <input type="text" name="field2" placeholder="Display Name" onChange={this.handleUserChange}/>
-                    <input type="datetime-local" name="field3" placeholder="Date" onfocus="(this.type='date')" onChange={this.handleTimeChange}/>
-                    <textarea name="field4" rows="8" placeholder="Specify your question..." onChange={this.handleDescChange}/>
+                    <label>
+                        Question Title
+                    </label>
+                    <input type="text" name="title" value={this.state.title} onChange={this.handleChange}/>
+
+                    <label>
+                        Display Name
+                    </label>
+                    <input type="text" name="username" value={this.state.username} onChange={this.handleChange}/>
+                    <label>
+                        Latest Preferred Reply Date/Time
+                    </label>
+                    <input type="datetime-local" name="time" value={this.state.date} onChange={this.handleChange}/>
+                    <label>
+                        Specify your question...
+                    </label>
+                    <textarea name="description" rows="8" value={this.state.description}  onChange={this.handleChange}/>
                     <input type="submit" value="Submit Question"/>
                 </form>
             </div>

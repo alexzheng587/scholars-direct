@@ -17,6 +17,8 @@
 }
 .login-form label{
     float: left;
+    width: 100%;
+    padding-top: 8px;
 }
 div.invalid{
     color: red;

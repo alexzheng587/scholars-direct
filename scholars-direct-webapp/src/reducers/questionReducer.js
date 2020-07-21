@@ -57,7 +57,7 @@ export const questions = (state = initialState, action) => {
             };
         case questionConstants.DELETE_SUCCESS:
             let newQuestions = state.questionList.slice(0);
-            newQuestions.splice(action.key, 1);
+            newQuestions.splice(action.targetQuestionKey, 1);
             return {
                 ...state,
                 questionList: newQuestions,

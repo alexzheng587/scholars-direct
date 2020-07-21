@@ -31,7 +31,7 @@ class QuestionList extends React.Component {
                         time={question.time}
                         desc={question.description}
                         status={question.status}
-                        msgKey={index}
+                        msgKey={index.toString()}
                         id={(question._id)}
                     />
                 )}
