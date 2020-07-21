@@ -1,7 +1,10 @@
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const mongoose = require("mongoose");
+
+const GoogleTokenStrategy = require('passport-google-token').Strategy;
 const User = mongoose.model("users");
+const Google = mongoose.model("Google");
 const keys = require("./keys");
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
@@ -19,4 +22,14 @@ module.exports = passport => {
                 .catch(err => console.log(err));
         })
     );
+
+    passport.use(new GoogleTokenStrategy({
+            clientID: keys.googleAuth.clientID,
+            clientSecret: keys.googleAuth.clientSecret
+        },
+        function (accessToken, refreshToken, profile, done) {
+            Google.upsertGoogleUser(accessToken, refreshToken, profile, function(err, user) {
+                return done(err, user);
+            });
+        }));
 };

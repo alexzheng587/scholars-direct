@@ -5,6 +5,8 @@ import {connect} from 'react-redux';
 import {alertActions} from '../../../actions/alertLogin';
 import {history} from '../../../helpers/history';
 import PropTypes from "prop-types";
+import { GoogleLogin } from 'react-google-login';
+import config from '../../../config.json';
 
 class Login extends React.Component {
 
@@ -23,12 +25,18 @@ class Login extends React.Component {
             email: "",
             password: "",
             errors: {},
+            loggedIn: false,
+            token:'',
             submitted: false
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    googleResponse = (response) => {
+        console.log(response);
+    };
 
     componentWillReceiveProps(nextProps, nextContext) {
         console.log("?????????!!!!!!")
@@ -41,7 +49,9 @@ class Login extends React.Component {
             });
         }
     }
-
+    onFailure = (error) => {
+        alert(error);
+    };
     handleChange(e) {
         const {name, value} = e.target;
         this.setState({[name]: value});
@@ -119,6 +129,14 @@ class Login extends React.Component {
 
                         </div>
                     </form>
+                    <div>
+                        <GoogleLogin
+                            clientId={config.GOOGLE_CLIENT_ID}
+                            buttonText="Login"
+                            onSuccess={this.googleResponse}
+                            onFailure={this.onFailure}
+                        />
+                </div>
                 </div>
             </div>
 

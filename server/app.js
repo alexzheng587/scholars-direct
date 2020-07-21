@@ -13,6 +13,7 @@ const indexRouter = require('./routes');
 const usersRouter = require('./routes/users');
 const questionsRouter = require('./routes/questions');
 const offersRouter = require('./routes/offers');
+const googleRouter = require('./routes/google');
 const app = express();
 
 // view engine setup
@@ -28,8 +29,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // TODO CHANGE TO YOUR OWN DB Config
 
- const db = process.env.ATLAS_URI;
-// const db = require("./config/keys").mongoURI2;
+ // const db = process.env.ATLAS_URI;
+const db = require("./config/keys").mongoURI;
 
 
 mongoose.connect(db, { useNewUrlParser: true, useCreateIndex: true })
@@ -52,6 +53,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/questions', questionsRouter);
 app.use('/offers', offersRouter);
+app.use('/auth/google', googleRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
