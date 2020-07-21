@@ -1,5 +1,3 @@
-
-// add reducers below and add to combineReducers
 export const offers = (offerList = [], action) => {
     if (action.type === "OFFER_HELP") {
          offerList.push({

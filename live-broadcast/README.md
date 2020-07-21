@@ -6,5 +6,5 @@ WebRTC, and socket.io.
 
 ## Screenshots
 
-![chat_app](images/chat_app.PNG)
-![chat_app_broadcast](images/chat_app_broadcast.PNG)
+![chat_app](live-broadcast/images/chat_app.PNG)
+![chat_app_broadcast](live-broadcast/images/chat_app_broadcast.PNG)

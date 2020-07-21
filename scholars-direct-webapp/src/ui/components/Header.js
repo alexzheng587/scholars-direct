@@ -51,6 +51,8 @@ function Header(props) {
         setAuth(event.target.checked);
     };
 
+
+
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -66,6 +68,13 @@ function Header(props) {
         userAction.logout();
         history.push("/login");
     }
+
+
+    const redirectToProfile = () => {
+        handleClose();
+        history.push("/profile");
+    }
+
     return (
         <div className={classes.root}>
         <AppBar position="static" className={classes.navbar}>
@@ -83,25 +92,25 @@ function Header(props) {
             </Typography>
 
             <Typography variant="h7" className={classes.menuItem}>
-                <Link to="/aboutUs" style={{ textDecoration: 'none', color: "#FFF", }}>
-                    About Us
-                </Link>
-            </Typography>
-
-            <Typography variant="h7" className={classes.menuItem}>
                 <Link to="/roomSelect" style={{ textDecoration: 'none', color: "#FFF", }}>
                     Select Room
                 </Link>
             </Typography>
 
+            <Typography variant="h7" className={classes.menuItem}>
+                <Link to="/aboutUs" style={{ textDecoration: 'none', color: "#FFF", }}>
+                    About Us
+                </Link>
+            </Typography>
+
             {!props.auth.loggedIn && (
-                <div>
+                <section className={classes.rightToolbar}>
                     <Typography variant="h7" className={classes.menuItem}>
                         <Link to="/login" style={{ textDecoration: 'none', color: "#FFF", }}>
                             Login
                         </Link>
                     </Typography>
-                </div>
+                </section>
             )}
             {props.auth.loggedIn && (
                 <section className={classes.rightToolbar}>
@@ -130,7 +139,7 @@ function Header(props) {
                         open={open}
                         onClose={handleClose}
                     >
-                        <MenuItem onClick={handleClose}>Profile</MenuItem>
+                        <MenuItem onClick={redirectToProfile}>Profile</MenuItem>
                         <MenuItem onClick={handleClose}>My account</MenuItem>
                         <MenuItem onClick={handleLogout}>Logout</MenuItem>
                     </Menu>

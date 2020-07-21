@@ -1,7 +1,7 @@
 import React from "react";
 import '../../styles/Form.css';
 import { connect } from 'react-redux';
-import {addQuestion} from "../../../actions";
+import {addQuestion} from "../../../actions/questionAction";
 
 let initialState = {
     title: "",
@@ -17,10 +17,7 @@ class QuestionForm extends React.Component {
 
         this.state = initialState;
 
-        this.handleTitleChange = this.handleTitleChange.bind(this);
-        this.handleUserChange = this.handleUserChange.bind(this);
-        this.handleTimeChange = this.handleTimeChange.bind(this);
-        this.handleDescChange = this.handleDescChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -32,7 +29,13 @@ class QuestionForm extends React.Component {
 
     handleUserChange(e) {
         this.setState({
-            user: e.target.value
+            username: e.target.value
+        });
+    }
+
+    handleDateChange(e) {
+        this.setState({
+            date: e.target.value
         });
     }
 
@@ -51,11 +54,19 @@ class QuestionForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         const s = this.state.title.trim();
-        const u = this.state.user.trim();
+        const u = this.state.username.trim();
+        console.log(this.state);
         if (s && u) {
             this.props.addQuestion(this.state);
             this.setState(initialState);
         }
+    }
+
+    handleChange(e) {
+        const {name, value} = e.target;
+        this.setState({
+            [name]: value
+        });
     }
 
     render() {
@@ -63,10 +74,23 @@ class QuestionForm extends React.Component {
             <div className="login-form">
                 <h1>Input your question</h1>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="field1" placeholder="Question Title" onChange={this.handleTitleChange}/>
-                    <input type="text" name="field2" placeholder="Display Name" onChange={this.handleUserChange}/>
-                    <input type="time" name="field3" placeholder="Latest Time" onChange={this.handleTimeChange}/>
-                    <textarea name="field3" rows="8" placeholder="Specify your question..." onChange={this.handleDescChange}/>
+                    <label>
+                        Question Title
+                    </label>
+                    <input type="text" name="title" value={this.state.title} onChange={this.handleChange}/>
+
+                    <label>
+                        Display Name
+                    </label>
+                    <input type="text" name="username" value={this.state.username} onChange={this.handleChange}/>
+                    <label>
+                        Latest Preferred Reply Date/Time
+                    </label>
+                    <input type="datetime-local" name="time" value={this.state.date} onChange={this.handleChange}/>
+                    <label>
+                        Specify your question...
+                    </label>
+                    <textarea name="description" rows="8" value={this.state.description}  onChange={this.handleChange}/>
                     <input type="submit" value="Submit Question"/>
                 </form>
             </div>
@@ -76,7 +100,9 @@ class QuestionForm extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        questions: state.questions
+        questions: state.questions.questionList,
+        isQuestionsLoading: state.questions.isQuestionsLoading,
+        questionError: state.questions.questionError
     }
 };
 
