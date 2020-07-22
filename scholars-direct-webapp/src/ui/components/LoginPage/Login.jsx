@@ -6,7 +6,8 @@ import {alertActions} from '../../../actions/alertLogin';
 import {history} from '../../../helpers/history';
 import PropTypes from "prop-types";
 import { GoogleLogin } from 'react-google-login';
-import config from '../../../config.json';
+//import config from '../../../config.json';
+// TODO: what is config.json? commented off some things here for now
 
 class Login extends React.Component {
 
@@ -131,7 +132,7 @@ class Login extends React.Component {
                     </form>
                     <div>
                         <GoogleLogin
-                            clientId={config.GOOGLE_CLIENT_ID}
+                            //clientId={config.GOOGLE_CLIENT_ID}
                             buttonText="Login"
                             onSuccess={this.googleResponse}
                             onFailure={this.onFailure}

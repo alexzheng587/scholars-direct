@@ -40,7 +40,8 @@ export const questions = (state = initialState, action) => {
                     username: action.username,
                     description: action.description,
                     time: action.time,
-                    status: action.status
+                    status: action.status,
+                    tags: action.tags
                 }),
                 isQuestionsLoading: false
             };

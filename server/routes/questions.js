@@ -13,12 +13,14 @@ router.route('/').post((req, res) => {
     const description = req.body.description;
     const time = req.body.time;
     const status = req.body.status;
+    const tags = req.body.tags;
     const newQuestion = new Question({
         title,
         username,
         description,
         time,
-        status
+        status,
+        tags
     });
     newQuestion.save()
         .then((q) => {

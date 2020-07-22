@@ -90,3 +90,6 @@ div.invalid{
 .login-form input[type="button"]:hover{
     background: #2EBC99;
 }
+.tag-container {
+    margin-bottom: 10px;
+}

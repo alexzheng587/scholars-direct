@@ -4,7 +4,7 @@ import {deleteQuestion} from "../../../actions/questionAction";
 
 import '../../styles/Form.css';
 import '../../styles/QuestionPage.css';
-import {Item, Image, Button} from 'semantic-ui-react';
+import {Item, Label, Button, Icon} from 'semantic-ui-react';
 
 import OfferDialog from "./OfferDialog";
 
@@ -23,11 +23,19 @@ class Question extends React.Component {
                 </Item.Description>
                 <Item.Extra>
                     <div>{this.props.status}</div>
-                    <OfferDialog/>
+                    <div>{this.props.tags.map((tag) =>
+                        <Label as='a' color='teal'>
+                            {tag}
+                        </Label>)}
+                    </div>
+                    <div>
                     <Button circular icon='delete' floated='right' onClick={() => this.props.deleteQuestion({
                         id: this.props.id,
                         key: this.props.msgKey
                     })}/>
+                    <OfferDialog/>
+                    </div>
+
                 </Item.Extra>
             </Item.Content>
         </Item>);

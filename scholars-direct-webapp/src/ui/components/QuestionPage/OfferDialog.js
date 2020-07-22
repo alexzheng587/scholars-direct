@@ -60,7 +60,7 @@ class OfferDialog extends React.Component {
 
     render() {
         return (<div>
-                <Button primary onClick={this.handleClickOpen} color='teal'>Offer to help</Button>
+                <Button secondary onClick={this.handleClickOpen} >Offer to help</Button>
                 <Dialog onClose={this.handleClose} aria-labelledby="simple-dialog-title" open={this.state.open}>
                     <DialogTitle id="simple-dialog-title">Offer To Help</DialogTitle>
                     <DialogContent>

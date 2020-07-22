@@ -16,6 +16,11 @@ const questionSchema = new Schema({
     },
     status: {
         type: String
+    },
+    tags: {
+        type: [
+            String
+        ]
     }
 });
 
