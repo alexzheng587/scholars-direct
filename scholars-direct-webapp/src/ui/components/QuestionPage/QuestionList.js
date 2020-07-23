@@ -24,7 +24,9 @@ class QuestionList extends React.Component {
         }
         return (<div className="questionList-container">
             <Item.Group divided>
-                {this.props.questions.map((question, index) =>
+                {this.props.questions.filter((question) =>
+                    this.props.filterTags.every(tag => question.tags.includes(tag))
+                ).map((question, index) =>
                     <Question
                         title={question.title}
                         username={question.username}
@@ -45,7 +47,8 @@ const mapStateToProps = (state) => {
     return {
         questions: state.questions.questionList,
         isQuestionsLoading: state.questions.isQuestionsLoading,
-        questionError: state.questions.questionError
+        questionError: state.questions.questionError,
+        filterTags: state.filterTags
     }
 };
 

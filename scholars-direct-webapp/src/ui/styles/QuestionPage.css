@@ -18,3 +18,8 @@
 .question-item {
     max-width: 100%;
 }
+.sidebar-container {
+    vertical-align: middle;
+    max-width: 400px;
+    width: 100%;
+}

@@ -1,9 +1,7 @@
-import initialMessageList from "../reducers/index";
 import axios from 'axios';
 
 import {questionConstants} from "../constants/questionConstant";
 import {offerConstants} from "../constants/offerConstants";
-let messageID = initialMessageList.length;
 
 export const fetchQuestionsRequested = () => {
     return {
