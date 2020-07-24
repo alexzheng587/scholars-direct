@@ -6,7 +6,7 @@ import {alertActions} from '../../../actions/alertLogin';
 import {history} from '../../../helpers/history';
 import PropTypes from "prop-types";
 import { GoogleLogin } from 'react-google-login';
-//import config from '../../../config.json';
+import config from '../../../config.json';
 // TODO: what is config.json? commented off some things here for now
 
 class Login extends React.Component {
@@ -36,7 +36,14 @@ class Login extends React.Component {
     }
 
     googleResponse = (response) => {
-        console.log(response);
+        console.log("Google Response:",response)
+        const tokenBlob = new Blob([JSON.stringify({access_token: response.accessToken}, null, 2)], {type : 'application/json'});
+        console.log("tokenBlob:",tokenBlob)
+        this.props.googleLogin(tokenBlob);
+    };
+
+    onFailure = (error) => {
+        alert("Fail to log in though Google");
     };
 
     componentWillReceiveProps(nextProps, nextContext) {
@@ -132,7 +139,7 @@ class Login extends React.Component {
                     </form>
                     <div>
                         <GoogleLogin
-                            //clientId={config.GOOGLE_CLIENT_ID}
+                            clientId={config.GOOGLE_CLIENT_ID}
                             buttonText="Login"
                             onSuccess={this.googleResponse}
                             onFailure={this.onFailure}
@@ -149,6 +156,7 @@ Login.propTypes = {
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
     login: PropTypes.func.isRequired,
+    googleLogin: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
     clearAlerts: PropTypes.func.isRequired
 };
@@ -160,6 +168,7 @@ const mapStateToProps = state => ({
 
 const actionCreators = {
     login: userAction.login,
+    googleLogin: userAction.googleLogin,
     logout: userAction.logout,
     clearAlerts: alertActions.clear
 };
