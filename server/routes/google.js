@@ -8,9 +8,9 @@ router.post('/', passport.authenticate('google-token', { session: false }), func
     if (!req.user) {
         return res.send(401, 'User Not Authenticated');
     }
+    console.log(req.user)
     req.auth = {
-        id: req.user.id,
-        role: "STUDENT"
+        id: req.user.id
     };
 
     next();

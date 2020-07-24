@@ -7,11 +7,23 @@ const googleSchema = new Schema({
         trim: true, unique: true,
         match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
     },
+    date: {
+        type: Date,
+        default: Date.now
+    },
+    name: {
+        type: String
+    },
+    role: {
+        type: String,
+        required: true
+    },
     googleProvider: {
         type: {
             id: String,
             token: String
         },
+
         select: false
     }
 });
@@ -25,9 +37,11 @@ googleSchema.statics.upsertGoogleUser = function(accessToken, refreshToken, prof
     }, function(err, user) {
         // no user was found, lets create a new one
         if (!user) {
+            console.log(profile)
             const newUser = new that({
-                fullName: profile.displayName,
+                name: profile.displayName,
                 email: profile.emails[0].value,
+                role: "STUDENT",
                 googleProvider: {
                     id: profile.id,
                     token: accessToken

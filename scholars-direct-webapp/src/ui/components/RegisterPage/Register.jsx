@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {userAction} from '../../../actions/userAction';
 import '../../styles/Form.css';
 import PropTypes from "prop-types";
-import {history} from "../../../helpers/history";
+
 
 
 class RegisterPage extends Component {
@@ -15,7 +15,7 @@ class RegisterPage extends Component {
                 name: "",
                 email: "",
                 password: "",
-                password2: "",
+                password2: ""
             },
             errors: {},
             submitted: false
@@ -25,7 +25,7 @@ class RegisterPage extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        console.log("?????????!!!!!!")
+
         if (nextProps.errors) {
             this.setState({
                 errors: nextProps.errors

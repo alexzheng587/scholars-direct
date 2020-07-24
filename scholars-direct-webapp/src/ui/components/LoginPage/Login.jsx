@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {alertActions} from '../../../actions/alertLogin';
 import {history} from '../../../helpers/history';
+import {role} from '../../../constants/role';
 import PropTypes from "prop-types";
 import { GoogleLogin } from 'react-google-login';
 import config from '../../../config.json';
@@ -37,7 +38,11 @@ class Login extends React.Component {
 
     googleResponse = (response) => {
         console.log("Google Response:",response)
-        const tokenBlob = new Blob([JSON.stringify({access_token: response.accessToken}, null, 2)], {type : 'application/json'});
+        const obj = {access_token: response.accessToken,
+            role: "STUDENT"
+        };
+        const tokenBlob = new Blob([JSON.stringify(obj, null, 2)],
+            {type : 'application/json'});
         console.log("tokenBlob:",tokenBlob)
         this.props.googleLogin(tokenBlob);
     };
