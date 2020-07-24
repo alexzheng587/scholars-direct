@@ -1,0 +1,15 @@
+import { GraphQLObjectType } from 'graphql';
+import Login from './Login';
+import Logout from './Logout';
+import Signup from "./Signup";
+import Updateuser from "./Updateuser";
+
+export default new GraphQLObjectType({
+    name: 'MutationRoot',
+    fields: {
+        Login,
+        Logout,
+        Signup,
+        Updateuser,
+    },
+});

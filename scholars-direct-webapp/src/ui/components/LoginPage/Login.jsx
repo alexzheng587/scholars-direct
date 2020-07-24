@@ -1,12 +1,18 @@
 import React from "react";
 import '../../styles/Form.css';
 import { userAction } from '../../../actions/userAction';
-
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { connect } from 'react-redux';
 import { alertActions } from '../../../actions/alertLogin';
 import { history } from '../../../helpers/history';
+import PropTypes from 'prop-types';
+import { graphql, withApollo } from '@apollo/react-hoc';
+import { addError, clearError } from '../../../actions/error';
+import { setToken } from '../../../actions/authtoken'
+import { QUERY_USER_ID } from '../../../graphql/queries/user/id';
+import { LOGIN_MUTATION } from '../../../graphql/mutations/user/login';
+import { compose } from 'redux';
 
 class Login extends React.Component {
 
@@ -18,7 +24,7 @@ class Login extends React.Component {
             this.props.clearAlerts();
         });
         // reset login status
-        this.props.logout();
+        // this.props.logout();
 
         this.state = {
             username: '',
@@ -33,15 +39,29 @@ class Login extends React.Component {
         const { name, value } = e.target;
         this.setState({ [name]: value });
     }
-    handleSubmit(e) {
-        e.preventDefault();
-
-        this.setState({ submitted: true });
-        const { username, password } = this.state;
-        if (username && password) {
-            this.props.login(username, password);
+    async handleSubmit(e) {
+        try {
+            e.preventDefault();
+            const {data} = await this.props.loginUser({
+                variables: {email: this.state.email.trim(), password: this.state.password},
+            });
+            if (!data.result) return this.handleError();
+            const { success, message, token } = data.result;
+            this.setState({submitted: true});
+            const {username, password} = this.state;
+            if (username && password) {
+            }
+        } catch (err) {
+            console.log(err);
+            return this.handleError();
         }
     }
+
+    async handleError(error = 'Something went wrong logging you in') {
+        await new Promise(resolve => this.setState({ loading: false }, resolve));
+        return this.props.addError(error);
+    }
+
     render() {
         const {alert} = this.props;
         const { loggingIn } = this.props;
@@ -50,9 +70,6 @@ class Login extends React.Component {
             <div className="jumbotron">
                 <div className="container">
                     <div className="col-sm-8 col-sm-offset-2">
-                        {alert.message &&
-                        <div className={`alert ${alert.type}`}>{alert.message}</div>
-                        }
                         <div>
                             <div className="login-form" >
                                 <h1>Login with your account</h1>
@@ -90,17 +107,33 @@ class Login extends React.Component {
     }
 }
 
-function mapState(state) {
-    const { loggingIn } = state.authentication;
-    const { alert } = state;
-    return { loggingIn,alert };
-}
-
-const actionCreators = {
-    login: userAction.login,
-    logout: userAction.logout,
-    clearAlerts: alertActions.clear
+Login.propTypes = {
+    loginUser: PropTypes.func,
+    addError: PropTypes.func,
+    clearError: PropTypes.func,
+    setToken: PropTypes.func,
 };
 
-const connectedLogin = connect(mapState, actionCreators)(Login);
-export { connectedLogin as Login};
+const connectedLogin = compose(
+    withApollo,
+    connect(null, { addError, clearError, setToken }),
+    graphql(LOGIN_MUTATION, { name: 'loginUser' }),
+    graphql(QUERY_USER_ID),
+)(Login);
+
+export { connectedLogin as Login }
+
+// function mapState(state) {
+//     const { loggingIn } = state.authentication;
+//     const { alert } = state;
+//     return { loggingIn,alert };
+// }
+//
+// const actionCreators = {
+//     login: userAction.login,
+//     logout: userAction.logout,
+//     clearAlerts: alertActions.clear
+// };
+//
+// const connectedLogin = connect(mapState, actionCreators)(Login);
+// export { connectedLogin as Login};
