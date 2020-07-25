@@ -58,10 +58,6 @@ class RegisterPage extends Component {
     render() {
         const {registering} = this.props;
         const {user, submitted,errors} = this.state;
-
-        console.log("state:", this.state)
-        console.log("props:", this.props)
-        console.log("errors:", errors)
         return (
             <div className="container">
                 <div className="login-form">

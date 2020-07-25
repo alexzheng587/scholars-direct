@@ -4,7 +4,7 @@ import {Router, Switch, Route} from 'react-router-dom';
 
 import {history} from '../../helpers/history';
 import Home from './HomePage/Home';
-import Profile from './HomePage/Profile';
+import {Profile} from './HomePage/Profile';
 import AboutUs from './HomePage/AboutUs';
 import Header from './Header';
 import Divider from '@material-ui/core/Divider';

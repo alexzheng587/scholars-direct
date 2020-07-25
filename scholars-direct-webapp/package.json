@@ -21,7 +21,8 @@
     "redux-thunk": "^2.3.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.2",
-    "simple-peer": "^9.7.2"
+    "simple-peer": "^9.7.2",
+    "styled-components": "^5.1.1"
   },
   "scripts": {
     "start": "react-scripts start",

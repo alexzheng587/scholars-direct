@@ -16,4 +16,16 @@ router.post('/', passport.authenticate('google-token', { session: false }), func
     next();
 }, generateToken, sendToken);
 
+router.get('/:id', (req, res) => {
+    Google.findById(req.params.id)
+        .then((item) => res.send(item))
+        .catch((e) => res.status(400).json('Error: ' + e));
+});
+
+router.put('/:id', (req, res) => {
+    Google.findByIdAndUpdate(req.params.id,req.body,{new: true})
+        .then((item) => res.send(item))
+        .catch((e) => res.status(400).json('Error: ' + e));
+});
+
 module.exports = router;

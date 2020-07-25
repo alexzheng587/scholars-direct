@@ -98,4 +98,18 @@ router.post("/login", (req, res) => {
     });
   });
 });
+
+router.get('/:id', (req, res) => {
+  User.findById(req.params.id)
+      .then((item) => res.send(item))
+      .catch((e) => res.status(400).json('Error: ' + e));
+});
+
+router.put('/:id', (req, res) => {
+  User.findByIdAndUpdate(req.params.id,req.body,{new: true})
+      .then((item) => res.send(item))
+      .catch((e) => res.status(400).json('Error: ' + e));
+});
+
+
 module.exports = router;

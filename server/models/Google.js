@@ -14,6 +14,9 @@ const googleSchema = new Schema({
     name: {
         type: String
     },
+    birthday: {
+        type: Date
+    },
     role: {
         type: String,
         required: true

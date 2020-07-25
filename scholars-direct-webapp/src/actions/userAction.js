@@ -29,6 +29,7 @@ function login(user) {
                 // Decode token to get user data
                 const decoded = jwt_decode(token);
                 // Set current user
+                console.log("Login_res:",res)
                 dispatch(setCurrentUser(decoded));
             })
             .catch(err =>
@@ -56,7 +57,7 @@ function googleLogin(user) {
                 console.log('x-auth-token', token)
                 r.json().then(user => {
                     if (token) {
-                        dispatch(setCurrentUser(user));
+                        dispatch(setGoogleCurrentUser(user));
                         history.push("/") // re-direct to login on successful register
                     }
                 });
@@ -73,6 +74,13 @@ function googleLogin(user) {
 function setCurrentUser(decoded) {
     return {
         type: userConstants.LOGIN_SUCCESS,
+        user: decoded
+    };
+}
+
+function setGoogleCurrentUser(decoded) {
+    return {
+        type: userConstants.GOOGLE_LOGIN_SUCCESS,
         user: decoded
     };
 }
@@ -121,3 +129,4 @@ function register(user) {
             );
     };
 }
+
