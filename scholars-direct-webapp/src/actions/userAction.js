@@ -40,6 +40,7 @@ function login(user) {
 
     };
 }
+
 function googleLogin(user) {
     const options = {
         method: 'POST',
@@ -48,22 +49,24 @@ function googleLogin(user) {
         cache: 'default'
     };
     return dispatch => {
-    fetch('http://localhost:9000/auth/google', options).then(r => {
-        const token = r.headers.get('x-auth-token');
-        console.log('x-auth-token',token)
-        r.json().then(user => {
-            if (token) {
-                dispatch(setCurrentUser(user));
-                history.push("/") // re-direct to login on successful register
-            }
-        });
-    })
-        .catch(err =>
-        dispatch({
-            type: userConstants.LOGIN_FAILURE,
-            payload: err.response.data
-        })
-    );
+        fetch('http://localhost:9000/auth/google', options)
+            .then(r => {
+                const token = r.headers.get('x-auth-token');
+                console.log('r', r)
+                console.log('x-auth-token', token)
+                r.json().then(user => {
+                    if (token) {
+                        dispatch(setCurrentUser(user));
+                        history.push("/") // re-direct to login on successful register
+                    }
+                });
+            })
+            .catch(err =>
+                dispatch({
+                    type: userConstants.LOGIN_FAILURE,
+                    payload: err.response.data
+                })
+            );
     };
 }
 

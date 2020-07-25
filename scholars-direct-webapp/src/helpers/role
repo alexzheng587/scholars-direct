@@ -1,4 +1,0 @@
-export const role = {
-    tutor: 'TUTOR',
-    student: 'STUDENT'
-}
