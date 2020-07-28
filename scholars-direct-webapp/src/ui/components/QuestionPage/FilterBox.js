@@ -8,6 +8,7 @@ class FilterBox extends React.Component {
     constructor(props) {
         super(props);
         this.handleAddTag = this.handleAddTag.bind(this);
+        this.getQuestionTags = this.getQuestionTags.bind(this);
     }
 
     handleAddTag(e) {
@@ -18,12 +19,26 @@ class FilterBox extends React.Component {
         }
     }
 
+    getQuestionTags() {
+        let allQuestionTags = [];
+        for (let q of this.props.questions) {
+            allQuestionTags = allQuestionTags.concat(q.tags.filter((t) => !allQuestionTags.includes(t)));
+        }
+        return allQuestionTags.map((tag) => (<option value={tag}/>));
+    }
+
     render() {
         return (<div className="login-form">
             <h1>Filters</h1>
-            <input type="text" name="tag-input" placeholder="Type your tags here to filter questions..." onKeyPress={e => {
+            <input type="text" name="tag-input" placeholder="Type or select tags here..." onKeyPress={e => {
                     if (e.key === 'Enter') e.preventDefault();
-                }} onKeyUp={this.handleAddTag} ref={c => { this.tagInput = c; }}/>
+                }} onKeyUp={this.handleAddTag} ref={c => { this.tagInput = c; }} list="questionTags" autoComplete="off"
+            />
+            <datalist id="questionTags">
+                {
+                    this.getQuestionTags()
+                }
+            </datalist>
 
             <div className="tag-container">
                 {this.props.filterTags.map((tag, index) =>

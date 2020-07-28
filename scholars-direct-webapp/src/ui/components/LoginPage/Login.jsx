@@ -8,11 +8,8 @@ import {role} from '../../../constants/role';
 import PropTypes from "prop-types";
 import { GoogleLogin } from 'react-google-login';
 import config from '../../../config.json';
-// TODO: what is config.json? commented off some things here for now
 
 class Login extends React.Component {
-
-
     constructor(props) {
         super(props);
         history.listen((location, action) => {
