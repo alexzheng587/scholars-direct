@@ -57,15 +57,15 @@ The students will be able to see their tutors qualifications and tutors will be 
 
 #### Pick 2 of your minimal requirements and break each of them down into ~2-5 smaller tasks! This will help you divide up work among your teammates
 
-**question selection page
-* filter function for subject/grade level
-* expand feature for long questions
-* ability for tutors to choose and accept a question to be redirected to virtual classroom with student
-* live updating of student questions (added by students/taken by tutors)
+* question selection page
+	* filter function for subject/grade level
+	* expand feature for long questions
+	* ability for tutors to choose and accept a question to be redirected to virtual classroom with student
+	* live updating of student questions (added by students/taken by tutors)
 
-**Video call
-* Implement WebRTC Web API such that it is compatible for p2p calling
-* Implement a system of calling that lets users initiate calls and accept or decline them
-* Make sure that the channel only contains those two participants
-* Timestamps on chat logs
+* Video call
+	* Implement WebRTC Web API such that it is compatible for p2p calling
+	* Implement a system of calling that lets users initiate calls and accept or decline them
+	* Make sure that the channel only contains those two participants
+	* Timestamps on chat logs
 
