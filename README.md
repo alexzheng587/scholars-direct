@@ -43,11 +43,9 @@ The students will be able to see their tutors qualifications and tutors will be 
 * Web app will be supported by Google authentication. Students can login through google account and no need to sign up.
 * Students can rate tutors and comments every time after tutoring(as anonymous). It will affect tutors rate and update to the tutor profile.
 * Students can edit personal info though their profile page.
-* service is supposed to be on-demand; no availabilities needed
 * Filter on homepage to choose tutors based on criteria
 	* tutors will choose students from the pool of questions
 	* this ensures that the tutor will be able to answer the student’s questions
-*Search bar on home page, where user can search for tutor simply by name
 
 #### 2-3 stretch requirements (plan to complete 1!)
 * Shared collaborative whiteboard which shows mouse pointer
@@ -57,10 +55,9 @@ The students will be able to see their tutors qualifications and tutors will be 
 
 #### Pick 2 of your minimal requirements and break each of them down into ~2-5 smaller tasks! This will help you divide up work among your teammates
 
-* question selection page
+* Question selection page
 	* filter function for subject/grade level
-	* expand feature for long questions
-	* ability for tutors to choose and accept a question to be redirected to virtual classroom with student
+	* ability for tutors to choose and accept a question to be redirected to virtual classroom view with student
 	* live updating of student questions (added by students/taken by tutors)
 
 * Video call

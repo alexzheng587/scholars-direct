@@ -23,9 +23,11 @@ class QuestionList extends React.Component {
             </div>;
         }
         return (<div className="questionList-container">
+            <Button circular icon='sync' color='grey' floated='right' onClick={() => this.props.fetchQuestions()}/>
             <Item.Group divided>
                 {this.props.questions.filter((question) =>
-                    this.props.filterTags.every(tag => question.tags.includes(tag))
+                    this.props.filterTags.map(t => t.toLowerCase()).every(tag =>
+                        question.tags.map(t => t.toLowerCase()).includes(tag))
                 ).map((question, index) =>
                     <Question
                         title={question.title}
@@ -48,7 +50,8 @@ const mapStateToProps = (state) => {
         questions: state.questions.questionList,
         isQuestionsLoading: state.questions.isQuestionsLoading,
         questionError: state.questions.questionError,
-        filterTags: state.filterTags
+        filterTags: state.filterTags,
+        auth: state.authentication
     }
 };
 

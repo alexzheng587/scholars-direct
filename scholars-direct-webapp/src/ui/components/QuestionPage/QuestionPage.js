@@ -4,9 +4,16 @@ import '../../styles/QuestionPage.css';
 import QuestionForm from "./QuestionForm";
 import QuestionList from "./QuestionList";
 import FilterBox from "./FilterBox";
+import {connect} from "react-redux";
 
 class QuestionPage extends React.Component {
+
     render() {
+        if (!this.props.auth.loggedIn) {
+            return <div className="question-container">
+                <h3>Please sign in with your account to view or ask questions.</h3>
+            </div>;
+        }
         return (
             <div className="question-container">
                 <div className='sidebar-container'>
@@ -14,10 +21,14 @@ class QuestionPage extends React.Component {
                     <QuestionForm/>
                 </div>
                 <QuestionList/>
-                {/*<QuestionEntry title="Calculus Question" name="Mike Wang" description="How to take the derivative of a square root"/>
-                <QuestionEntry title="History Essay" name="Nick P." description="When was Jesus Christ born?"/>*/}
             </div>);
     }
 }
 
-export default QuestionPage;
+const mapStateToProps = (state) => {
+    return {
+        auth: state.authentication
+    }
+};
+
+export default connect(mapStateToProps, {})(QuestionPage);
