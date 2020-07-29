@@ -31,11 +31,6 @@
     z-index: 100;
 }
 
-svg {
-    left: -4px;
-    position: absolute;
-    top: -2px;
-}
 
 .hangup-message {
     bottom: -25px;
