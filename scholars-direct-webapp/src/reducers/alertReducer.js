@@ -13,7 +13,10 @@ export function alert(state = {}, action) {
                 message: action.message
             };
         case alertConstants.CLEAR:
-            return {};
+            return {
+                ...state,
+                errors: {}
+            };
         default:
             return state
     }
