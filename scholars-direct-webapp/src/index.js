@@ -5,19 +5,23 @@ import 'semantic-ui-css/semantic.min.css';
 import App from './ui/components/App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
-import {store} from './helpers/store';
+//import {store} from './helpers/store';
+import store from './store'
 import { split, HttpLink, ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { WebSocketLink } from '@apollo/client/link/ws';
+import { setToken } from "./actions/authtoken";
 
 
 // setup mock backend
 // import { configureFakeBackend } from './helpers/mockBackend';
 // configureFakeBackend();
 
+store.dispatch(setToken(window.__JWT_TOKEN__));
+
 const httpLink = new HttpLink({
     uri: 'http://localhost:5000/graphql',
-    credentials: 'same-origin',
+    credentials: 'include', // TODO: change for production
 });
 const wsLink = new WebSocketLink({
     uri: 'ws://localhost:5000/graphql',
@@ -26,15 +30,15 @@ const wsLink = new WebSocketLink({
     },
 });
 
-// const subscriptionMiddleware = {
-//     applyMiddleware(options, next) {
-//         const { token } = store.getState();
-//         options.connectionParams = { authToken: token };
-//         next();
-//     },
-// };
-//
-// wsLink.subscriptionClient.use([subscriptionMiddleware]);
+const subscriptionMiddleware = {
+    applyMiddleware(options, next) {
+        const { token } = store.getState();
+        options.connectionParams = { authToken: token };
+        next();
+    },
+};
+
+wsLink.subscriptionClient.use([subscriptionMiddleware]);
 
 // The split function takes three parameters:
 //
@@ -50,7 +54,7 @@ const link = split(
     httpLink,
 );
 const cache = new InMemoryCache();
-const client = new ApolloClient({ link, cache, connectToDevTools: true });
+const client = new ApolloClient({ link: link , cache: cache });
 
 
 ReactDOM.render(

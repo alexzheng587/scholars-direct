@@ -89,8 +89,8 @@ function Header(props) {
             </Typography>
 
             <Typography variant="h7" className={classes.menuItem}>
-                <Link to="/roomSelect" style={{ textDecoration: 'none', color: "#FFF", }}>
-                    Select Room
+                <Link to="/videoChat" style={{ textDecoration: 'none', color: "#FFF", }}>
+                    Video Chat
                 </Link>
             </Typography>
 

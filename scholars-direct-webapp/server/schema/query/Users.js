@@ -8,14 +8,14 @@ export default {
     args: {
         query: { type: GraphQLString },
     },
-    async resolve(parent, { query }, req) {
+    async resolve(parent, { query }, context) {
         if (!query) return [];
         try {
             const iLikeQuery = { $regex: '.*' + query + '.*' };
             const users = await ModelUser.find({
                 $and: [
                     {
-                        id: {$ne: req.user && req.user.id},
+                        id: {$ne: context.req.user && context.req.user._id},
                     },
                     {
                         $or: [

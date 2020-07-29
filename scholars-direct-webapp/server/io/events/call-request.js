@@ -1,5 +1,5 @@
 import { CALL_REQUEST, CALL_UNAVAILABLE } from '../../../src/constants/videocall';
-import { getSocketById, getContactIdBySocketIds } from '../helpers';
+import { getSocketById, getContactBySocketIds } from '../helpers';
 
 /**
  * @param {Object} io socket.io instance
@@ -13,7 +13,7 @@ export default async function handleCallRequest(io, socket, { toId }) {
     if (!toSocket) socket.emit(CALL_UNAVAILABLE);
     let contactId;
     try {
-        contactId = await getContactIdBySocketIds(io, toId, socket.id);
+        contactId = await getContactBySocketIds(io, toId, socket.id);
         console.log(contactId);
     } catch (err) {
         console.log(err);

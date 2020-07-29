@@ -13,11 +13,11 @@ const passport = require('passport');
 
 
 app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.session());
 
 const apolloServer = new ApolloServer({
     schema: mySchema,
-    context: ({ req, res }) => buildContext({ req, res, User })
+    context: ({ req, res }) => buildContext({ req, res })
 });
 
 apolloServer.applyMiddleware({ app, cors: false });

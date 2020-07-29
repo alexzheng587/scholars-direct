@@ -1,6 +1,7 @@
 const User = require('./user');
 const Message = require('./message');
 const MessageThread = require('./message_thread');
+const Contact = require('./contact');
 
 const mongoose = require('mongoose');
 const server = 'cluster0-htlvb.mongodb.net'; // REPLACE WITH YOUR DB SERVER
@@ -20,6 +21,7 @@ const models = {};
     User,
     Message,
     MessageThread,
+    Contact,
 ].forEach((model)=> {
     models[model.modelName] = model;
 });

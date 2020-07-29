@@ -1,8 +1,9 @@
 import io from 'socket.io-client';
-import { store } from '../helpers/store';
+//import { store } from '../helpers/store';
+import store from '../store';
 import attachEventHandlers from './events';
 
-const connect = token => io.connect('localhost:4000', { query: `token=${token}` });
+const connect = token => io.connect('http://localhost:4000', { query: token });
 
 let { token } = store.getState();
 let socket = connect(token);
@@ -14,10 +15,9 @@ store.subscribe(() => {
     if (socket) socket.disconnect();
     socket = null;
     if (newToken) socket = connect(newToken);
+    console.log(newToken);
     if (socket) attachEventHandlers(socket);
     token = newToken;
 });
 
-let getSocket = () => socket;
-
-export default getSocket;
+export default () => socket;

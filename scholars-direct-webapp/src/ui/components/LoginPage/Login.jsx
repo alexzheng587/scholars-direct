@@ -7,10 +7,10 @@ import { connect } from 'react-redux';
 import { alertActions } from '../../../actions/alertLogin';
 import { history } from '../../../helpers/history';
 import PropTypes from 'prop-types';
-import { graphql, withApollo } from '@apollo/react-hoc';
+import { graphql, withApollo } from '@apollo/client/react/hoc';
 import { addError, clearError } from '../../../actions/error';
-import { setToken } from '../../../actions/authtoken'
-import { QUERY_USER_ID } from '../../../graphql/queries/user/id';
+import { setToken } from '../../../actions/authtoken';
+import { login } from '../../../actions/userAction';
 import { LOGIN_MUTATION } from '../../../graphql/mutations/user/login';
 import { compose } from 'redux';
 
@@ -21,7 +21,7 @@ class Login extends React.Component {
         super(props);
         history.listen((location, action) => {
             // clear alert on location change
-            this.props.clearAlerts();
+            // this.props.clearAlerts();
         });
         // reset login status
         // this.props.logout();
@@ -34,6 +34,7 @@ class Login extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleError = this.handleError.bind(this)
     }
     handleChange(e) {
         const { name, value } = e.target;
@@ -43,14 +44,14 @@ class Login extends React.Component {
         try {
             e.preventDefault();
             const {data} = await this.props.loginUser({
-                variables: {email: this.state.email.trim(), password: this.state.password},
+                variables: {email: this.state.username.trim(), password: this.state.password},
             });
             if (!data.result) return this.handleError();
             const { success, message, token } = data.result;
-            this.setState({submitted: true});
-            const {username, password} = this.state;
-            if (username && password) {
-            }
+            if (!success) return this.handleError();
+            await new Promise(resolve => this.setState({ submitted: true }, resolve));
+            this.props.setToken(token);
+            this.props.login(this.state.username.trim());
         } catch (err) {
             console.log(err);
             return this.handleError();
@@ -62,8 +63,22 @@ class Login extends React.Component {
         return this.props.addError(error);
     }
 
+    // componentWillReceiveProps(nextProps, nextContext) {
+    //     console.log(nextProps);
+    //     if (nextProps.auth.loggedIn) {
+    //         console.log("Logged in");
+    //         history.push("/"); // push user to dashboard when they login
+    //     }
+    // }
+
+    // componentDidUpdate() {
+    //     if (this.props.auth.loggedIn) {
+    //         history.push("/");
+    //     }
+    // }
+
     render() {
-        const {alert} = this.props;
+        //const {alert} = this.props;
         const { loggingIn } = this.props;
         const { username, password, submitted } = this.state;
         return (
@@ -108,17 +123,26 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
+    auth: PropTypes.object.isRequired,
     loginUser: PropTypes.func,
     addError: PropTypes.func,
     clearError: PropTypes.func,
     setToken: PropTypes.func,
+    login: PropTypes.func,
+    client: PropTypes.shape({
+        resetStore: PropTypes.func,
+    }),
 };
+
+const mapStateToProps = state => ({
+    auth: state.authentication
+});
+
 
 const connectedLogin = compose(
     withApollo,
-    connect(null, { addError, clearError, setToken }),
-    graphql(LOGIN_MUTATION, { name: 'loginUser' }),
-    graphql(QUERY_USER_ID),
+    connect(mapStateToProps, { addError, clearError, setToken, login }),
+    graphql(LOGIN_MUTATION, { name: 'loginUser' })
 )(Login);
 
 export { connectedLogin as Login }

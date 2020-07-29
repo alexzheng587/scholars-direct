@@ -13,17 +13,17 @@ import { getSocketById } from '../helpers';
  */
 const iceservers = [
     {
-        urls: "stun:stun.l.google.com:19302"
+        url: "stun:stun.l.google.com:19302"
     },
     {
-        "username": "alex_ander587@hotmail.com",
-        "password": "Alex1956370",
-        'urls': 'turn:numb.viagenie.ca:3478',
+        url: 'turn:numb.viagenie.ca:3478',
+        username: "alex_ander587@hotmail.com",
+        credential: "Alex1956370",
     },
     {
-        "username": "alex_ander587@hotmail.com",
-        "password": "Alex1956370",
-        'urls': 'stun:numb.viagenie.ca:3478',
+        url: 'stun:numb.viagenie.ca:3478',
+        username: "alex_ander587@hotmail.com",
+        credential: "Alex1956370",
     },
 ]
 export default async function callAccepted(io, socket, { toId }) {

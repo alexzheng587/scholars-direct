@@ -1,0 +1,10 @@
+.username {
+    color: darkgrey;
+}
+
+.grey-text {
+    color: grey;
+    font-size: 10px;
+    max-width: 100px;
+}
+

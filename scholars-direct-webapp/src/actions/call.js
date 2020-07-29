@@ -1,5 +1,3 @@
-import Enum from 'enum';
-
 import {
     CALL_REQUEST,
     CALL_CANCELED,
@@ -10,53 +8,14 @@ import {
     CALL_HANG_UP,
 } from '../constants/videocall';
 import { addError, clearError } from './error';
-import socketModule from '../io/client';
-
-export const CallStatuses = new Enum([
-    'Available',
-    'Testing',
-    'Calling',
-    'CallFailed',
-    'ReceivingCall',
-    'AcceptingCall',
-    'InCall',
-    'HangingUp',
-]);
+import socketModule from '../io';
+import { CallStatuses } from '../constants/callStatus';
 
 const isAvailable = status =>
     [CallStatuses.Available, CallStatuses.CallFailed].includes(status);
 
 const canIgnoreCall = status =>
     [CallStatuses.ReceivingCall, CallStatuses.AcceptingCall].includes(status);
-
-// export const callActions = {
-//     setCallStatusToAvailable,
-//     setCallStatusToTesting,
-//     setCallStatusToCalling,
-//     setCallStatusToCallFailed,
-//     setCallStatusToReceivingCall,
-//     setCallStatusToAcceptingCall,
-//     setCallStatusToInCall,
-//     setCallStatusToHangingUp,
-//
-//     setCallingContactId,
-//     clearCallingContactId,
-//
-//     setCallingSocketId,
-//     clearCallingSocketId,
-//
-//     setIceServerConfig,
-//     clearIceServerConfig,
-//
-//     setRemoteDescription,
-//     clearRemoteDescription,
-//
-//     setIceCandidate,
-//     clearIceCandidate,
-//
-//     toggleVideoTrack,
-//     toggleAudioTrack,
-// };
 
 export const setCallStatusToAvailable = () => {
     let payload = CallStatuses.Available;

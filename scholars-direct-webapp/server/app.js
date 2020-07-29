@@ -1,4 +1,6 @@
 import express from 'express';
+import session from 'express-session';
+import { uuid } from 'uuidv4';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import path from 'path';
@@ -22,7 +24,16 @@ app.use(morgan('dev'));
 // App middleware
 
 app.use(cookieParser("BadSecret"));
-app.use(cors({ credentials: true }));
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+
+app.use(session({
+    genid: (req) => uuid(),
+    secret: "BadSecret",
+    resave: false,
+    saveUninitialized: true,
+    // use secure cookies for production meaning they will only be sent via https
+    //cookie: { secure: true }
+}));
 
 app.use(bodyParser.urlencoded({ extended: false, limit: '2mb' }));
 app.use(bodyParser.json({ limit: '5mb' }));

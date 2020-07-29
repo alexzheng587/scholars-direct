@@ -1,0 +1,48 @@
+.video-chat-bottom-banner {
+    display: flex;
+    justify-content: center;
+    background: dark-grey;
+    height: 120px;
+    position: relative;
+    width: 100%;
+}
+
+.track-toggle-container {
+    left: 15%;
+    position: absolute;
+}
+
+.hangup-button-container {
+    border-radius: 50%;
+    height: 70px;
+    margin-top: -15px;
+    position: relative;
+    width: 70px;
+    vertical-align: top;
+}
+
+.hangup-button {
+    background: darkgrey;
+    border: 2px solid black;
+    border-radius: 50%;
+    position: relative;
+    width: 70px;
+    height: 70px;
+    z-index: 100;
+}
+
+svg {
+    left: -4px;
+    position: absolute;
+    top: -2px;
+}
+
+.hangup-message {
+    bottom: -25px;
+    color: white;
+    font-size: 12px;
+    left: -15px;
+    text-align: center;
+    position: absolute;
+    width: 100px;
+}

@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { userAction } from '../../../actions/userAction';
+import { compose } from 'redux';
+import { graphql } from '@apollo/client/react/hoc';
+import { setToken } from '../../../actions/authtoken';
+import { REGISTER_MUTATION } from '../../../graphql/mutations/user/register';
 
 class RegisterPage extends React.Component {
     constructor(props) {
@@ -98,7 +102,7 @@ function mapState(state) {
 
 const actionCreators = {
     register: userAction.register
-}
+};
 
 const connectedRegisterPage = connect(mapState, actionCreators)(RegisterPage);
 export { connectedRegisterPage as RegisterPage };

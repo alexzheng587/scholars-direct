@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-//import { preferOpus } from '../helpers/sdp-helpers';
+import { preferOpus } from '../../../helpers/sdp-helpers';
+import { CallStatuses } from "../../../constants/callStatus";
 import {
-    CallStatuses,
     acceptCall,
     ignoreCall,
     handleIceCandidate,
@@ -16,13 +16,13 @@ import {
     emitHangup,
 } from '../../../actions/call';
 import { addError } from '../../../actions/error';
-// import Available from './Available';
-// import Calling from './Calling';
-// import ReceivingCall from './ReceivingCall';
-// import Controller from '../components/VideoChat/Controller';
-// import CallOverlay from '../components/VideoChat/CallOverlay';
+import Available from './Available';
+import Calling from './Calling';
+import ReceivingCall from './ReceivingCall';
+import Controller from './Controller';
+import CallOverlay from './CallOverlay';
 
-//import '../styles/video-chat-container.scss';
+import '../../styles/video-chat-container.css';
 
 const SDP_CONSTRAINTS = {
     mandatory: {
@@ -35,7 +35,7 @@ const SDP_CONSTRAINTS = {
  * @class VideoChat
  * @extends {React.PureComponent}
  */
-class VideoChat extends React.PureComponent {
+class VideoChat extends React.Component {
     /**
      * @static
      * @param {Object} stream to stop
@@ -99,6 +99,7 @@ class VideoChat extends React.PureComponent {
         // -- or --
         // start local video and start peer connection after
         // outgoing call is accepted
+        console.log("componentDidupdate");
         if (
             [CallStatuses.Calling, CallStatuses.ReceivingCall].includes(props.status)
             && this.props.status === CallStatuses.AcceptingCall
@@ -189,7 +190,7 @@ class VideoChat extends React.PureComponent {
      * @returns {undefined}
      */
     setLocalDescriptionAndSendToPeer(description) {
-        //description.sdp = preferOpus(description.sdp);
+        description.sdp = preferOpus(description.sdp);
         this.peerConnection.setLocalDescription(description);
         this.props.sendSessionDescription(description);
     }
@@ -321,15 +322,18 @@ class VideoChat extends React.PureComponent {
      * @returns {JSX.Element} HTML
      */
     render() {
-        // if (this.props.status === CallStatuses.Available) {
-        //     return <Available />;
-        // }
-        // if ([CallStatuses.Calling, CallStatuses.CallFailed].includes(this.props.status)) {
-        //     return <Calling />;
-        // }
-        // if (this.props.status === CallStatuses.ReceivingCall) {
-        //     return <ReceivingCall />;
-        // }
+        console.log("video call mounted");
+        if (this.props.status === CallStatuses.Available) {
+            console.log("Available was triggered");
+            return <Available />;
+        }
+        if ([CallStatuses.Calling, CallStatuses.CallFailed].includes(this.props.status)) {
+            return <Calling />;
+        }
+        if (this.props.status === CallStatuses.ReceivingCall) {
+            console.log("I was triggered");
+            return <ReceivingCall />;
+        }
         return (
             <div className="video-chat-container">
                 <div className="remote-video-container">
@@ -337,7 +341,7 @@ class VideoChat extends React.PureComponent {
                         CallStatuses.AcceptingCall,
                         CallStatuses.HangingUp,
                     ].includes(this.props.status)
-                    }
+                    && <CallOverlay />}
                     <video
                         ref={node => this.remoteVideo = node}
                         className={classNames(
@@ -360,7 +364,7 @@ class VideoChat extends React.PureComponent {
                         <track kind="captions" />
                     </video>
                 </div>
-
+                <Controller startHangup={this.startHangup} />
             </div>
         );
     }

@@ -29,9 +29,13 @@ const initPassport = ({ User }) => {
         })
     );
 
-    passport.serializeUser((user, done) => done(null, user.id));
+    passport.serializeUser((user, done) => {
+        console.log("in serialize");
+        done(null, user.id)}
+        );
     passport.deserializeUser(async (id, done) => {
         try {
+            console.log("in deserialize");
             const user = await User.findById(id);
             done(null, user);
         } catch (err) {

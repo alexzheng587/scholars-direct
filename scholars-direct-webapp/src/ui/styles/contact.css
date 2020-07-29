@@ -1,0 +1,23 @@
+.contact-container {
+    border-bottom: 1px solid lightgrey;
+    justify-content: space-between;
+    min-height: 56px;
+    padding: 3px 8px;
+    width: 95%;
+}
+
+.controls {
+    justify-content: flex-end;
+}
+
+button {
+    border-radius: 50%;
+    font-size: 16px;
+    height: 30px;
+    margin-left: 10px;
+    width: 30px;
+}
+
+:hover {
+     box-shadow: 0 0 3px grey;
+}

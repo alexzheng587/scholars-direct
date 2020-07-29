@@ -1,0 +1,15 @@
+.contact-list {
+    max-height: 95%;
+    overflow-y: auto;
+}
+
+.no-contacts {
+    margin-top: 40px;
+}
+
+button {
+    margin-top: 15px;
+    width: 140px;
+}
+
+

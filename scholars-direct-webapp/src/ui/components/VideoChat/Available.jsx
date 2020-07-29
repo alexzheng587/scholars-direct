@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { setCallStatusToTesting } from '../../../actions/call';
 
-//import '../../styles/video-chat-available.scss';
+import '../../styles/video-chat-available.css';
 
 /**
  * @class Available
@@ -52,7 +52,6 @@ Available.propTypes = {
     setCallStatusToTesting: PropTypes.func,
 };
 
-// const mapStateToProps = state => ({});
 const mapDispatchToProps = {
     setCallStatusToTesting,
 };

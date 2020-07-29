@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql } from '@apollo/react-hoc';
+import { graphql } from '@apollo/client/react/hoc';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 
-//import CALLING_CONTACT_QUERY from '../../../graphql/queries/contacts/calling-contact.graphql';
+import { CALLING_CONTACT_QUERY } from '../../../graphql/queries/contacts/calling-contact';
+import { CallStatuses } from "../../../constants/callStatus";
 import {
     cancelCall,
-    CallStatuses,
     setCallStatusToAvailable,
     clearCallingContactId,
     clearCallingSocketId,
 } from '../../../actions/call';
-import Loader from '../Layout/Loader';
+import Loader from '../Loader';
 
-//import '../../styles/video-chat-calling.scss';
+import '../../styles/video-chat-calling.css';
 
 /**
  * @class Calling
@@ -42,6 +42,7 @@ class Calling extends React.PureComponent {
      */
     componentDidMount() {
         if (this.ringTone) {
+            console.log(this.props.callingContact);
             this.ringTone.play();
             this.ring = setInterval(() => this.ringTone.play(), 2e3);
         }
@@ -95,7 +96,6 @@ class Calling extends React.PureComponent {
                     <div className="calling-contact flex-column align-items-center">
                         <img
                             alt={this.props.callingContact.data.user.username}
-                            src={this.props.callingContact.data.user.pictureUrl}
                         />
                         <div className="call-message">
                             {this.props.status === CallStatuses.Calling ?
@@ -129,7 +129,6 @@ Calling.propTypes = {
         data: PropTypes.shape({
             user: PropTypes.shape({
                 username: PropTypes.string,
-                pictureUrl: PropTypes.string,
             }),
         }),
     }),
@@ -148,13 +147,13 @@ export default compose(
             clearCallingSocketId,
         },
     ),
-    // graphql(
-    //     CALLING_CONTACT_QUERY,
-    //     {
-    //         name: 'callingContact',
-    //         options: props => ({
-    //             variables: { contactId: props.callingContactId },
-    //         }),
-    //     },
-    // ),
+    graphql(
+        CALLING_CONTACT_QUERY,
+        {
+            name: 'callingContact',
+            options: props => ({
+                variables: { contactId: props.callingContactId },
+            }),
+        },
+    ),
 )(Calling);

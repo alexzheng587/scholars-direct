@@ -2,6 +2,7 @@ import { userConstants } from '../constants/userConstant';
 import { userService } from '../services/userService';
 import { alertActions } from './alertLogin';
 import { history } from '../helpers/history';
+import store from '../store';
 
 export const userAction = {
     login,
@@ -9,21 +10,24 @@ export const userAction = {
     register
 };
 
-function login(username, password) {
+export function login(user) {
     return dispatch => {
-        dispatch(request({ username }));
-
-        userService.login(username, password)
-            .then(
-                user => {
-                    dispatch(success(user));
-                    history.push('/');
-                },
-                error => {
-                    dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
-                }
-            );
+        dispatch(success(user));
+        console.log(store.getState());
+        history.push('/');
+        // dispatch(request({ username }));
+        //
+        // userService.login(username, password)
+        //     .then(
+        //         user => {
+        //             dispatch(success(user));
+        //             history.push('/');
+        //         },
+        //         error => {
+        //             dispatch(failure(error.toString()));
+        //             dispatch(alertActions.error(error.toString()));
+        //         }
+        //     );
     };
 
     function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }

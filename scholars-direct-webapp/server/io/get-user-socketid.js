@@ -6,9 +6,10 @@ import { getSocketByUserId } from './helpers';
  * @param {Express.Response} res HTTP response
  * @returns {undefined}
  */
-export default async function getUserStatus(req, res) {
+export default async function getUserSocketId(req, res) {
     try {
-        const socket = await getSocketByUserId(Number(req.params.userid), req.app.io);
+        console.log(req.params.userid);
+        const socket = await getSocketByUserId(req.params.userid, req.app.io);
         if (socket) res.json({ socketId: socket.id });
         else res.json({ socketId: null });
     } catch (err) {

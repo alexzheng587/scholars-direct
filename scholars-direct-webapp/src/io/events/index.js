@@ -10,7 +10,7 @@ import {
     ICE_DESCRIPTION,
     ICE_CANDIDATE,
 } from '../../constants/videocall';
-import { store } from '../../helpers/store';
+import store from '../../store';
 import {
     handleSocketDisconnect,
     receiveCall,
@@ -26,7 +26,7 @@ import {
 const handlers = {
     [CONNECTION]: () => console.log('Connection established with server'),
     [DISCONNECT]: () => {
-        console.log('Connect to the server terminated');
+        console.log('Connection to the server terminated');
         store.dispatch(handleSocketDisconnect());
     },
 
