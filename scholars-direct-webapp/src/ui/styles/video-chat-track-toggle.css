@@ -9,14 +9,14 @@
     width: 40px;
 }
 
-button {
-    border: 1px solid grey;
-    border-radius: 50%;
-    height: 40px;
-    position: absolute;
-    overflow: hidden;
-    width: 40px;
-}
+/*button {*/
+/*    border: 1px solid grey;*/
+/*    border-radius: 50%;*/
+/*    height: 40px;*/
+/*    position: absolute;*/
+/*    overflow: hidden;*/
+/*    width: 40px;*/
+/*}*/
 
 .track-disabled {
     border-color: red;

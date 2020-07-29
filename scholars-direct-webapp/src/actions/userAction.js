@@ -2,7 +2,7 @@ import { userConstants } from '../constants/userConstant';
 import { userService } from '../services/userService';
 import { alertActions } from './alertLogin';
 import { history } from '../helpers/history';
-import store from '../store';
+import { store } from '../helpers/store';
 
 export const userAction = {
     login,

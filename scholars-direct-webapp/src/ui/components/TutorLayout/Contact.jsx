@@ -6,8 +6,6 @@ import { connect } from 'react-redux';
 import { addError, clearError } from '../../../actions/error';
 import { startCall } from '../../../actions/call';
 import UserInfo from './UserInfo';
-import QUERY_MESSAGE_THREADS from '../../../graphql/queries/message-threads/message-threads.graphql';
-import CREATE_MESSAGE_THREAD from '../../../graphql/mutations/message-threads/create.graphql';
 
 import '../../styles/contact.css';
 

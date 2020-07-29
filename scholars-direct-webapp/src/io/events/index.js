@@ -10,7 +10,8 @@ import {
     ICE_DESCRIPTION,
     ICE_CANDIDATE,
 } from '../../constants/videocall';
-import store from '../../store';
+//import store from '../../store';
+import { store } from '../../helpers/store';
 import {
     handleSocketDisconnect,
     receiveCall,

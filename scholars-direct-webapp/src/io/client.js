@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
-//import { store } from '../helpers/store';
-import store from '../store';
+import { store } from '../helpers/store';
+//import store from '../store';
 import attachEventHandlers from './events';
 
 const connect = token => io.connect('http://localhost:4000', { query: token });

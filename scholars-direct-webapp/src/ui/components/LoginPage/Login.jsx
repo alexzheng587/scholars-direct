@@ -48,7 +48,7 @@ class Login extends React.Component {
             });
             if (!data.result) return this.handleError();
             const { success, message, token } = data.result;
-            if (!success) return this.handleError();
+            if (!success) return this.handleError(message);
             await new Promise(resolve => this.setState({ submitted: true }, resolve));
             this.props.setToken(token);
             this.props.login(this.state.username.trim());
@@ -142,7 +142,7 @@ const mapStateToProps = state => ({
 const connectedLogin = compose(
     withApollo,
     connect(mapStateToProps, { addError, clearError, setToken, login }),
-    graphql(LOGIN_MUTATION, { name: 'loginUser' })
+    graphql(LOGIN_MUTATION, { name: 'loginUser' }),
 )(Login);
 
 export { connectedLogin as Login }

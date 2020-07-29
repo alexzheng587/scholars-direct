@@ -24,6 +24,14 @@ export default {
             })
                 .populate('user1')
                 .populate('user2');
+            let currentID = String(context.req.user._id);
+            // grab only the user info of the other contact
+            for (let idx in contacts) {
+                if (String(contacts[idx].user1._id) === currentID)
+                    contacts[idx].user1 = undefined;
+                if (String(contacts[idx].user2._id) === currentID)
+                    contacts[idx].user2 = undefined;
+            }
             console.log(contacts);
             return contacts;
         } catch (err) {

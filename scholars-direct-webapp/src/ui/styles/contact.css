@@ -10,14 +10,14 @@
     justify-content: flex-end;
 }
 
-button {
-    border-radius: 50%;
-    font-size: 16px;
-    height: 30px;
-    margin-left: 10px;
-    width: 30px;
-}
+/*button {*/
+/*    border-radius: 50%;*/
+/*    font-size: 16px;*/
+/*    height: 30px;*/
+/*    margin-left: 10px;*/
+/*    width: 30px;*/
+/*}*/
 
-:hover {
-     box-shadow: 0 0 3px grey;
-}
+/*:hover {*/
+/*     box-shadow: 0 0 3px grey;*/
+/*}*/

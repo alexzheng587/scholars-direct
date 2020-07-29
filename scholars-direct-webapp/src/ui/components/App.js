@@ -41,7 +41,9 @@ class App extends React.Component {
                         <Route exact path="/register" component={RegisterPage}>
                             <RegisterPage/>
                         </Route>
-                        <Route exact path="/videoChat" component={PageLayout}/>
+                        <Route exact path="/videoChat" component={PageLayout}>
+                            <PageLayout/>
+                        </Route>
                     </Switch>
                 </Router>
                 <Divider/>
