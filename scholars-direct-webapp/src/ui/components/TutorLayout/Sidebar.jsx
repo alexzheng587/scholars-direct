@@ -6,6 +6,7 @@ import { compose } from 'redux';
 import { QUERY_CONTACTS } from '../../../graphql/queries/contacts/contacts';
 import Contact from './Contact';
 import '../../styles/contact-list.css';
+import NavigationBar from "./NavigationBar";
 
 /**
  * @class ContactList
@@ -24,24 +25,27 @@ class Sidebar extends React.PureComponent {
      */
     render() {
         return (
-            <div className="contact-list-container full-height">
-                <div className="contact-list">
-                    {!this.props.contactData.length
-                    && this.props.contacts.loading
-                    }
-                    {!this.props.contacts.loading
-                    && !this.props.contactData.length
-                    && (
-                        <div className="no-contacts flex-column flex-center">
-                            <span>
-                              No contacts yet
-                            </span>
-                        </div>
-                    )
-                    }
-                    {this.props.contactData.map(props => (
-                        <Contact key={props.id} {...props} />
-                    ))}
+            <div className="sidebar-container">
+                <NavigationBar/>
+                <div className="contact-list-container full-height">
+                    <div className="contact-list">
+                        {!this.props.contactData.length
+                        && this.props.contacts.loading
+                        }
+                        {!this.props.contacts.loading
+                        && !this.props.contactData.length
+                        && (
+                            <div className="no-contacts flex-column flex-center">
+                                <span>
+                                  No contacts yet
+                                </span>
+                            </div>
+                        )
+                        }
+                        {this.props.contactData.map(props => (
+                            <Contact key={props.id} {...props} />
+                        ))}
+                    </div>
                 </div>
             </div>
         );

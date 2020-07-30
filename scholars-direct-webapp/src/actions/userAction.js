@@ -4,7 +4,7 @@ import { history } from '../helpers/history';
 import { store } from '../helpers/store';
 import axios from "axios";
 import setAuthToken from "../helpers/setAuthToken";
-import jwt_decode from "jwt-decode";
+//import jwt_decode from "jwt-decode";
 
 export const userAction = {
     login,
@@ -16,10 +16,11 @@ export const userAction = {
     googleLogin
 };
 
-export function login(user) {
+export function login(user, token) {
     return dispatch => {
-        dispatch(success(user));
-        console.log(store.getState());
+        dispatch(setCurrentUser(user));
+        localStorage.setItem("jwtToken", token);
+        setAuthToken(token);
         history.push('/');
         // dispatch(request({ username }));
         //

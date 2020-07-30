@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-export const MESSAGE_THREADS_QUERY = gql`
+export const QUERY_MESSAGE_THREADS = gql`
 query messageThreads {
   data: MessageThreads {
     id

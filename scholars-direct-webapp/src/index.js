@@ -4,7 +4,6 @@ import 'semantic-ui-css/semantic.min.css';
 import App from './ui/components/App';
 import { Provider } from 'react-redux';
 import {store} from './helpers/store';
-//import store from './store'
 import { split, HttpLink, ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { WebSocketLink } from '@apollo/client/link/ws';

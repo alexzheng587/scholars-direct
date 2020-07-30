@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { connect } from 'react-redux';
 import { alertActions } from '../../../actions/alertLogin';
 import { history } from '../../../helpers/history';
-import PropTypes from 'prop-types   ';
+import PropTypes from 'prop-types';
 import { graphql, withApollo } from '@apollo/client/react/hoc';
 import { addError, clearError } from '../../../actions/error';
 import { setToken } from '../../../actions/authtoken';
@@ -14,7 +14,7 @@ import { login } from '../../../actions/userAction';
 import { LOGIN_MUTATION } from '../../../graphql/mutations/user/login';
 import { compose } from 'redux';
 import {role} from '../../../constants/role';
-import { GoogleLogin } from 'react-google-login';
+//import { GoogleLogin } from 'react-google-login';
 import config from '../../../config.json';
 
 class Login extends React.Component {
@@ -43,13 +43,13 @@ class Login extends React.Component {
     }
 
     googleResponse = (response) => {
-        console.log("Google Response:",response)
+        console.log("Google Response:",response);
         const obj = {access_token: response.accessToken,
             role: "STUDENT"
         };
         const tokenBlob = new Blob([JSON.stringify(obj, null, 2)],
             {type : 'application/json'});
-        console.log("tokenBlob:",tokenBlob)
+        console.log("tokenBlob:",tokenBlob);
         this.props.googleLogin(tokenBlob);
     };
 
@@ -58,7 +58,7 @@ class Login extends React.Component {
     };
 
     componentWillReceiveProps(nextProps, nextContext) {
-        console.log("?????????!!!!!!")
+        console.log("?????????!!!!!!");
         if (nextProps.auth.loggedIn) {
             history.push("/"); // push user to dashboard when they login
         }
@@ -87,7 +87,7 @@ class Login extends React.Component {
             if (!success) return this.handleError(message);
             await new Promise(resolve => this.setState({ submitted: true }, resolve));
             this.props.setToken(token);
-            this.props.login(this.state.username.trim());
+            this.props.login(this.state.username.trim(), token);
         } catch (err) {
             console.log(err);
             return this.handleError();

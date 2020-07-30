@@ -13,7 +13,7 @@ class UserInfo extends React.PureComponent {
      */
     render() {
         return (
-            <div className="user-info display-flex align-items-center">
+            <div className="display-flex align-items-center">
                 <div className="flex-column">
           <span className="username">
             {this.props.username}
@@ -28,7 +28,6 @@ class UserInfo extends React.PureComponent {
 }
 
 UserInfo.propTypes = {
-    pictureUrl: string,
     email: string,
     username: string,
     status: string,

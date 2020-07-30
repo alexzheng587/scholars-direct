@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import {userAction} from '../../../actions/userAction';
 import '../../styles/Form.css';
 import PropTypes from "prop-types";
-import { userAction } from '../../../actions/userAction';
 import { compose } from 'redux';
 import { graphql } from '@apollo/client/react/hoc';
 import { setToken } from '../../../actions/authtoken';

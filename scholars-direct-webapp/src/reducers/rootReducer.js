@@ -6,6 +6,8 @@ import { questions } from './questionReducer';
 import { filterTags } from './filterTagReducer';
 import { errors } from './errorReducer';
 import { offers } from "./offerReducer";
+import { call } from './callReducer'
+import { contacts } from './contactReducer';
 
 const rootReducer = combineReducers({
     questions,
@@ -15,6 +17,8 @@ const rootReducer = combineReducers({
     errors,
     alert,
     offers,
+    call,
+    contacts
 });
 
 export default rootReducer;
