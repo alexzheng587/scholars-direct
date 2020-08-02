@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 import {questionConstants} from "../constants/questionConstant";
-import {offerConstants} from "../constants/offerConstants";
 
 export const fetchQuestionsRequested = () => {
     return {
@@ -27,7 +26,7 @@ export const fetchQuestions = () => {
     return dispatch => {
         dispatch(fetchQuestionsRequested());
 
-        axios.get(`http://localhost:9000/questions/`)
+        axios.get(`http://localhost:3000/questions/`)
             .then(res => {
                 dispatch(fetchQuestionsSuccess(res.data));
             })
@@ -37,20 +36,20 @@ export const fetchQuestions = () => {
     }
 };
 
-export const addQuestionsRequested = () => {
+export const addQuestionRequested = () => {
     return {
         type: questionConstants.ADD_REQUEST
     };
 };
 
-export const addQuestionsSuccess = (question) => {
+export const addQuestionSuccess = (question) => {
     return {
         type: questionConstants.ADD_SUCCESS,
         ...question
     };
 };
 
-export const addQuestionsFailure = (e) => {
+export const addQuestionFailure = (e) => {
     return {
         type: questionConstants.ADD_ERROR,
         e
@@ -59,32 +58,32 @@ export const addQuestionsFailure = (e) => {
 
 export const addQuestion = (Question) => {
     return dispatch => {
-        dispatch(addQuestionsRequested());
+        dispatch(addQuestionRequested());
 
-        axios.post(`http://localhost:9000/questions/`, Question)
+        axios.post(`http://localhost:3000/questions/`, Question)
             .then(res => {
-                dispatch(addQuestionsSuccess(res.data));
+                dispatch(addQuestionSuccess(res.data));
             })
             .catch(e => {
-                dispatch(addQuestionsFailure(e.message))
+                dispatch(addQuestionFailure(e.message))
             });
     };
 };
 
-export const deleteMessageRequested = () => {
+export const deleteQuestionRequested = () => {
     return {
         type: questionConstants.DELETE_REQUEST
     };
 };
 
-export const deleteMessageSuccess = (targetQuestionKey) => {
+export const deleteQuestionSuccess = (targetQuestionKey) => {
     return {
         type: questionConstants.DELETE_SUCCESS,
         targetQuestionKey
     };
 };
 
-export const deleteMessageFailure = (e) => {
+export const deleteQuestionFailure = (e) => {
     return {
         type: questionConstants.DELETE_ERROR,
         e
@@ -93,14 +92,14 @@ export const deleteMessageFailure = (e) => {
 
 export const deleteQuestion = (state) => {
     return dispatch => {
-        dispatch(deleteMessageRequested());
+        dispatch(deleteQuestionRequested());
 
-        axios.delete(`http://localhost:9000/questions/${state.id}`)
+        axios.delete(`http://localhost:3000/questions/${state.id}`)
             .then(res => {
-                dispatch(deleteMessageSuccess(state.key));
+                dispatch(deleteQuestionSuccess(state.key));
             })
             .catch(e => {
-                dispatch(deleteMessageFailure(e.message))
+                dispatch(deleteQuestionFailure(e.message))
             });
     };
 };

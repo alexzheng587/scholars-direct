@@ -1,9 +1,16 @@
 import React from "react";
 import '../../styles/Form.css';
 import { connect } from 'react-redux';
-import {addQuestion} from "../../../actions/questionAction";
-import QuestionTag from "./QuestionTag";
+import {
+    addQuestionRequested,
+    addQuestionFailure,
+    addQuestionSuccess
+} from "../../../actions/questionAction";
 import {Icon, Label} from 'semantic-ui-react';
+import {compose} from "redux";
+import {graphql, withApollo} from "@apollo/client/react/hoc";
+import PropTypes from "prop-types";
+import {ADD_QUESTION_MUTATION} from "../../../graphql/mutations/question/add-question";
 
 let initialState = {
     title: "",
@@ -24,9 +31,10 @@ class QuestionForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleAddTag = this.handleAddTag.bind(this);
         this.removeTag = this.removeTag.bind(this);
+        this.handleAddQuestion = this.handleAddQuestion.bind(this);
     }
 
-    handleSubmit(e) {
+    async handleSubmit(e) {
         if (e.key === 'Enter') {
             return;
         }
@@ -37,7 +45,8 @@ class QuestionForm extends React.Component {
         const t = this.state.tags;
 
         if (s && u && d && d.length > 140 && t.length > 0) {
-            this.props.addQuestion(this.state);
+            //this.props.addQuestion(this.state);
+            await this.handleAddQuestion(this.state);
             this.setState(initialState);
         }
     }
@@ -64,6 +73,22 @@ class QuestionForm extends React.Component {
         this.setState({
             tags: newTags
         })
+    }
+
+    async handleAddQuestion(state) {
+        try {
+            this.props.addQuestionRequested();
+            const { data } = await this.props.addQuestion({
+                variables: state
+            });
+            if (!data.result) {
+                return this.props.addQuestionFailure();
+            }
+            const question = data.result;
+            this.props.addQuestionSuccess(question);
+        } catch(e) {
+            this.props.addQuestionFailure(e);
+        }
     }
 
     render() {
@@ -103,6 +128,16 @@ class QuestionForm extends React.Component {
     }
 }
 
+QuestionForm.propTypes = {
+    questions: PropTypes.object.isRequired,
+    isQuestionsLoading: PropTypes.bool,
+    questionError: PropTypes.object,
+    addQuestion: PropTypes.func,
+    addQuestionSuccess: PropTypes.func,
+    addQuestionFailure: PropTypes.func,
+    addQuestionRequested: PropTypes.func
+};
+
 const mapStateToProps = (state) => {
     return {
         questions: state.questions.questionList,
@@ -111,4 +146,8 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, {addQuestion})(QuestionForm);
+export default compose(
+    withApollo,
+    connect(mapStateToProps, {addQuestionSuccess, addQuestionFailure, addQuestionRequested }),
+    graphql(ADD_QUESTION_MUTATION, { name: 'addQuestion' }),
+)(QuestionForm);
