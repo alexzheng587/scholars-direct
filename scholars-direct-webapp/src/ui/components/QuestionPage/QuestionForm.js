@@ -44,7 +44,7 @@ class QuestionForm extends React.Component {
         const d = this.state.description.trim();
         const t = this.state.tags;
 
-        if (s && u && d && d.length > 140 && t.length > 0) {
+        if (s && u && d && d.length > 150 && t.length > 0) {
             //this.props.addQuestion(this.state);
             await this.handleAddQuestion(this.state);
             this.setState(initialState);
@@ -105,11 +105,12 @@ class QuestionForm extends React.Component {
                     <label> Latest Preferred Reply Date/Time </label>
                     <input type="datetime-local" name="time" value={this.state.date} onChange={this.handleChange}/>
 
-                    <label> Specify your question... </label>
-                    <textarea name="description" rows="8" value={this.state.description} onChange={this.handleChange}/>
+                    <label> Question Body (Provide a detailed description) </label>
+                    <textarea name="description" rows="8" value={this.state.description}
+                              placeholder="Minimum 150 characters..." onChange={this.handleChange}/>
 
-                    <label> Add tags (maximum 5) </label>
-                    <input type="text" name="tag-input" onKeyPress={e => {
+                    <label> Add tags (at least one required) </label>
+                    <input type="text" name="tag-input" placeholder="Maximum 5 tags" onKeyPress={e => {
                         if (e.key === 'Enter') e.preventDefault();
                     }} onKeyUp={this.handleAddTag} ref={c => { this.tagInput = c; }}/>
 

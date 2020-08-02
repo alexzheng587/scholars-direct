@@ -6,10 +6,10 @@ class Home extends React.Component {
 
     render() {
         return (
-
             <div className='home-container'>
-                <h2>Welcome to the homepage!</h2>
-                <Image src='https://cdn5.f-cdn.com/contestentries/1383554/9392852/5b6160ea58628_thumb900.jpg' size='huge' fluid centered />
+                <h2 className="bold-text">Welcome to Scholars Chat!</h2>
+                <h5>Find the Answers to your Questions...</h5>
+                <Image src='https://expresswriters.com/wp-content/uploads/2013/10/header-2-1210x423.jpg' size="massive" fluid centered />
             </div>
         );
     }

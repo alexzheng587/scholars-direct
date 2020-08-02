@@ -30,7 +30,7 @@ class FilterBox extends React.Component {
     render() {
         return (<div className="login-form">
             <h1>Filters</h1>
-            <input type="text" name="tag-input" placeholder="Type or select tags here..." onKeyPress={e => {
+            <input type="text" name="tag-input" placeholder="Type here or select tags from the dropdown" onKeyPress={e => {
                     if (e.key === 'Enter') e.preventDefault();
                 }} onKeyUp={this.handleAddTag} ref={c => { this.tagInput = c; }} list="questionTags" autoComplete="off"
             />
