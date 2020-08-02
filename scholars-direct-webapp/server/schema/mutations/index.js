@@ -5,6 +5,7 @@ import Signup from "./Signup";
 import Updateuser from "./Updateuser";
 import AddQuestion from "./AddQuestion";
 import DeleteQuestion from "./DeleteQuestion";
+import ChangeStatus from "./ChangeStatus";
 
 export default new GraphQLObjectType({
     name: 'MutationRoot',
@@ -14,6 +15,7 @@ export default new GraphQLObjectType({
         Signup,
         Updateuser,
         AddQuestion,
-        DeleteQuestion
+        DeleteQuestion,
+        ChangeStatus
     },
 });
