@@ -9,11 +9,11 @@ import {connect} from "react-redux";
 class QuestionPage extends React.Component {
 
     render() {
-        if (!this.props.auth.loggedIn) {
-            return <div className="question-container">
-                <h3>Please sign in with your account to view or ask questions.</h3>
-            </div>;
-        }
+        // if (!this.props.auth.loggedIn) {
+        //     return <div className="question-container">
+        //         <h3>Please sign in with your account to view or ask questions.</h3>
+        //     </div>;
+        // }
         return (
             <div className="question-container">
                 <div className='sidebar-container'>

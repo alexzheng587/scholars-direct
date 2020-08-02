@@ -1,5 +1,5 @@
 .login-form{
-    font: 95% Arial, Helvetica, sans-serif;
+    font: 90% Arial, Helvetica, sans-serif;
     max-width: 400px;
     width: 90%;
     margin: 10px auto;
@@ -8,7 +8,7 @@
 }
 .login-form h1{
     background: #43D1AF;
-    padding: 20px 0;
+    padding: 10px 0;
     font-size: 140%;
     font-weight: 300;
     text-align: center;

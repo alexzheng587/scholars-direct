@@ -5,6 +5,7 @@ import MessageThread from "./MessageThread";
 import MessageThreads from './MessageThreads';
 import Contact from "./Contact";
 import Contacts from "./Contacts";
+import Questions from "./Questions";
 
 export default new GraphQLObjectType({
     name: 'QueryRoot',
@@ -14,6 +15,7 @@ export default new GraphQLObjectType({
         MessageThread,
         MessageThreads,
         Contact,
-        Contacts
+        Contacts,
+        Questions
     },
 });

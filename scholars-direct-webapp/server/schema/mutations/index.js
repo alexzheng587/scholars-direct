@@ -6,6 +6,9 @@ import Updateuser from "./Updateuser";
 import ReadMessage from "./ReadMessage";
 import UserTyping from "./UserTyping";
 import CreateMessage from "./CreateMessage";
+import AddQuestion from "./AddQuestion";
+import DeleteQuestion from "./DeleteQuestion";
+import ChangeStatus from "./ChangeStatus";
 
 export default new GraphQLObjectType({
     name: 'MutationRoot',
@@ -16,6 +19,9 @@ export default new GraphQLObjectType({
         Updateuser,
         ReadMessage,
         UserTyping,
-        CreateMessage
+        CreateMessage,
+        AddQuestion,
+        DeleteQuestion,
+        ChangeStatus
     },
 });
