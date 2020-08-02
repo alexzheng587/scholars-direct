@@ -86,6 +86,7 @@ class Login extends React.Component {
             const { success, message, token } = data.result;
             if (!success) return this.handleError(message);
             await new Promise(resolve => this.setState({ submitted: true }, resolve));
+            console.log(token);
             this.props.setToken(token);
             this.props.login(this.state.username.trim(), token);
         } catch (err) {

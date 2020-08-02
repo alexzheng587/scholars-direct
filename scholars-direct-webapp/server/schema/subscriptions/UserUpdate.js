@@ -1,4 +1,4 @@
-import { GraphQLList, GraphQLInt } from 'graphql';
+import { GraphQLList, GraphQLID } from 'graphql';
 import { withFilter } from 'graphql-subscriptions';
 import { USER_UPDATE } from './constants';
 import { User } from '../types';
@@ -9,7 +9,7 @@ export default {
     name: 'UserUpdate',
     type: User,
     args: {
-        userIds: { type: new GraphQLList(GraphQLInt) },
+        userIds: { type: new GraphQLList(GraphQLID) },
     },
     async resolve({ userId }) {
         const user = await ModelUser.findById(userId);

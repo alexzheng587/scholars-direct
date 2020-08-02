@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AppBar from '@material-ui/core/AppBar';
+import PropTypes from 'prop-types';
 import Toolbar from "@material-ui/core/Toolbar";
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from "@material-ui/core/IconButton";
@@ -14,6 +15,10 @@ import '../styles/Header.css';
 import { connect } from 'react-redux';
 import {userAction} from "../../actions/userAction";
 import { history } from '../../helpers/history';
+import { graphql, withApollo } from '@apollo/client/react/hoc';
+import { addError, clearError } from '../../actions/error';
+import {LOGOUT_MUTATION} from '../../graphql/mutations/user/logout';
+import { compose } from 'redux';
 
 const useStyles = makeStyles((theme) => ({
     navbar: {
@@ -63,8 +68,9 @@ function Header(props) {
     console.log(props.auth);
 
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
         handleClose();
+        //const { data } = await this.props.logoutUser();
         userAction.logout();
         history.push("/login");
     }
@@ -92,7 +98,7 @@ function Header(props) {
             </Typography>
 
             <Typography variant="h7" className={classes.menuItem}>
-                <Link to="/videoChat" style={{ textDecoration: 'none', color: "#FFF", }}>
+                <Link to="/videoChat/contacts" style={{ textDecoration: 'none', color: "#FFF", }}>
                     Video Chat
                 </Link>
             </Typography>
@@ -154,6 +160,16 @@ const mapStateToProps = (state) => { //name is by convention
     return { auth: state.authentication}; //now it will appear as props
 };
 
-export default connect(mapStateToProps, {})(Header);
+Header.propTypes = {
+    logoutUser: PropTypes.func,
+}
+
+export default compose(
+    withApollo,
+    connect(mapStateToProps, { addError, clearError }),
+    graphql(LOGOUT_MUTATION, { name: 'logoutUser' }),
+)(Header);
+
+//export default connect(mapStateToProps, {})(Header);
 
 

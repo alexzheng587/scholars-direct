@@ -1,53 +1,37 @@
 import { GraphQLList } from 'graphql';
 import moment from 'moment';
 import { MessageThread } from '../types';
+import MessageThreadModel from '../../models/message_thread'
 
 export default {
     type: new GraphQLList(MessageThread),
     name: 'MessageThreads',
-    async resolve(parent, args, req) {
+    async resolve(parent, args, context) {
         try {
-            const threads = await models.MessageThread.findAll({
+            const threads = await MessageThreadModel.find({
                 $or: [
-                    {user_1: req.user && req.user.id},
-                    {user_2: req.user && req.user.id},
+                    {user1: context.req.user && context.req.user._id},
+                    {user2: context.req.user && context.req.user._id},
                 ]})
-                .populate({path: "messages", options: { sort: [['createdAt', 'desc']]}})
+                .populate({path: "messages", options: {sort: {createdAt: -1}}})
+                // .populate({path: "messages"})
                 .populate('user1')
-                .populate('user2')
-                .exec();
-            //     order: [[{ model: models.message, as: 'messages' }, 'createdAt', 'DESC']],
-            //     include: [
-            //         {
-            //             model: models.contact,
-            //             as: 'contact',
-            //             where: { blocker_id: null },
-            //         },
-            //         {
-            //             model: models.user,
-            //             as: 'user1',
-            //             required: false,
-            //             where: { id: req.user && { [Op.ne]: req.user.id } },
-            //         },
-            //         {
-            //             model: models.user,
-            //             as: 'user2',
-            //             required: false,
-            //             where: { id: req.user && { [Op.ne]: req.user.id } },
-            //         },
-            //         {
-            //             model: models.message,
-            //             as: 'messages',
-            //         },
-            //     ],
-            // });
-
+                .populate('user2');
+            console.log(threads[0].messages);
+            let currentID = String(context.req.user._id);
+            // grab only the user info of the other contact
+            for (let idx in threads) {
+                if (String(threads[idx].user1._id) === currentID)
+                    threads[idx].user1 = undefined;
+                if (String(threads[idx].user2._id) === currentID)
+                    threads[idx].user2 = undefined;
+            }
             const hasUnreadMessage = thread => (
-                thread.messages[0].sender_id !== req.user.id
+                thread.messages[0].sender_id !== context.req.user.id
                 && !thread.messages[0].readAt
             );
             const defaultCompare = (a, b) => (
-                moment(b.messages[0].createdAt) - moment(a.messages[0].createdA)
+                moment(b.messages[0].createdAt) - moment(a.messages[0].createdAt)
             );
 
             return threads.filter(({ messages }) => messages.length).sort((a, b) => {

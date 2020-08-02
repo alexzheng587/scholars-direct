@@ -2,8 +2,7 @@ import { GraphQLObjectType } from 'graphql';
 
 import UserStatusChange from './UserStatusChange';
 import UserUpdate from './UserUpdate';
-
-//import UserTyping from './messages/UserTyping';
+import UserTyping from './UserTyping';
 import MessageCreated from './MessageCreated';
 import MessageRead from './MessageRead';
 
@@ -12,7 +11,7 @@ export default new GraphQLObjectType({
     fields: {
         UserStatusChange,
         UserUpdate,
-
+        UserTyping,
         MessageCreated,
         MessageRead,
     },

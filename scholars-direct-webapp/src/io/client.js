@@ -1,6 +1,5 @@
 import io from 'socket.io-client';
 import { store } from '../helpers/store';
-//import store from '../store';
 import attachEventHandlers from './events';
 
 const connect = token => io.connect('http://localhost:4000', { query: token });
@@ -12,6 +11,7 @@ attachEventHandlers(socket);
 store.subscribe(() => {
     const { token: newToken } = store.getState();
     if (newToken === token) return;
+    console.log("New token, reconnect required");
     if (socket) socket.disconnect();
     socket = null;
     if (newToken) socket = connect(newToken);

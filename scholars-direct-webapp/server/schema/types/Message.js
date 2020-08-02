@@ -1,6 +1,6 @@
 import {
     GraphQLObjectType,
-    GraphQLInt,
+    GraphQLID,
     GraphQLString,
     GraphQLBoolean,
 } from 'graphql';
@@ -9,9 +9,9 @@ import moment from 'moment';
 export default new GraphQLObjectType({
     name: 'Message',
     fields: {
-        id: {
-            type: GraphQLInt,
-            resolve: message => message.id,
+        _id: {
+            type: GraphQLID,
+            resolve: message => message._id,
         },
         body: {
             type: GraphQLString,
@@ -30,11 +30,11 @@ export default new GraphQLObjectType({
             resolve: message => message.read,
         },
         senderId: {
-            type: GraphQLInt,
+            type: GraphQLID,
             resolve: message => message.sender_id,
         },
         threadId: {
-            type: GraphQLInt,
+            type: GraphQLID,
             resolve: message => message.thread_id,
         },
         readAt: {

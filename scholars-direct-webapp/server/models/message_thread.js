@@ -2,18 +2,22 @@ var mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const MessageThreadSchema = new Schema({
-    user_1: {
+    user1: {
         type: Schema.Types.ObjectID,
         ref: 'User'
     },
-    user_2: {
+    user2: {
         type: Schema.Types.ObjectID,
         ref: 'User'
     },
     messages: [{
         type: Schema.Types.ObjectID,
-        ref: 'message'
+        ref: 'Message'
     }],
+    contactId: {
+        type: Schema.Types.ObjectID,
+        ref:'Contact'
+    },
     lastMessageAt: Date,
     createdAt: Date,
     updatedAt: Date,
@@ -41,4 +45,4 @@ const MessageThreadSchema = new Schema({
 //     });
 // };
 
-export default mongoose.model('MessageThread', MessageThreadSchema);
+export default mongoose.model('MessageThread', MessageThreadSchema, 'messagethreads');

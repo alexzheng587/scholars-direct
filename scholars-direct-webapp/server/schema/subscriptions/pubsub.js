@@ -11,5 +11,5 @@ export default new RedisPubSub({
         port: 19333,
         password: "uQRDBTQceMSNCIoN00E5mTxeInXGBfZL",
     },
-    retry_strategy: options => Math.max(options.attempt * 100, 3000),
+    retryStrategy: options => Math.max(options.attempt * 100, 3000),
 });

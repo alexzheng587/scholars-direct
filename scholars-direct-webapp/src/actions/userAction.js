@@ -4,7 +4,7 @@ import { history } from '../helpers/history';
 import { store } from '../helpers/store';
 import axios from "axios";
 import setAuthToken from "../helpers/setAuthToken";
-//import jwt_decode from "jwt-decode";
+import {setToken} from "./authtoken";
 
 export const userAction = {
     login,
@@ -132,6 +132,7 @@ function logout() {
         localStorage.removeItem("jwtToken");
         // Remove auth header for future requests
         setAuthToken(false);
+        setToken(null);
         // Set current user to empty object {} which will set isAuthenticated to false
         dispatch(currentLogout({}));
     };

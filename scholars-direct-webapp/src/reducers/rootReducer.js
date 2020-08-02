@@ -8,6 +8,7 @@ import { errors } from './errorReducer';
 import { offers } from "./offerReducer";
 import { call } from './callReducer'
 import { contacts } from './contactReducer';
+import { token } from './tokenReducer';
 
 const rootReducer = combineReducers({
     questions,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
     alert,
     offers,
     call,
-    contacts
+    contacts,
+    token
 });
 
 export default rootReducer;

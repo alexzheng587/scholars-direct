@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from '@apollo/client/react/hoc';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import {Route} from 'react-router-dom';
 
 import {QUERY_USER_ID} from '../../../graphql/queries/user/id';
 //import QUERY_PENDING_CONTACT_REQUESTS from '../graphql/queries/contact-requests/pending-requests.graphql';
@@ -14,9 +15,11 @@ import { QUERY_CONTACTS } from '../../../graphql/queries/contacts/contacts';
 // import SUBSCRIBE_TO_USER_UPDATES from '../graphql/subscriptions/users/update.graphql';
 // import SUBSCRIBE_TO_MESSAGES_CREATED from '../graphql/subscriptions/messages/message-created.graphql';
 
+import ContactList from "../Contact/ContactList";
+import Messages from "../Messages/Messages";
+
 import { handleHangUp } from '../../../actions/call';
 import VideoChat from '../VideoChat/VideoChat';
-import Sidebar from "./Sidebar";
 import isLoggedIn from '../../../helpers/is-logged-in';
 
 import '../../styles/layout.css';
@@ -211,8 +214,9 @@ class PageLayout extends React.PureComponent {
     render() {
         return (
                 <div className="app-content display-flex">
-                    <VideoChat />
-                    <Sidebar />
+                    <VideoChat/>
+                    <Route exact path={`/videoChat/contacts`} component={ContactList} />
+                    <Route path={`/videoChat/messages`} component={Messages} />
                 </div>
         );
     }

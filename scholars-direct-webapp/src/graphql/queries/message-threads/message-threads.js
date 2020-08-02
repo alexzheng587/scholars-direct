@@ -6,14 +6,12 @@ query messageThreads {
     id
 
     user {
-      id
-      status
+      _id
       username
-      pictureUrl
     }
 
     latestMessage {
-      id
+      _id
       shortenedBody
       createdAt
       readAt

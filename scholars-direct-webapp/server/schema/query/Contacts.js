@@ -1,6 +1,4 @@
-import {
-    GraphQLID,
-    GraphQLList} from 'graphql';
+import {GraphQLList} from 'graphql';
 import { Contact } from '../types';
 import ModelContact from '../../models/contact';
 

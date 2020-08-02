@@ -35,7 +35,7 @@ const SDP_CONSTRAINTS = {
  * @class VideoChat
  * @extends {React.PureComponent}
  */
-class VideoChat extends React.Component {
+class VideoChat extends React.PureComponent {
     /**
      * @static
      * @param {Object} stream to stop
@@ -73,7 +73,7 @@ class VideoChat extends React.Component {
      * @param {Object} props component is about to use
      * @returns {undefined}
      */
-    componentWillReceiveProps(props) {
+    UNSAFE_componentWillReceiveProps(props) {
         if (
             (props.status === CallStatuses.Available
                 || props.status === CallStatuses.Calling)
@@ -99,7 +99,6 @@ class VideoChat extends React.Component {
         // -- or --
         // start local video and start peer connection after
         // outgoing call is accepted
-        console.log("componentDidupdate");
         if (
             [CallStatuses.Calling, CallStatuses.ReceivingCall].includes(props.status)
             && this.props.status === CallStatuses.AcceptingCall
@@ -127,13 +126,16 @@ class VideoChat extends React.Component {
         }
 
         // New remote description
-        if (props.remoteDescription !== this.props.remoteDescription) {
-            this.peerConnection.setRemoteDescription(this.props.remoteDescription);
+        if (props.remoteDescription !== this.props.remoteDescription
+            && this.props.remoteDescription !== null) {
+            console.log(this.props.remoteDescription);
+            await this.peerConnection.setRemoteDescription(this.props.remoteDescription);
             if (!this.state.isInitiator) this.sendAnswer();
         }
 
         // New ICE candidate
-        if (props.iceCandidate !== this.props.iceCandidate) {
+        if (props.iceCandidate !== this.props.iceCandidate
+            && this.props.iceCandidate !== null) {
             this.addIceCandidate();
         }
 
@@ -150,6 +152,10 @@ class VideoChat extends React.Component {
         if (props.videoEnabled !== this.props.videoEnabled) this.toggleVideoTrack();
         // Handle audio toggle
         if (props.audioEnabled !== this.props.audioEnabled) this.toggleAudioTrack();
+        console.log(this.state);
+        console.log(this.remoteStream);
+        console.log(this.localStream);
+        console.log(this.peerConnection);
     }
     /**
      * @returns {undefined}
@@ -198,6 +204,8 @@ class VideoChat extends React.Component {
      * @returns {undefined}
      */
     addIceCandidate() {
+        console.log(this.peerConnection);
+        console.log(this.props.iceCandidate);
         if (!this.peerConnection) {
             this.startHangup();
             return;
@@ -265,6 +273,7 @@ class VideoChat extends React.Component {
      */
     startPeerConnection() {
         try {
+            console.log("peer connection started");
             this.peerConnection = new RTCPeerConnection({
                 iceServers: this.props.iceServerConfig,
             });
@@ -322,16 +331,13 @@ class VideoChat extends React.Component {
      * @returns {JSX.Element} HTML
      */
     render() {
-        console.log("video call mounted");
         if (this.props.status === CallStatuses.Available) {
-            console.log("Available was triggered");
             return <Available />;
         }
         if ([CallStatuses.Calling, CallStatuses.CallFailed].includes(this.props.status)) {
             return <Calling />;
         }
         if (this.props.status === CallStatuses.ReceivingCall) {
-            console.log("I was triggered");
             return <ReceivingCall />;
         }
         return (

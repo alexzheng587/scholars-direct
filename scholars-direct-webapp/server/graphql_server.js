@@ -61,6 +61,6 @@ function onError(err) {
 server.on('listening', onListen);
 server.on('error', onError);
 server.listen(5000, () => {
-    console.log(`🚀 Server ready at http://localhost:5000${apolloServer.graphqlPath}`);
-    console.log(`🚀 Subscriptions ready at ws://localhost:5000${apolloServer.subscriptionsPath}`);
+    console.log(`Server ready at http://localhost:5000${apolloServer.graphqlPath}`);
+    console.log(`Subscriptions ready at ws://localhost:5000${apolloServer.subscriptionsPath}`);
 });

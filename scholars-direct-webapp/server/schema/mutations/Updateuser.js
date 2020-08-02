@@ -10,16 +10,16 @@ export default {
         newEmail: { type: GraphQLString },
         newUsername: { type: GraphQLString },
     },
-    async resolve(parent, { newEmail, newUsername }, req) {
+    async resolve(parent, { newEmail, newUsername }, context) {
         try {
             if (newEmail) {
                 // const { success: validEmail } = await validateEmail(newEmail);
                 // if (!validEmail) return { success: false, message: 'Please enter a valid email address.' };
-                req.user.email = newEmail;
+                context.req.user.email = newEmail;
             }
-            if (newUsername) req.user.username = newUsername;
-            await req.user.save();
-            await pubsub.publish(USER_UPDATE, { userId: req.user.id });
+            if (newUsername) context.req.user.username = newUsername;
+            await context.req.user.save();
+            await pubsub.publish(USER_UPDATE, { userId: context.req.user.id });
             return { success: true };
         } catch (err) {
             console.log(err);

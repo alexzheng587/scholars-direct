@@ -1,6 +1,6 @@
 import {
     GraphQLObjectType,
-    GraphQLInt,
+    GraphQLID,
     GraphQLString,
 } from 'graphql';
 import moment from 'moment';
@@ -10,7 +10,7 @@ export default new GraphQLObjectType({
     name: 'ContactRequest',
     fields: {
         id: {
-            type: GraphQLInt,
+            type: GraphQLID,
             description: 'the request\'s unique ID',
             resolve: request => request.id,
         },

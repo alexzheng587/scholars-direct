@@ -19,20 +19,19 @@ class NavigationBar extends React.PureComponent {
      */
     constructor(props) {
         super(props);
-        const path = this.props.match;
         this.state = {
             linkProps: [
                 {
-                    to: '/contacts',
+                    to: '/videoChat/contacts',
                     icon: 'address-book-o',
                 },
                 {
-                    to: '/messages',
+                    to: '/videoChat/messages',
                     icon: 'comments-o',
                     dataKey: 'messageThreads',
                     notifs: null,
                     filter: thread => (
-                        thread.latestMessage.senderId !== props.currentSession.user.id
+                        thread.latestMessage.senderId !== this.props.currentSession.user._id
                         && !thread.latestMessage.readAt
                     ),
                 },
@@ -90,7 +89,7 @@ class NavigationBar extends React.PureComponent {
 
 NavigationBar.propTypes = {
     currentSession: PropTypes.shape({
-        user: PropTypes.shape({ id: PropTypes.number }),
+        user: PropTypes.shape({ _id: PropTypes.string }),
     }),
     addNotice: PropTypes.func,
 };

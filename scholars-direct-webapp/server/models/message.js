@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const MessageSchema = new Schema({
     body: {
-        type: Number,
+        type: String,
         allowNull: false,
     },
     sender_id: {
@@ -16,7 +16,7 @@ const MessageSchema = new Schema({
     },
     thread_id: {
         type: Schema.Types.ObjectID,
-        ref: 'message_thread'
+        ref: 'MessageThread'
     },
     readAt: Date,
     createdAt: Date,
@@ -41,4 +41,4 @@ const MessageSchema = new Schema({
 //     });
 // };
 
-module.exports = mongoose.model('Message', MessageSchema);
+export default mongoose.model('Message', MessageSchema);

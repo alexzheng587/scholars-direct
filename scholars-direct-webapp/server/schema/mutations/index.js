@@ -3,6 +3,9 @@ import Login from './Login';
 import Logout from './Logout';
 import Signup from "./Signup";
 import Updateuser from "./Updateuser";
+import ReadMessage from "./ReadMessage";
+import UserTyping from "./UserTyping";
+import CreateMessage from "./CreateMessage";
 
 export default new GraphQLObjectType({
     name: 'MutationRoot',
@@ -11,5 +14,8 @@ export default new GraphQLObjectType({
         Logout,
         Signup,
         Updateuser,
+        ReadMessage,
+        UserTyping,
+        CreateMessage
     },
 });

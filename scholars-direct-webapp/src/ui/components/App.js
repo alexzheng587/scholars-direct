@@ -1,7 +1,6 @@
 import React from 'react';
 import {Router, Switch, Route} from 'react-router-dom';
 
-
 import {history} from '../../helpers/history';
 import Home from './HomePage/Home';
 import {Profile} from './HomePage/Profile';
@@ -14,7 +13,6 @@ import '../styles/App.css';
 import {Login} from './LoginPage/Login.jsx';
 import QuestionPage from "./QuestionPage/QuestionPage";
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import VideoChat from "./VideoChat/VideoChat";
 import PageLayout from "./TutorLayout/PageLayout";
 import {RegisterPage} from './RegisterPage/Register.jsx';
 import PrivateRoute from "../../helpers/PrivateRoute";
@@ -45,11 +43,8 @@ class App extends React.Component {
                         <Route exact path="/register" component={RegisterPage}>
                             <RegisterPage/>
                         </Route>
-                        <Route exact path="/videoChat" component={PageLayout}>
-                            <PageLayout/>
-                        </Route>
+                        <Route path="/videoChat" component={PageLayout}/>
                         <PrivateRoute exact path="/profile" component={Profile} />
-                        <Route exact path="/videoChat" component={PageLayout}/>
                     </Switch>
                 </Router>
                 <Divider/>

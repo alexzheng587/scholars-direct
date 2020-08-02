@@ -1,17 +1,19 @@
-import { GraphQLInt } from 'graphql';
+import { GraphQLID } from 'graphql';
 import { withFilter } from 'graphql-subscriptions';
 import { Message } from '../types';
 import pubsub, { MESSAGE_CREATED } from './pubsub';
+import MessageModel from '../../models/message'
 
 export default {
     type: Message,
     name: 'MessageCreated',
     args: {
-        forUserId: { type: GraphQLInt },
+        forUserId: { type: GraphQLID },
     },
     async resolve({ messageId }) {
         try {
-            const message = await models.message.findById(messageId);
+            console.log("Message created subscription");
+            const message = await MessageModel.findById(messageId);
             return message;
         } catch (err) {
             console.log(err);

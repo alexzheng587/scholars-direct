@@ -157,34 +157,6 @@ export const toggleAudioTrack = () => {
         type: 'TOGGLE_AUDIO_TRACK',
     };
 };
-// = createActions({
-//     SET_CALL_STATUS_TO_AVAILABLE: () => CallStatuses.Available,
-//     SET_CALL_STATUS_TO_TESTING: () => CallStatuses.Testing,
-//     SET_CALL_STATUS_TO_CALLING: () => CallStatuses.Calling,
-//     SET_CALL_STATUS_TO_CALL_FAILED: () => CallStatuses.CallFailed,
-//     SET_CALL_STATUS_TO_RECEIVING_CALL: () => CallStatuses.ReceivingCall,
-//     SET_CALL_STATUS_TO_ACCEPTING_CALL: () => CallStatuses.AcceptingCall,
-//     SET_CALL_STATUS_TO_IN_CALL: () => CallStatuses.InCall,
-//     SET_CALL_STATUS_TO_HANGING_UP: () => CallStatuses.HangingUp,
-//
-//     SET_CALLING_CONTACT_ID: payload => payload,
-//     CLEAR_CALLING_CONTACT_ID: () => null,
-//
-//     SET_CALLING_SOCKET_ID: payload => payload,
-//     CLEAR_CALLING_SOCKET_ID: () => null,
-//
-//     SET_ICE_SERVER_CONFIG: payload => payload,
-//     CLEAR_ICE_SERVER_CONFIG: () => null,
-//
-//     SET_REMOTE_DESCRIPTION: payload => payload,
-//     CLEAR_REMOTE_DESCRIPTION: () => null,
-//
-//     SET_ICE_CANDIDATE: payload => payload,
-//     CLEAR_ICE_CANDIDATE: () => null,
-//
-//     TOGGLE_VIDEO_TRACK: () => null,
-//     TOGGLE_AUDIO_TRACK: () => null,
-// });
 
 const getSocket = async () => (await socketModule).default();
 

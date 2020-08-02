@@ -1,6 +1,6 @@
 import {
     GraphQLObjectType,
-    GraphQLInt,
+    GraphQLID,
     GraphQLList,
 } from 'graphql';
 import User from './User';
@@ -10,7 +10,7 @@ export default new GraphQLObjectType({
     name: 'MessageThread',
     fields: {
         id: {
-            type: GraphQLInt,
+            type: GraphQLID,
             resolve: thread => thread.id,
         },
         user: {
