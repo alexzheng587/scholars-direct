@@ -3,7 +3,7 @@ import { shape, number, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import UserInfo from '../Contact/UserInfo';
-//import '../../../../styles/message-thread.scss';
+import '../../styles/message-thread.css';
 
 /**
  * @class MessageThread

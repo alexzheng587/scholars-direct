@@ -39,6 +39,7 @@ export default {
                 username: username.trim(),
                 email: email.trim().toLowerCase(),
                 password: password,
+                userType: "student",
                 lastInteractedAt: Date.now(),
                 createdAt: Date.now()
             });

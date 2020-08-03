@@ -177,6 +177,7 @@ export function handleSocketDisconnect() {
  * @returns {undefined}
  */
 function clearSessionData(dispatch) {
+    console.log("clear session data");
     dispatch(clearCallingContactId());
     dispatch(clearCallingSocketId());
     dispatch(clearIceServerConfig());
@@ -190,6 +191,7 @@ function clearSessionData(dispatch) {
  */
 export function emitHangup() {
     return async function innerEmitHangup(dispatch, getState) {
+        console.log("emit hangup");
         const socket = await getSocket();
         const { callingSocketId } = getState().call;
         socket.emit(CALL_HANG_UP, { toId: callingSocketId });
@@ -203,6 +205,7 @@ export function emitHangup() {
  */
 export function handleHangUp() {
     return function innerHandleHangup(dispatch) {
+        console.log("handle hangup");
         dispatch(setCallStatusToHangingUp());
         clearSessionData(dispatch);
     };

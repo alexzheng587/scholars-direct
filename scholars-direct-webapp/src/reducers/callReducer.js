@@ -68,7 +68,7 @@ export const call = (state = defaultCall, action) => {
                 ...state,
                 iceServerConfig: action.payload
             };
-        case "CLEAR_SERVER_CONFIG":
+        case "CLEAR_ICE_SERVER_CONFIG":
             return {
                 ...state,
                 iceServerConfig: null

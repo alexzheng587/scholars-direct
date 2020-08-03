@@ -88,6 +88,7 @@ class VideoChat extends React.PureComponent {
      */
     async componentDidUpdate(props) {
         // start video test
+        console.log(props);
         if (
             props.status === CallStatuses.Available
             && this.props.status === CallStatuses.Testing
@@ -99,10 +100,12 @@ class VideoChat extends React.PureComponent {
         // -- or --
         // start local video and start peer connection after
         // outgoing call is accepted
+        console.log("before start local video");
         if (
             [CallStatuses.Calling, CallStatuses.ReceivingCall].includes(props.status)
             && this.props.status === CallStatuses.AcceptingCall
         ) {
+            console.log("in set local bideo");
             this.state.isInitiator = props.status === CallStatuses.Calling;
             if (this.connectionTimeout) {
                 clearTimeout(this.connectionTimeout);
@@ -115,13 +118,17 @@ class VideoChat extends React.PureComponent {
                 (props.status === CallStatuses.Calling ?
                     this.startHangup : this.ignoreCall)();
             }
-            if (props.status === CallStatuses.Calling) this.startPeerConnection();
+            if (props.status === CallStatuses.Calling) {
+                console.log("accept incoming call peerconnection");
+                this.startPeerConnection();
+            }
             else this.props.acceptCall();
         }
 
         // Start the peer connection when it gets the ICE config
         // and local video has been started
         if (!props.iceServerConfig && this.props.iceServerConfig && this.localStream) {
+            console.log("ice server peer connection");
             this.startPeerConnection();
         }
 
@@ -144,6 +151,7 @@ class VideoChat extends React.PureComponent {
             props.status === CallStatuses.InCall
             && this.props.status === CallStatuses.HangingUp
         ) {
+            console.log("hanged up");
             this.hangupSound.play();
             this.onHangup();
         }
@@ -173,6 +181,9 @@ class VideoChat extends React.PureComponent {
             this.props.setCallStatusToAvailable();
             clearTimeout(this.hangupTimer);
             this.hangupTimer = null;
+            this.peerConnection.close();
+            console.log(this.peerConnection);
+            this.peerConnection = null;
         }, 5e3);
     }
     /**
@@ -180,6 +191,7 @@ class VideoChat extends React.PureComponent {
      */
     onRemoteStreamAdded({ stream }) {
         console.log('Remote stream added.');
+        console.log(stream);
         this.remoteVideo.srcObject = stream;
         this.remoteStream = stream;
     }
@@ -196,7 +208,8 @@ class VideoChat extends React.PureComponent {
      * @returns {undefined}
      */
     setLocalDescriptionAndSendToPeer(description) {
-        description.sdp = preferOpus(description.sdp);
+        console.log(description);
+        //description.sdp = preferOpus(description.sdp);
         this.peerConnection.setLocalDescription(description);
         this.props.sendSessionDescription(description);
     }
@@ -240,6 +253,8 @@ class VideoChat extends React.PureComponent {
         this.state.isInitiator = false;
         await this.props.emitHangup();
         this.endVideo();
+        this.peerConnection.close();
+        this.peerConnection = null;
         this.props.setCallStatusToAvailable();
     }
     /**
@@ -280,6 +295,8 @@ class VideoChat extends React.PureComponent {
             this.peerConnection.onicecandidate = this.props.handleIceCandidate;
             this.peerConnection.onaddstream = this.onRemoteStreamAdded.bind(this);
             this.peerConnection.onremovestream = this.onRemoteStreamRemoved.bind(this);
+            console.log("before addstream");
+            console.log(this.localStream);
             this.peerConnection.addStream(this.localStream);
             if (!this.state.isInitiator) return;
             this.peerConnection.createOffer(

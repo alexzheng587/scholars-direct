@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StayScrolled from 'react-stay-scrolled';
 import MessageText from './MessageText';
-//import '../../../styles/open-messages.scss';
+import '../../../styles/messages.css';
 
 /**
  * @class Messages

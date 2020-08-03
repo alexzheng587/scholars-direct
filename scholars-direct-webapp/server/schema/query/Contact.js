@@ -13,7 +13,6 @@ export default {
             const contact = await ModelContact.findById(contactId)
                 .populate('user1')
                 .populate('user2');
-            console.log(contact);
             return contact;
         } catch (err) {
             console.log(err);

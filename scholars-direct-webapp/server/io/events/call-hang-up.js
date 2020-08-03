@@ -8,6 +8,7 @@ import { getSocketById } from '../helpers';
  * @returns {undefined}
  */
 export default function handleCallHangup(io, socket, { toId }) {
+    console.log("HANG UP");
     const toSocket = getSocketById(io, toId);
     if (!toSocket) return;
     toSocket.emit(CALL_HANG_UP);

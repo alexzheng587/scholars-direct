@@ -1,7 +1,7 @@
 import { GraphQLObjectType } from 'graphql';
 import Login from './Login';
 import Logout from './Logout';
-import Signup from "./Signup";
+import SignupUser from "./Signup";
 import Updateuser from "./Updateuser";
 import ReadMessage from "./ReadMessage";
 import UserTyping from "./UserTyping";
@@ -15,7 +15,7 @@ export default new GraphQLObjectType({
     fields: {
         Login,
         Logout,
-        Signup,
+        SignupUser,
         Updateuser,
         ReadMessage,
         UserTyping,

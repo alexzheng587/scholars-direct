@@ -17,7 +17,6 @@ export default {
                 // .populate({path: "messages"})
                 .populate('user1')
                 .populate('user2');
-            console.log(threads[0].messages);
             let currentID = String(context.req.user._id);
             // grab only the user info of the other contact
             for (let idx in threads) {

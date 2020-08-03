@@ -11,7 +11,7 @@ import { QUERY_CONTACTS } from '../../../graphql/queries/contacts/contacts';
 // import QUERY_MESSAGE_THREADS from '../graphql/queries/message-threads/message-threads.graphql';
 // import SUBSCRIBE_TO_CONTACT_REQUEST_RECEIVED from '../graphql/subscriptions/contact-requests/contact-request-received.graphql';
 // import SUBSCRIBE_TO_CONTACT_REQUEST_ACCEPTED from '../graphql/subscriptions/contact-requests/contact-request-accepted.graphql';
-// import SUBSCRIBE_TO_USER_STATUS_CHANGE from '../graphql/subscriptions/users/status-change.graphql';
+import {USER_STATUS_CHANGE_SUBSCRIPTION} from '../../../graphql/subscriptions/users/user-status-change';
 // import SUBSCRIBE_TO_USER_UPDATES from '../graphql/subscriptions/users/update.graphql';
 // import SUBSCRIBE_TO_MESSAGES_CREATED from '../graphql/subscriptions/messages/message-created.graphql';
 
@@ -21,6 +21,7 @@ import Messages from "../Messages/Messages";
 import { handleHangUp } from '../../../actions/call';
 import VideoChat from '../VideoChat/VideoChat';
 import isLoggedIn from '../../../helpers/is-logged-in';
+import cloneDeep from 'lodash.clonedeep';
 
 import '../../styles/layout.css';
 
@@ -120,32 +121,32 @@ class PageLayout extends React.PureComponent {
     // /**
     //  * @returns {undefined}
     //  */
-    // subscribeToStatusChanges() {
-    //     if (this.statusChanges) this.statusChanges();
-    //     this.statusChanges = this.props.contacts.subscribeToMore({
-    //         document: SUBSCRIBE_TO_USER_STATUS_CHANGE,
-    //         variables: {
-    //             userIds: this.props.contacts.data ? this.props.contacts.data.map(contact => contact.user.id) : [],
-    //         },
-    //         updateQuery: (prev, { subscriptionData: { data } }) => {
-    //             if (!data || !data.user) return prev;
-    //             const newData = cloneDeep(prev.data).map((contact) => {
-    //                 if (data.user.id === contact.user.id) {
-    //                     if (
-    //                         contact.id === this.props.callingContactId
-    //                         && data.user.status === 'offline'
-    //                     ) this.props.handleHangUp();
-    //                     return { ...contact, user: data.user };
-    //                 }
-    //                 return contact;
-    //             });
-    //             return {
-    //                 ...prev,
-    //                 data: newData,
-    //             };
-    //         },
-    //     });
-    // }
+    subscribeToStatusChanges() {
+        if (this.statusChanges) this.statusChanges();
+        this.statusChanges = this.props.contacts.subscribeToMore({
+            document: USER_STATUS_CHANGE_SUBSCRIPTION,
+            variables: {
+                userIds: this.props.contacts.data ? this.props.contacts.data.map(contact => contact.user.id) : [],
+            },
+            updateQuery: (prev, { subscriptionData: { data } }) => {
+                if (!data || !data.user) return prev;
+                const newData = cloneDeep(prev.data).map((contact) => {
+                    if (data.user.id === contact.user.id) {
+                        if (
+                            contact.id === this.props.callingContactId
+                            && data.user.status === 'offline'
+                        ) this.props.handleHangUp();
+                        return { ...contact, user: data.user };
+                    }
+                    return contact;
+                });
+                return {
+                    ...prev,
+                    data: newData,
+                };
+            },
+        });
+    }
     // /**
     //  * @returns {undefined}
     //  */

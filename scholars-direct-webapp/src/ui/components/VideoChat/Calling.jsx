@@ -51,7 +51,7 @@ class Calling extends React.PureComponent {
      * @param {Object} props component will receive
      * @returns {undefined}
      */
-    componentWillReceiveProps(props) {
+    UNSAFE_componentWillReceiveProps(props) {
         if (props.status === CallStatuses.CallFailed) {
             if (this.ring) clearInterval(this.ring);
             if (this.hangupSound) this.hangupSound.play();

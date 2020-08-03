@@ -30,7 +30,6 @@ export default {
                 if (String(contacts[idx].user2._id) === currentID)
                     contacts[idx].user2 = undefined;
             }
-            console.log(contacts);
             return contacts;
         } catch (err) {
             console.log(err);

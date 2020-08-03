@@ -37,13 +37,18 @@
     width: 30px;
 }
 
-.button {
-    border-radius: 50%;
-    height: 30px;
-    padding: 0px 3px 0px 0px;
-    width: 30px;
-}
+/*.button {*/
+/*    border-radius: 50%;*/
+/*    height: 30px;*/
+/*    padding: 0px 3px 0px 0px;*/
+/*    width: 30px;*/
+/*}*/
 
 .disabled {
      background: lightgrey;
  }
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}

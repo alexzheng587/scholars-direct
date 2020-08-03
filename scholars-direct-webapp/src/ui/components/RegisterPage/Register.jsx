@@ -8,7 +8,8 @@ import { compose } from 'redux';
 import { graphql } from '@apollo/client/react/hoc';
 import { setToken } from '../../../actions/authtoken';
 import { REGISTER_MUTATION } from '../../../graphql/mutations/user/register';
-
+import { addError, clearError } from '../../../actions/error';
+import { login } from '../../../actions/userAction';
 
 class RegisterPage extends Component {
     constructor(props) {
@@ -25,6 +26,7 @@ class RegisterPage extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleError = this.handleError.bind(this)
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
@@ -47,20 +49,42 @@ class RegisterPage extends Component {
         });
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-
-        this.setState({submitted: true});
-        const {user} = this.state;
-        if (user.name && user.email && user.password && user.password2) {
-            this.props.register(user);
+    async handleSubmit(event) {
+        try {
+            event.preventDefault();
+            //this.setState({submitted: true});
+            const {user} = this.state;
+            if (user.name && user.email && user.password && user.password2) {
+                console.log(user.email);
+                const {data} = await this.props.registerUser({
+                    variables: {
+                        email: user.email.trim(),
+                        username: user.name,
+                        password: user.password
+                    },
+                });
+                console.log(data);
+                if (!data.result) return this.handleError();
+                const { success, message, token } = data.result;
+                if (!success) return this.handleError(message);
+                this.setState({submitted: true});
+                this.props.setToken(token);
+                this.props.login(this.state.username.trim(), token);
+            }
+        } catch (err) {
+            console.log(err);
+            return this.handleError();
         }
     }
 
+    async handleError(error = 'Something went wrong signing you up') {
+        this.setState({ submitted: false });
+        return this.props.addError(error);
+    }
 
     render() {
         const {registering} = this.props;
-        const {user, submitted,errors} = this.state;
+        const {user, submitted, errors} = this.state;
         return (
             <div className="container">
                 <div className="login-form">
@@ -152,7 +176,11 @@ class RegisterPage extends Component {
 RegisterPage.propTypes = {
     register: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired
+    errors: PropTypes.object.isRequired,
+    registerUser: PropTypes.func,
+    addError: PropTypes.func,
+    clearError: PropTypes.func,
+    setToken: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -162,8 +190,15 @@ const mapStateToProps = state => ({
 
 
 const actionCreators = {
-    register: userAction.register
+    register: userAction.register,
+    addError: addError,
+    clearError: clearError,
+    login: login,
+    setToken: setToken
 };
 
-const connectedRegisterPage = connect(mapStateToProps, actionCreators)(RegisterPage);
+const connectedRegisterPage = compose(
+    connect(mapStateToProps, actionCreators),
+    graphql(REGISTER_MUTATION, { name: 'registerUser' }),
+)(RegisterPage);
 export {connectedRegisterPage as RegisterPage};
