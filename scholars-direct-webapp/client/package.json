@@ -1,20 +1,7 @@
 {
-  "name": "server",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
-  "main": "graphql_server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cd client && npm run build",
-    "install-client": "cd client && npm install",
-    "heroku-postbuild": "npm run install-client && npm run build",
-    "start": "node -r esm graphql_server.js",
-    "client": "cd client && npm start",
-    "dev": "concurrently -n 'server,client' -c 'red,green'  \"node -r esm graphql_server.js\" \"npm run client\""
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@apollo/client": "^3.1.1",
     "@apollo/react-hooks": "^4.0.0",
@@ -73,6 +60,27 @@
     "uuidv4": "^6.2.0",
     "validator": "^13.1.1",
     "webrtc-adapter": "^7.6.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
     "@material-ui/core": "^4.10.1",
