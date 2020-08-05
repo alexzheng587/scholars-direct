@@ -1,0 +1,1 @@
+web: cd scholars-direct-webapp && npm start
