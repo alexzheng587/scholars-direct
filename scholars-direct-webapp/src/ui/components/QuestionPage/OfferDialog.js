@@ -9,6 +9,9 @@ import Dialog from "@material-ui/core/Dialog";
 import TextField from "@material-ui/core/TextField";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { compose } from 'redux';
+import { graphql } from '@apollo/client/react/hoc';
+import { ADD_CONTACT_MUTATION } from '../../../graphql/mutations/user/addcontact';
 
 
 class OfferDialog extends React.Component {
@@ -42,7 +45,7 @@ class OfferDialog extends React.Component {
             message: e.target.value
         });
     }
-    handleSubmit(e) {
+    async handleSubmit(e) {
         // todo get tutorID and studentID
         let i = {
             from: "tutor1",
@@ -51,7 +54,10 @@ class OfferDialog extends React.Component {
             question:this.state.pid,
             detail: this.state.message,
             status: "IN_PROGRESS"
-        }
+        };
+        const {data} = await this.props.addContact({
+            variables: { recipentId: this.state.studentID }
+        });
         this.props.offerHelp(i);
         this.handleClose();
 
@@ -107,4 +113,9 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, {offerHelp})(OfferDialog);
+export default compose(
+    connect(mapStateToProps, {offerHelp}),
+    graphql(ADD_CONTACT_MUTATION, {name: 'addContact'})
+)(OfferDialog);
+
+//export default connect(mapStateToProps, {offerHelp})(OfferDialog);

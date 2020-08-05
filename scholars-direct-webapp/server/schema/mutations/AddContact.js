@@ -4,8 +4,8 @@ import {
     GraphQLString,
     GraphQLID,
 } from 'graphql';
-import { CONTACT_REQUEST_ACCEPTED } from '../subscriptions/constants';
-import pubsub from '../../subscription/pubsub';
+//import { CONTACT_REQUEST_ACCEPTED } from '../subscriptions/constants';
+import pubsub from '../subscriptions/pubsub';
 import ContactModel from '../../models/contact'
 import UserModel from '../../models/user';
 import MutationResponse from "../types/MutationResponse";

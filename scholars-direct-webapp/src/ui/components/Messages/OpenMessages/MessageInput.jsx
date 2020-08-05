@@ -104,7 +104,6 @@ class MessageInput extends React.PureComponent {
         this.props.clearError();
         await new Promise(resolve => this.setState({ submitting: true }, resolve));
         try {
-            console.log(this.props.match);
             const { data } = await this.props.createMessage({
                 variables: {
                     threadId: this.props.threadId,
