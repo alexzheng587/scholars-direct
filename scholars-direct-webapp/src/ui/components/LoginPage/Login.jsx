@@ -10,11 +10,12 @@ import PropTypes from 'prop-types';
 import { graphql, withApollo } from '@apollo/client/react/hoc';
 import { addError, clearError } from '../../../actions/error';
 import { setToken } from '../../../actions/authtoken';
-import { login } from '../../../actions/userAction';
+import { login, googleLogin } from '../../../actions/userAction';
 import { LOGIN_MUTATION } from '../../../graphql/mutations/user/login';
+import { GOOGLE_LOGIN_MUTATION } from '../../../graphql/mutations/user/google-login';
 import { compose } from 'redux';
 import {role} from '../../../constants/role';
-//import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin } from 'react-google-login';
 import config from '../../../config.json';
 
 class Login extends React.Component {
@@ -42,15 +43,20 @@ class Login extends React.Component {
         this.handleError = this.handleError.bind(this)
     }
 
-    googleResponse = (response) => {
-        console.log("Google Response:",response);
-        const obj = {access_token: response.accessToken,
-            role: "STUDENT"
-        };
-        const tokenBlob = new Blob([JSON.stringify(obj, null, 2)],
-            {type : 'application/json'});
-        console.log("tokenBlob:",tokenBlob);
-        this.props.googleLogin(tokenBlob);
+    googleResponse = async (response) => {
+        try {
+            const {data} = await this.props.googleLoginUser({
+                variables: {token: response.accessToken}
+            });
+            if (!data.result) return this.handleError();
+            const {success, name, token} = data.result;
+            if (success) {
+                this.props.googleLogin(name, token);
+            }
+        } catch (e) {
+            console.log(e);
+            return this.handleError();
+        }
     };
 
     onFailure = (error) => {
@@ -58,7 +64,6 @@ class Login extends React.Component {
     };
 
     componentWillReceiveProps(nextProps, nextContext) {
-        console.log("?????????!!!!!!");
         if (nextProps.auth.loggedIn) {
             history.push("/"); // push user to dashboard when they login
         }
@@ -150,6 +155,14 @@ class Login extends React.Component {
 
                                     </div>
                                 </form>
+                                <div>
+                                    <GoogleLogin
+                                        clientId={config.GOOGLE_CLIENT_ID}
+                                        buttonText="Login"
+                                        onSuccess={this.googleResponse}
+                                        onFailure={this.onFailure}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -162,6 +175,8 @@ class Login extends React.Component {
 Login.propTypes = {
     auth: PropTypes.object.isRequired,
     loginUser: PropTypes.func,
+    googleLoginUser: PropTypes.func,
+    googleLogin: PropTypes.func,
     addError: PropTypes.func,
     clearError: PropTypes.func,
     setToken: PropTypes.func,
@@ -178,8 +193,9 @@ const mapStateToProps = state => ({
 
 const connectedLogin = compose(
     withApollo,
-    connect(mapStateToProps, { addError, clearError, setToken, login }),
+    connect(mapStateToProps, { addError, clearError, setToken, login, googleLogin }),
     graphql(LOGIN_MUTATION, { name: 'loginUser' }),
+    graphql(GOOGLE_LOGIN_MUTATION, { name: 'googleLoginUser' }),
 )(Login);
 
 export { connectedLogin as Login };

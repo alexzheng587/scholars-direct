@@ -66,33 +66,39 @@ export function login(user, token) {
 //     };
 // }
 
-function googleLogin(user) {
-    const options = {
-        method: 'POST',
-        body: user,
-        mode: 'cors',
-        cache: 'default'
-    };
+export function googleLogin(user, token) {
     return dispatch => {
-        fetch('http://localhost:9000/auth/google', options)
-            .then(r => {
-                const token = r.headers.get('x-auth-token');
-                console.log('r', r)
-                console.log('x-auth-token', token)
-                r.json().then(user => {
-                    if (token) {
-                        dispatch(setGoogleCurrentUser(user));
-                        history.push("/") // re-direct to login on successful register
-                    }
-                });
-            })
-            .catch(err =>
-                dispatch({
-                    type: userConstants.LOGIN_FAILURE,
-                    payload: err.response.data
-                })
-            );
-    };
+        dispatch(setGoogleCurrentUser(user));
+        localStorage.setItem("jwtToken", token);
+        setAuthToken(token);
+        history.push("/"); // re-direct to login on successful register
+    }
+    // const options = {
+    //     method: 'POST',
+    //     body: user,
+    //     mode: 'cors',
+    //     cache: 'default'
+    // };
+    // return dispatch => {
+    //     fetch('http://localhost:9000/auth/google', options)
+    //         .then(r => {
+    //             const token = r.headers.get('x-auth-token');
+    //             console.log('r', r)
+    //             console.log('x-auth-token', token)
+    //             r.json().then(user => {
+    //                 if (token) {
+    //                     dispatch(setGoogleCurrentUser(user));
+    //                     history.push("/") // re-direct to login on successful register
+    //                 }
+    //             });
+    //         })
+    //         .catch(err =>
+    //             dispatch({
+    //                 type: userConstants.LOGIN_FAILURE,
+    //                 payload: err.response.data
+    //             })
+    //         );
+    // };
 }
 
 function setCurrentUser(decoded, id) {
@@ -129,7 +135,7 @@ function registerLoading () {
     };
 }
 
-function logout() {
+export function logout() {
     return dispatch => {
         // Remove token from local storage
         localStorage.removeItem("jwtToken");

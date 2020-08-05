@@ -15,9 +15,9 @@ import { ADD_CONTACT_MUTATION } from '../../../graphql/mutations/user/addcontact
 
 
 class OfferDialog extends React.Component {
-    constructor() {
-        super();
-        this.state = {open: false, time:null, message:"",pid:"abc",studentID:"",tutorID:""};
+    constructor(props) {
+        super(props);
+        this.state = {open: false, time:null, message:"",pid:"abc",studentID:"",tutorID:"",userId:this.props.id};
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.setMessage = this.setMessage.bind(this);
@@ -55,9 +55,9 @@ class OfferDialog extends React.Component {
             detail: this.state.message,
             status: "IN_PROGRESS"
         };
-        const {data} = await this.props.addContact({
-            variables: { recipentId: this.state.studentID }
-        });
+        // const {data} = await this.props.addContact({
+        //     variables: { recipentId: this.state.studentID }
+        // });
         this.props.offerHelp(i);
         this.handleClose();
 
@@ -117,5 +117,3 @@ export default compose(
     connect(mapStateToProps, {offerHelp}),
     graphql(ADD_CONTACT_MUTATION, {name: 'addContact'})
 )(OfferDialog);
-
-//export default connect(mapStateToProps, {offerHelp})(OfferDialog);

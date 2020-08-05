@@ -62,6 +62,7 @@ class QuestionList extends React.Component {
                         tags={question.tags}
                         msgKey={index.toString()}
                         id={(question._id)}
+                        userId={question.userId}
                     />
                 )}
             </Item.Group>

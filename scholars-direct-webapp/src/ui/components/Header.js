@@ -13,7 +13,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Typography from '@material-ui/core/Typography';
 import '../styles/Header.css';
 import { connect } from 'react-redux';
-import {userAction} from "../../actions/userAction";
+import {logout, userAction} from "../../actions/userAction";
 import { history } from '../../helpers/history';
 import { graphql, withApollo } from '@apollo/client/react/hoc';
 import { addError, clearError } from '../../actions/error';
@@ -70,8 +70,8 @@ function Header(props) {
 
     const handleLogout = async () => {
         handleClose();
-        //const { data } = await this.props.logoutUser();
-        userAction.logout();
+        //const { data } = await props.logoutUser();
+        logout();
         history.push("/login");
     }
 

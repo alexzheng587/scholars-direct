@@ -1,4 +1,4 @@
-import {GraphQLList, GraphQLString} from "graphql";
+import {GraphQLList, GraphQLString, GraphQLID} from "graphql";
 import {Question} from "../types";
 import ModelQuestion from "../../models/Question";
 
@@ -7,6 +7,7 @@ export default {
     name: 'AddQuestion',
     args: {
         title: { type: GraphQLString },
+        userId: { type: GraphQLString },
         username: { type: GraphQLString },
         description: { type: GraphQLString },
         time: { type: GraphQLString },
@@ -17,6 +18,7 @@ export default {
         try {
             let newQuestion = await new ModelQuestion({
                 title: args.title,
+                userId: args.userId,
                 username: args.username,
                 description: args.description,
                 time: args.time,

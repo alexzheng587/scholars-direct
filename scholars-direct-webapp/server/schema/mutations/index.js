@@ -10,6 +10,7 @@ import AddQuestion from "./AddQuestion";
 import DeleteQuestion from "./DeleteQuestion";
 import ChangeStatus from "./ChangeStatus";
 import AddContact from "./AddContact";
+import GoogleLogin from "./GoogleLogin";
 
 export default new GraphQLObjectType({
     name: 'MutationRoot',
@@ -25,5 +26,6 @@ export default new GraphQLObjectType({
         DeleteQuestion,
         ChangeStatus,
         //AddContact
+        GoogleLogin,
     },
 });
