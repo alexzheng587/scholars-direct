@@ -1,1 +1,1 @@
-web: cd scholars-direct-webapp && npm start
+web: cd ./scholars-direct-webapp && npm run start
