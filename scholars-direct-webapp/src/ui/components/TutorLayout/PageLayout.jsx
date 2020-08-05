@@ -14,6 +14,7 @@ import { QUERY_CONTACTS } from '../../../graphql/queries/contacts/contacts';
 import {USER_STATUS_CHANGE_SUBSCRIPTION} from '../../../graphql/subscriptions/users/user-status-change';
 // import SUBSCRIBE_TO_USER_UPDATES from '../graphql/subscriptions/users/update.graphql';
 // import SUBSCRIBE_TO_MESSAGES_CREATED from '../graphql/subscriptions/messages/message-created.graphql';
+import { history } from '../../../helpers/history';
 
 import ContactList from "../Contact/ContactList";
 import Messages from "../Messages/Messages";
@@ -54,6 +55,9 @@ class PageLayout extends React.PureComponent {
         // this.subscribeToStatusChanges();
         // this.subscribeToNewMessages();
         // this.subscribeToUserUpdates();
+        if (!this.props.auth.loggedIn) {
+            history.push('/login');
+        }
     }
     /**
      * @param {Object} props before update
@@ -252,10 +256,16 @@ PageLayout.propTypes = {
     callingContactId: PropTypes.string,
     handleHangUp: PropTypes.func,
 };
+const mapStateToProps = (state) => { //name is by convention
+    return {
+        auth: state.authentication,
+        callingContactId: state.call.callingContactId
+    };
+};
 
 export default compose(
     connect(
-        state => ({ callingContactId: state.call.callingContactId }),
+        mapStateToProps,
         { handleHangUp },
     ),
     graphql(

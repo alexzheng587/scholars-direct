@@ -162,7 +162,7 @@ const mapStateToProps = (state) => { //name is by convention
 
 Header.propTypes = {
     logoutUser: PropTypes.func,
-}
+};
 
 export default compose(
     withApollo,

@@ -5,8 +5,14 @@ import QuestionForm from "./QuestionForm";
 import QuestionList from "./QuestionList";
 import FilterBox from "./FilterBox";
 import {connect} from "react-redux";
+import { history } from '../../../helpers/history';
 
 class QuestionPage extends React.Component {
+    componentDidMount() {
+        if (!this.props.auth.loggedIn) {
+            history.push('/login');
+        }
+    }
 
     render() {
         if (!this.props.auth.loggedIn) {
