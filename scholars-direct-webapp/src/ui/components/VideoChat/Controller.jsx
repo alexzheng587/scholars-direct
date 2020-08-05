@@ -9,6 +9,7 @@ import {
 } from '../../../actions/call';
 import TrackToggle from './TrackToggle';
 import '../../styles/video-chat-controller.css';
+import { Button, Icon } from 'semantic-ui-react';
 
 /**
  * @class Controller
@@ -88,40 +89,27 @@ class Controller extends React.PureComponent {
             <div className="video-chat-bottom-banner">
                 <div className="display-flex track-toggle-container">
                     <TrackToggle
-                        iconName="video-camera"
+                        iconName="video"
+                        iconNameActive="stop circle"
                         onPress={this.toggleVideoTrack}
                         trackEnabled={this.props.videoEnabled}
                         track="video"
                     />
                     <TrackToggle
                         iconName="microphone"
+                        iconNameActive="microphone slash"
                         onPress={this.toggleAudioTrack}
                         trackEnabled={this.props.audioEnabled}
                         track="audio"
                     />
                 </div>
                 <div className="hangup-button-container">
-                    <button
-                        className="hangup-button"
+                    <Button
+                        circular icon='x' size='massive' color='grey'
                         onClick={this.onHangupClick}
                         onMouseEnter={this.showHangupMessage}
                         onMouseLeave={this.hideHangupMessage}
-                    >
-                        <svg width="70" height="70" viewBox="0 0 70 70">
-                            <path
-                                stroke="#fff"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                d="M 29 27 L 45 43"
-                            />
-                            <path
-                                stroke="#fff"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                d="M 29 43 L 45 27"
-                            />
-                        </svg>
-                    </button>
+                    />
                     {this.state.showHangupMessage && (
                         <div className="hangup-message">
                             {this.getHangupMessage()}

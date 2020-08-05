@@ -105,7 +105,7 @@ function Header(props) {
 
             <Typography variant="h7" className={classes.menuItem}>
                 <Link to="/aboutUs" style={{ textDecoration: 'none', color: "#FFF", }}>
-                    About Us
+                    About
                 </Link>
             </Typography>
 
