@@ -30,7 +30,7 @@ app.use(cors({ credentials: true }));
 
 app.use(session({
     genid: (req) => uuid(),
-    secret: "BadSecret",
+    secret: "bad_secret",
     resave: false,
     saveUninitialized: true,
     // use secure cookies for production meaning they will only be sent via https
