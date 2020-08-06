@@ -29,5 +29,10 @@ export default new GraphQLObjectType({
             description: 'the user who received the request',
             resolve: request => request.recipient,
         },
+        senderMessage: {
+            type: GraphQLString,
+            description: 'the initial user of the request sender',
+            resolve: request => request.senderMessage,
+        },
     },
 });
