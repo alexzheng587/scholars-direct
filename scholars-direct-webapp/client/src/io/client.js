@@ -3,8 +3,7 @@ import { store } from '../helpers/store';
 import attachEventHandlers from './events';
 
 let HOST = window.location.origin;
-let uri = HOST + '/socket.io';
-const connect = token => io.connect(uri, { query: token });
+const connect = token => io(HOST, { query: token }, {transports: [ 'websocket' ]});
 
 let { token } = store.getState();
 let socket = connect(token);
