@@ -10,6 +10,7 @@ import { setToken } from '../../../actions/authtoken';
 import { REGISTER_MUTATION } from '../../../graphql/mutations/user/register';
 import { addError, clearError } from '../../../actions/error';
 import { login } from '../../../actions/userAction';
+import { history } from '../../../helpers/history';
 
 class RegisterPage extends Component {
     constructor(props) {
@@ -68,8 +69,7 @@ class RegisterPage extends Component {
                 const { success, message, token } = data.result;
                 if (!success) return this.handleError(message);
                 this.setState({submitted: true});
-                this.props.setToken(token);
-                this.props.login(this.state.username.trim(), token);
+                history.push('/login');
             }
         } catch (err) {
             console.log(err);
