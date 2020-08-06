@@ -13,9 +13,6 @@ import { userAction } from "./actions/userAction";
 import jwt_decode from "jwt-decode";
 
 
-// setup mock backend
-// import { configureFakeBackend } from './helpers/mockBackend';
-// configureFakeBackend();
 
 store.dispatch(setToken(window.__JWT_TOKEN__));
 
@@ -31,15 +28,6 @@ const wsLink = new WebSocketLink({
     },
 });
 
-// const subscriptionMiddleware = {
-//     applyMiddleware(options, next) {
-//         const { token } = store.getState();
-//         options.connectionParams = { authToken: token };
-//         next();
-//     },
-// };
-//
-// wsLink.subscriptionClient.use([subscriptionMiddleware]);
 
 // The split function takes three parameters:
 //
@@ -57,47 +45,6 @@ const link = split(
 const cache = new InMemoryCache();
 const client = new ApolloClient({ link: link , cache: cache, connectToDevTools: true });
 
-// if (localStorage.jwtToken) {
-//     // Set auth token header auth
-//     const token = localStorage.jwtToken;
-//     setToken(token);
-//     // Decode token and get user info and exp
-//     const decoded = jwt_decode(token);
-//     console.log(decoded);
-//     // Set user and isAuthenticated
-//     store.dispatch(userAction.setCurrentUser(decoded.email));
-// // Check for expired token
-//     const currentTime = Date.now() / 1000; // to get in milliseconds
-//     if (decoded.exp < currentTime) {
-//         // Logout user
-//         store.dispatch(userAction.logout());
-//         // Redirect to login
-//         window.location.href = "./login";
-//     }
-// }
-
-// import setAuthToken from "./helpers/setAuthToken";
-// import jwt_decode from "jwt-decode";
-// import {userAction} from "./actions/userAction";
-//
-// // Check for token to keep user logged in
-// if (localStorage.jwtToken) {
-//     // Set auth token header auth
-//     const token = localStorage.jwtToken;
-//     setAuthToken(token);
-//     // Decode token and get user info and exp
-//     const decoded = jwt_decode(token);
-//     // Set user and isAuthenticated
-//     store.dispatch(userAction.setCurrentUser(decoded));
-// // Check for expired token
-//     const currentTime = Date.now() / 1000; // to get in milliseconds
-//     if (decoded.exp < currentTime) {
-//         // Logout user
-//         store.dispatch(userAction.logout());
-//         // Redirect to login
-//         window.location.href = "./login";
-//     }
-// }
 
 ReactDOM.render(
     <Provider store={store}>

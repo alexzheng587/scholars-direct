@@ -1,20 +1,11 @@
 const express = require("express");
 const http = require("http");
 const app = express();
-// const socketAuth = require('socketio-auth');
-// const adapter = require('socket.io-redis');
-//
-// const redisAdapter = adapter({
-//     host: process.env.REDIS_HOST || 'localhost',
-//     port: process.env.REDIS_PORT || 6379,
-//     password: process.env.REDIS_PASS || 'password',
-// });
 
 const port = 8080;
 
 const server = http.createServer(app);
 const io = require("socket.io")(server);
-//io.adapter(redisAdapter);
 
 io.sockets.on("error", e => console.log(e));
 io.on('connection', function (socket) {
