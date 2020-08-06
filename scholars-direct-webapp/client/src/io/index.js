@@ -5,7 +5,7 @@ try {
     // when the window is defined
     if (window) getSocket = import('./client');
 } catch (err) {
-    console.log('server side rendering does not allow socket.io-client');
+    console.log('socket not available');
 }
 
 export default (getSocket || null);

@@ -10,10 +10,16 @@ initPassport({ User });
 const app = require('./app').default;
 const mySchema = require('./schema').default;
 const passport = require('passport');
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5000;
+
+const initIO = require('./io').default;
+
+const server = createServer(app);
+app.io = initIO(server);
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 const apolloServer = new ApolloServer({
     schema: mySchema,
@@ -22,7 +28,6 @@ const apolloServer = new ApolloServer({
 
 apolloServer.applyMiddleware({ app, cors: false });
 
-const server = createServer(app);
 apolloServer.installSubscriptionHandlers(server);
 
 /**
@@ -44,7 +49,7 @@ function onListen() {
 function onError(err) {
     if (err.syscall !== 'listen') throw err;
 
-    const bind = typeof port === 'string' ? `Pipe 5000` : `Port 5000`;
+    const bind = typeof port === 'string' ? `Pipe ${PORT}` : `Port ${PORT}`;
 
     switch (err.code) {
         case 'EACCESS':
@@ -63,6 +68,6 @@ function onError(err) {
 server.on('listening', onListen);
 server.on('error', onError);
 server.listen(PORT, () => {
-    console.log(`Server ready at http://localhost:5000${apolloServer.graphqlPath}`);
-    console.log(`Subscriptions ready at ws://localhost:5000${apolloServer.subscriptionsPath}`);
+    console.log(`Server ready at http://localhost:${PORT}${apolloServer.graphqlPath}`);
+    console.log(`Subscriptions ready at ws://localhost:${PORT}${apolloServer.subscriptionsPath}`);
 });

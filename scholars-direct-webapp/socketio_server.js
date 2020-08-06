@@ -42,6 +42,8 @@ function onError(err) {
     }
 }
 
-server.on('listening', onListen);
-server.on('error', onError);
-server.listen(4000);
+export default server;
+
+// server.on('listening', onListen);
+// server.on('error', onError);
+// server.listen(4000);

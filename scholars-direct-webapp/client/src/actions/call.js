@@ -280,6 +280,9 @@ export function startCall(contactId, socketId) {
         dispatch(setCallingContactId(contactId));
         dispatch(setCallingSocketId(socketId));
         dispatch(setCallStatusToCalling());
+        console.log("why is my socket fucked");
+        console.log(socket);
+        console.log(socketId);
         socket.emit(CALL_REQUEST, { toId: socketId });
         setTimeout(() => dispatch(cancelCall(true)), 25e3);
     };

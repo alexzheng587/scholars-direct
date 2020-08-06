@@ -22,6 +22,7 @@ export default {
             })
                 .populate('user1')
                 .populate('user2');
+            console.log(context.req.user._id);
             let currentID = String(context.req.user._id);
             // grab only the user info of the other contact
             for (let idx in contacts) {

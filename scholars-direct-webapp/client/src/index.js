@@ -20,11 +20,12 @@ import jwt_decode from "jwt-decode";
 store.dispatch(setToken(window.__JWT_TOKEN__));
 
 const httpLink = new HttpLink({
-    uri: 'http://localhost:5000/graphql',
+    uri: '/graphql',
     credentials: 'include', // TODO: change for production
 });
+let HOST = window.location.origin.replace(/^http/, 'ws')
 const wsLink = new WebSocketLink({
-    uri: 'ws://localhost:5000/graphql',
+    uri: HOST + '/graphql',
     options: {
         reconnect: true,
     },

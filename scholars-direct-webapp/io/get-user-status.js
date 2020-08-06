@@ -8,6 +8,7 @@ import { getSocketByUserId } from './helpers';
  */
 export default async function getUserStatus(req, res) {
     try {
+        console.log("In getuserstatus");
         const socket = await getSocketByUserId(req.params.userid, req.app.io);
         if (socket) res.json({ status: 'available' });
         else res.json({ status: 'offline' });
