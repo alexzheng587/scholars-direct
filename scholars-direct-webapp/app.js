@@ -7,6 +7,8 @@ import path from 'path';
 import compression from 'compression';
 import cors from 'cors';
 import models from './models';
+const getUserStatus = require('./io/get-user-status').default;
+const getUserSocketId = require('./io/get-user-socketid').default;
 
 const cookieParser = require('cookie-parser');
 
@@ -23,8 +25,8 @@ app.use(morgan('dev'));
 
 // App middleware
 
-app.use(cookieParser("BadSecret"));
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cookieParser("bad_secret"));
+app.use(cors({ credentials: true }));
 
 app.use(session({
     genid: (req) => uuid(),
@@ -38,6 +40,9 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: false, limit: '2mb' }));
 app.use(bodyParser.json({ limit: '5mb' }));
 
+app.get('/user/:userid/status', getUserStatus);
+app.get('/user/:userid/socket-id', getUserSocketId);
+
 app.use(compression());
 app.use(express.static(path.join('.', 'public')));
 
@@ -46,7 +51,7 @@ app.set('view engine', 'pug');
 app.set('views', path.join('.', '/views/'));
 
 if (process.env.NODE_ENV === 'production'){
-    app.use(express.static('client/build'))
+    app.use(express.static('client/build'));
     app.get('*', (req, res) => {
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
     });
