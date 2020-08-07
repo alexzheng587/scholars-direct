@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-import { preferOpus } from '../../../helpers/sdp-helpers';
 import { CallStatuses } from "../../../constants/callStatus";
 import {
     acceptCall,
@@ -209,7 +208,6 @@ class VideoChat extends React.PureComponent {
      */
     setLocalDescriptionAndSendToPeer(description) {
         console.log(description);
-        //description.sdp = preferOpus(description.sdp);
         this.peerConnection.setLocalDescription(description);
         this.props.sendSessionDescription(description);
     }

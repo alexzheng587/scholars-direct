@@ -134,12 +134,12 @@ class Login extends React.Component {
                                         }
                                         <Link to="/register" className="btn btn-link"><Button secondary >Register</Button></Link>
 
-                                        <GoogleLogin id = "googleButton"
-                                                     clientId={config.GOOGLE_CLIENT_ID}
-                                                     buttonText="Login"
-                                                     onSuccess={this.googleResponse}
-                                                     onFailure={this.onFailure}
-                                        />
+                                        {/*<GoogleLogin id = "googleButton"*/}
+                                        {/*             clientId={config.GOOGLE_CLIENT_ID}*/}
+                                        {/*             buttonText="Login"*/}
+                                        {/*             onSuccess={this.googleResponse}*/}
+                                        {/*             onFailure={this.onFailure}*/}
+                                        {/*/>*/}
                                     </div>
                                 </form>
                             </div>
