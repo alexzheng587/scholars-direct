@@ -15,7 +15,7 @@ import { List, Modal, Button, Header,
     Select,} from 'semantic-ui-react'
 import '../../styles/profile.css'
 import {UPDATE_PROFILE} from '../../../graphql/mutations/user/update-profile';
-import {QUERY_USER_ID} from '../../../graphql/queries/user/id';
+import {QUERY_PROFILE} from '../../../graphql/queries/user/profile';
 import {compose} from "redux";
 
 /*
@@ -104,32 +104,31 @@ class Profile extends Component {
     }
 
     async componentDidMount() {
+        // try {
+            if (this.props.auth.google) {
+               //todo
+            } else {
+                let data = {}
+                let obj = await this.props.getUser;
+                console.log(obj);
+                console.log("whatttt");
+                this.setState({ ... this.state,
+                    user: {
+                        fullname: data.fullname,
+                            roles: data.roles,
+                            school: data.school,
+                            year: data.year,
+                            major: data.major,
+                    }
+                }
+                );
 
-        if (this.props.auth.google) {
-            // // TODO
-            // await axios.get(`/auth/google/${id}`).then(info => {
-            //     console.log("Info:", info.data.role)
-            //     if (info) {
-            //         this.setState(... this.state,{
-            //             user: {
-            //                 role, fullname, school, major, year, email
-            //             }
-            //         })
-            //     }
-            // })
-        } else {
-            // // TODO
-            // await this.props.getUser().then(info => {
-            //
-            //     if (info) {
-            //         this.setState(... this.state,{
-            //             user: {
-            //                 role, fullname, school, major, year, email
-            //             }
-            //         })
-            //     }
-            // })
-        }
+            }
+        // } catch (err) {
+        //
+        //     console.log("Errorr13");
+        //     console.log(err);
+        // }
     }
 
     render() {
@@ -345,7 +344,7 @@ Profile.propTypes = {
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
     updateUser:  PropTypes.func,
-    getUser: PropTypes.func
+    getUser: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -361,7 +360,7 @@ const actionCreators = {
 const connectedProfile = compose(
     withApollo,
     connect(mapStateToProps, actionCreators),
-    graphql(QUERY_USER_ID, { name: 'getUser'}),
+    graphql(QUERY_PROFILE, { name: 'getUser'}),
     graphql(UPDATE_PROFILE, { name: 'updateUser'}),
 )(Profile);
 export {connectedProfile as Profile};

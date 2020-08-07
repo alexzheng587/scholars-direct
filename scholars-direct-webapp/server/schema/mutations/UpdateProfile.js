@@ -13,7 +13,8 @@ export default {
         major: { type: GraphQLString },
         year: { type: GraphQLInt },
         role: { type: GraphQLString },
-
+        // // new
+        // id: { type: GraphQLString }
     },
     async resolve(parent, args, context) {
         try {
@@ -22,18 +23,22 @@ export default {
                     "school": args.school,
                     "major": args.major,
                     "year": args.year,
-                    "role": args.role}
+                    "role": args.role,
+                    }
             };
-            ModelUser.findByIdAndUpdate(context.req.user._id,updateOBJ,{new:true},function (err,result) {
-                if (err){
-                    return {"success": false, result: err};
-                } else {
-                    return {"success": true, result:result};
-                }
-            })
+            // await ModelUser.findByIdAndUpdate(context.req.user._id,updateOBJ,{new:true},function (err,result) {
+        // ,function (err,result) {
+        //         if (err){
+        //             return {"success": false, message: err};
+        //         } else {
+        //             return {"success": true, message:result};
+        //         }
+        //     }
+            await ModelUser.findByIdAndUpdate(context.req.user._id,updateOBJ);
+            return {"success": true, message:"OK"};
         } catch (err) {
             console.log(err);
-            return { success: false };
+            return { success: false, message: "Fail" };
         }
     },
 

@@ -1,5 +1,6 @@
 import { GraphQLObjectType } from 'graphql';
 import User from './User';
+import Profile from './Profile';
 import Users from './Users'
 import MessageThread from "./MessageThread";
 import MessageThreads from './MessageThreads';
@@ -16,6 +17,7 @@ export default new GraphQLObjectType({
         MessageThreads,
         Contact,
         Contacts,
-        Questions
+        Questions,
+        Profile
     },
 });

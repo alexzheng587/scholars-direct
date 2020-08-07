@@ -10,7 +10,7 @@ mutation UpdateProfile($fullname: String, $school: String, $major: String, $year
     role: $role
   ) {
     success
-    result
+   
   }
 }`;
 

@@ -9,7 +9,7 @@ import {QUERY_USER_ID} from '../../../graphql/queries/user/id';
 import { QUERY_CONTACTS } from '../../../graphql/queries/contacts/contacts';
 import {QUERY_MESSAGE_THREADS} from "../../../graphql/queries/message-threads/message-threads";
 import {USER_STATUS_CHANGE_SUBSCRIPTION} from '../../../graphql/subscriptions/users/user-status-change';
-import {USER_UPDATE_SUBSCRIPTION} from '../../../graphql/subscriptions/users/update';
+// import {USER_UPDATE_SUBSCRIPTION} from '../../../graphql/subscriptions/users/update';
 import {MESSAGE_CREATED_SUBSCRIPTION} from '../../../graphql/subscriptions/messages/message-created';
 import { history } from '../../../helpers/history';
 
@@ -152,7 +152,7 @@ class PageLayout extends React.PureComponent {
     subscribeToUserUpdates() {
         if (this.userUpdates) this.userUpdates();
         this.userUpdates = this.props.contacts.subscribeToMore({
-            document: USER_UPDATE_SUBSCRIPTION,
+            // document: USER_UPDATE_SUBSCRIPTION,
             variables: {
                 userIds: this.props.contacts.data ? this.props.contacts.data.map(contact => contact.user.id) : [],
             },
