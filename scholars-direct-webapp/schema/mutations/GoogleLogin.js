@@ -3,44 +3,58 @@ import {
     GraphQLObjectType,
     GraphQLBoolean,
 } from 'graphql';
-import jwt from 'jsonwebtoken';
+import { authenticateGoogle } from "../../helper/google-passport";
+import GoogleUser from "../../models/GoogleUser";
 
-const LoginResponse = new GraphQLObjectType({
-    name: 'LoginResponse',
+const GoogleLoginResponse = new GraphQLObjectType({
+    name: 'GoogleLoginResponse',
     fields: {
         success: { type: GraphQLBoolean },
-        message: { type: GraphQLString },
+        name: { type: GraphQLString },
         token: { type: GraphQLString },
     },
 });
 
-
 export default {
-    type: LoginResponse,
+    type: GoogleLoginResponse,
     name: 'GoogleLogin',
     args: {
-        title: { type: GraphQLString },
-        username: { type: GraphQLString },
-        description: { type: GraphQLString },
-        time: { type: GraphQLString },
-        status: { type: GraphQLString },
-        tags: { type: new GraphQLList(GraphQLString) },
+        token: { type: GraphQLString },
     },
-    async resolve(parent, args, context) {
+    async resolve(_, args, { req, res }) {
+        req.body = {
+            ...req.body,
+            access_token: args.token,
+        };
+
         try {
-            let newQuestion = await new ModelQuestion({
-                title: args.title,
-                username: args.username,
-                description: args.description,
-                time: args.time,
-                status: args.status,
-                tags: args.tags
-            });
-            newQuestion = await newQuestion.save();
-            return newQuestion;
+            const { data, info } = await authenticateGoogle(req, res);
+
+            if (data) {
+                const user = await GoogleUser.upsertGoogleUser(data);
+
+                if (user) {
+                    return ({
+                        success: true,
+                        name: user.name,
+                        token: user.generateJWT(),
+                    });
+                }
+            }
+
+            if (info) {
+                console.log(info);
+                switch (info.code) {
+                    case 'ETIMEDOUT':
+                        return { success: false, message: 'Something went wrong logging you in' };
+                    default:
+                        return { success: false, message: 'Something went wrong logging you in' };
+                }
+            }
+            return { success: false, message: 'Something went wrong logging you in' };
         } catch (err) {
             console.log(err);
-            return null;
+            return { success: false, message: 'Something went wrong logging you in' };
         }
     },
 };

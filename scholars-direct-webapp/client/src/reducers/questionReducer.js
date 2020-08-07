@@ -36,6 +36,7 @@ export const questions = (state = initialState, action) => {
                 ...state,
                 questionList: state.questionList.concat({
                     _id: action._id,
+                    userId: action.userId,
                     title: action.title,
                     username: action.username,
                     description: action.description,

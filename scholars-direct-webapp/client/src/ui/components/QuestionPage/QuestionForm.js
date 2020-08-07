@@ -14,6 +14,7 @@ import {ADD_QUESTION_MUTATION} from "../../../graphql/mutations/question/add-que
 
 let initialState = {
     title: "",
+    userId: "",
     username: "",
     description: "",
     time: "",
@@ -34,6 +35,12 @@ class QuestionForm extends React.Component {
         this.handleAddQuestion = this.handleAddQuestion.bind(this);
     }
 
+    componentDidMount() {
+        this.setState({
+            userId: this.props.currentUserId
+        });
+    }
+
     async handleSubmit(e) {
         if (e.key === 'Enter') {
             return;
@@ -45,7 +52,6 @@ class QuestionForm extends React.Component {
         const t = this.state.tags;
 
         if (s && u && d && d.length > 150 && t.length > 0) {
-            //this.props.addQuestion(this.state);
             await this.handleAddQuestion(this.state);
             this.setState(initialState);
         }
@@ -143,7 +149,10 @@ const mapStateToProps = (state) => {
     return {
         questions: state.questions.questionList,
         isQuestionsLoading: state.questions.isQuestionsLoading,
-        questionError: state.questions.questionError
+        questionError: state.questions.questionError,
+        loggedIn: state.authentication.loggedIn,
+        currentUser: state.authentication.user,
+        currentUserId: state.authentication.userId
     }
 };
 

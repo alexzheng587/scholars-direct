@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import '../../styles/video-chat-track-toggle.css';
-
+import { Button } from 'semantic-ui-react';
 /**
  * @class TrackToggle
  * @extends {React.PureComponent}
@@ -38,33 +38,12 @@ class TrackToggle extends React.PureComponent {
     render() {
         return (
             <div className="video-chat-controller-track-toggle">
-                <button
-                    className={this.props.trackEnabled ? '' : 'track-disabled'}
+                <Button
+                    circular icon={this.props.trackEnabled ? this.props.iconName : this.props.iconNameActive}
                     onClick={this.props.onPress}
                     onMouseEnter={this.showInstructions}
                     onMouseLeave={this.hideInstructions}
-                >
-                    <i
-                        className={classNames(
-                            'fa',
-                            `fa-${this.props.iconName}`,
-                        )}
-                    />
-                    {!this.props.trackEnabled && (
-                        <svg viewBox="0 0 50 50">
-                            <path
-                                className="shadow"
-                                strokeWidth="3"
-                                d="M 0 2 L 50 52"
-                            />
-                            <path
-                                className="red-strike"
-                                strokeWidth="2"
-                                d="M 0 0 L 50 50"
-                            />
-                        </svg>
-                    )}
-                </button>
+                />
                 {this.state.instructionsVisible && (
                     <div className="explainer">
                         {this.props.trackEnabled ? 'Disable' : 'Enable'} {this.props.track}
@@ -77,6 +56,7 @@ class TrackToggle extends React.PureComponent {
 
 TrackToggle.propTypes = {
     iconName: PropTypes.string,
+    iconNameActive: PropTypes.string,
     onPress: PropTypes.func,
     trackEnabled: PropTypes.bool,
     track: PropTypes.string,

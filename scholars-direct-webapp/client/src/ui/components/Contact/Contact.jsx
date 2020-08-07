@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { addError, clearError } from '../../../actions/error';
 import { startCall } from '../../../actions/call';
 import UserInfo from './UserInfo';
+import { Button, Icon } from 'semantic-ui-react';
 
 import '../../styles/contact.css';
 
@@ -56,9 +57,9 @@ class Contact extends React.PureComponent {
                 <UserInfo {...this.props.user} />
                 <div className="controls display-flex align-items-center">
                     {this.props.user.status === 'available' && (
-                        <button onClick={this.callContact}>
-                            <i className="fa fa-video-camera" />
-                        </button>
+                        <Button icon onClick={this.callContact}>
+                            <Icon name='video' />
+                        </Button>
                     )}
                     {/*<button onClick={this.openTextChat}>*/}
                     {/*    <i className="fa fa-comments" />*/}

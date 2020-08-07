@@ -14,6 +14,7 @@ const ContactSchema = new Schema({
         type: Schema.Types.ObjectID,
         ref: 'User'
     },
+    senderMessage: String,
     lastInteractedAt: Date,
     createdAt: Date,
     updatedAt: Date,

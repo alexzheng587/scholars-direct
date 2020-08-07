@@ -11,18 +11,3 @@
 .align-items-center {
     align-items: center;
 }
-
-.status-indicator {
-    border-radius: 50%;
-    height: 7px;
-    margin-right: 10px;
-    width: 7px;
-}
-.status-indicator.offline {
-    background: none;
-    border: 1px solid ;
-}
-.status-indicator.available {
-    background: green;
-    border: 1px solid ;
-}

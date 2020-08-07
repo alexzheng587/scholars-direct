@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Button } from 'semantic-ui-react';
 
 import { setCallStatusToTesting } from '../../../actions/call';
 
 import '../../styles/video-chat-available.css';
-
 /**
  * @class Available
  * @extends {React.PureComponent}
@@ -40,9 +40,9 @@ class Available extends React.PureComponent {
                     &nbsp;
                     icon to start a call with a contact who is online.
                 </div>
-                <button className="webchat-button" onClick={this.startTest}>
+                <Button onClick={this.startTest}>
                     TEST VIDEO
-                </button>
+                </Button>
             </div>
         );
     }

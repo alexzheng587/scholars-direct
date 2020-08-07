@@ -22,7 +22,6 @@ export default {
             const user = await UserModel.findOne({_id: args.requestId});
             if (!user) return { success: false, message: 'No user found' };
 
-            console.log(args.requestId);
             const previousContact = await ContactModel.find({
                 $or: [
                     {
@@ -58,7 +57,6 @@ export default {
             await pubsub.publish(CONTACT_REQUEST_ACCEPTED, {
                 user1: context.req.user._id,
                 user2: args.requestId,
-                //senderMessage: args.requestMessage
             });
 
             return {

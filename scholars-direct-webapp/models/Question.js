@@ -5,6 +5,9 @@ const questionSchema = new Schema({
     title: {
         type: String
     },
+    userId: {
+        type: String
+    },
     username: {
         type: String
     },

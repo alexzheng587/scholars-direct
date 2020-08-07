@@ -13,6 +13,11 @@ export default new GraphQLObjectType({
             description: "unique ID of the question",
             resolve: question => question._id,
         },
+        userId: {
+            type: GraphQLString,
+            description: "unique ID of the user of the question",
+            resolve: question => question.userId,
+        },
         title: {
             type: GraphQLString,
             description: "Title of the question",

@@ -11,6 +11,7 @@ import DeleteQuestion from "./DeleteQuestion";
 import ChangeStatus from "./ChangeStatus";
 import AddContact from "./AddContact";
 import CreateMessageThread from "./CreateMessageThread";
+import GoogleLogin from "./GoogleLogin";
 
 export default new GraphQLObjectType({
     name: 'MutationRoot',
@@ -26,6 +27,7 @@ export default new GraphQLObjectType({
         DeleteQuestion,
         ChangeStatus,
         AddContact,
-        CreateMessageThread
+        CreateMessageThread,
+        GoogleLogin
     },
 });
