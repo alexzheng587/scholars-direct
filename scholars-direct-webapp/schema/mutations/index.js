@@ -9,6 +9,8 @@ import CreateMessage from "./CreateMessage";
 import AddQuestion from "./AddQuestion";
 import DeleteQuestion from "./DeleteQuestion";
 import ChangeStatus from "./ChangeStatus";
+import AddContact from "./AddContact";
+import CreateMessageThread from "./CreateMessageThread";
 
 export default new GraphQLObjectType({
     name: 'MutationRoot',
@@ -22,6 +24,8 @@ export default new GraphQLObjectType({
         CreateMessage,
         AddQuestion,
         DeleteQuestion,
-        ChangeStatus
+        ChangeStatus,
+        AddContact,
+        CreateMessageThread
     },
 });

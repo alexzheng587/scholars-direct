@@ -26,6 +26,13 @@ export default {
             .populate('user1')
             .populate('user2')
             .exec();
+        let currentID = String(context.req.user._id);
+        // grab only the user info of the other contact
+        if (String(thread.user1._id) === currentID)
+            thread.user1 = undefined;
+        if (String(thread.user2._id) === currentID)
+            thread.user2 = undefined;
+
         return thread;
     },
 };

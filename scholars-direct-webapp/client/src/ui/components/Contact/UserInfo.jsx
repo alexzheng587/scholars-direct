@@ -1,5 +1,6 @@
 import React from 'react';
 import { string } from 'prop-types';
+import classNames from 'classnames';
 import '../../styles/user-info.css';
 
 /**
@@ -15,6 +16,9 @@ class UserInfo extends React.PureComponent {
         return (
             <div className="display-flex align-items-center">
                 <div className="flex-column">
+                    {Boolean(this.props.status) && (
+                        <div className={classNames('status-indicator', this.props.status)} />
+                    )}
           <span className="username">
             {this.props.username}
           </span>

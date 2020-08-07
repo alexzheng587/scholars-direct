@@ -16,11 +16,12 @@ export default {
         try {
             const thread = await MessageThreadModel.findById(threadId);
             if (!thread) throw new Error(`No message thread with id: ${threadId}`);
+            let recipient = String(thread.user1) === String(context.req.user._id) ? thread.user2 : thread.user1;
             let message = await new MessageModel({
                 body: body,
                 thread_id: threadId,
                 sender_id: context.req.user._id,
-                recipient_id: thread.user1 === context.req.user._id ? thread.user2 : thread.user1,
+                recipient_id: recipient,
                 createdAt: new Date(),
             });
             thread.messages.push(message);
@@ -30,23 +31,7 @@ export default {
             await ContactModel.updateOne({_id: thread.contactId}, { $set: {lastInteractedAt: new Date()}});
             console.log(thread);
             console.log(message);
-            // await models.sequelize.transaction(async (transaction) => {
-            //     message = await models.message.create(
-            //         {
-            //             body,
-            //             thread_id: threadId,
-            //             sender_id: req.user.id,
-            //             recipient_id: thread.user_1 === req.user.id ? thread.user_2 : thread.user_1,
-            //         },
-            //         { transaction }
-            //     );
-            //     thread.lastMessageAt = new Date();
-            //     await thread.save({ transaction });
-            //     await models.contact.update(
-            //         { lastInteractedAt: new Date() },
-            //         { where: { id: thread.contact_id }, transaction },
-            //     );
-            // });
+
             pubsub.publish(MESSAGE_CREATED, {
                 user1: message.sender_id,
                 user2: message.recipient_id,
