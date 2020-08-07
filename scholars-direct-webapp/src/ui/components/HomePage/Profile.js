@@ -98,12 +98,10 @@ class Profile extends Component {
     }
 
     async componentDidMount() {
-        // try {
 
         if (this.props.auth.google) {
             //todo
         } else {
-            let data = {}
             let obj = await this.props.getUser.refetch();
 
             this.setState({ ... this.state,
@@ -113,15 +111,14 @@ class Profile extends Component {
                         school: this.props.getUser.data.school,
                         year: this.props.getUser.data.year,
                         major: this.props.getUser.data.major,
+                        // new
+                        email: this.props.getUser.data.email,
                     }
                 }
             );
 
         }
-        // } catch (err) {
 
-        //     console.log(err);
-        // }
     }
 
     render() {
@@ -139,13 +136,13 @@ class Profile extends Component {
                                     <List.Description as='a'>{this.state.user.fullname}</List.Description>
                                 </List.Content>
                             </List.Item>
-                            {/*<List.Item>*/}
-                            {/*    <List.Icon name='mail outline' size='big' verticalAlign='middle' />*/}
-                            {/*    <List.Content>*/}
-                            {/*        <List.Header as='a'>Email</List.Header>*/}
-                            {/*        <List.Description as='a'>{this.state.user.email}</List.Description>*/}
-                            {/*    </List.Content>*/}
-                            {/*</List.Item>*/}
+                            <List.Item>
+                                <List.Icon name='mail outline' size='big' verticalAlign='middle' />
+                                <List.Content>
+                                    <List.Header as='a'>Email</List.Header>
+                                    <List.Description as='a'>{this.state.user.email}</List.Description>
+                                </List.Content>
+                            </List.Item>
                             <List.Item>
                                 <List.Icon name='book' size='big' verticalAlign='middle' />
                                 <List.Content>
@@ -178,9 +175,6 @@ class Profile extends Component {
                         >
                             <Modal.Header>Edit Your Profile</Modal.Header>
                             <Modal.Content>
-                                {/*<Modal.Description>*/}
-                                {/*    <Header>Edit Your Profile</Header>*/}
-                                {/*</Modal.Description>*/}
                                 <Form onSubmit={this.handleSubmit}>
                                     <Form.Field required
                                                 control={Input}
@@ -306,17 +300,6 @@ const InputText = styled.input.attrs({
     margin: 5px;
 `
 
-// const Button = styled.button.attrs({
-//     className: `btn btn-primary`,
-// })`
-//     margin: 15px 15px 15px 5px;
-// `
-//
-// const CancelButton = styled.a.attrs({
-//     className: `btn btn-danger`,
-// })`
-//     margin: 15px 15px 15px 5px;
-// `
 Profile.propTypes = {
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
@@ -336,7 +319,6 @@ const actionCreators = {
 
 };
 
-// const connectedProfile = connect(mapStateToProps, actionCreators)(Profile);
 const connectedProfile = compose(
     withApollo,
     connect(mapStateToProps, actionCreators),

@@ -92,26 +92,9 @@ class RegisterPage extends Component {
                     <br></br>
                 <form onSubmit={this.handleSubmit}>
 
-                    <div className="form-group">
-                        <label htmlFor="email">Email:</label>
-                        <input type="email"
-                               name="email"
-                               value={user.email}
-                               onChange={this.handleChange}
-                               error={errors.email}
-                               required
-                        />
-                        {errors.errors && errors.errors.email &&
-                        <div className="invalid">
-                            {errors.errors.email}
-                        </div>
-                        }
 
-                    </div>
-                    <br></br>
-                    <br></br>
                     <div className="form-group">
-                        <label htmlFor="name">Name:</label>
+                        <label htmlFor="name">Username:</label>
                         <input type="text"
                                name="name"
                                value={user.name}
@@ -155,6 +138,24 @@ class RegisterPage extends Component {
                             {errors.errors.password2}
                         </div>
                         }
+                    </div>
+                    <br></br>
+                    <br></br>
+                    <div className="form-group">
+                        <label htmlFor="email">Email:</label>
+                        <input type="email"
+                               name="email"
+                               value={user.email}
+                               onChange={this.handleChange}
+                               error={errors.email}
+                               required
+                        />
+                        {errors.errors && errors.errors.email &&
+                        <div className="invalid">
+                            {errors.errors.email}
+                        </div>
+                        }
+
                     </div>
                     <br></br>
                     <br></br>

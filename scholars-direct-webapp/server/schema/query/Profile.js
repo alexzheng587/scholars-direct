@@ -6,14 +6,6 @@ export default {
     name: 'Profile',
     async resolve(parent, args, context) {
         try {
-            // await ModelUser.findById(context.req.user._id, function(err, result){
-            //     if (err){
-            //         console.log(err);
-            //         return null;
-            //     } else {
-            //         return result;
-            //     }
-            // })
             console.log(context.req.user._id);
             const thing = await ModelUser.findById(context.req.user._id);
             return thing;
