@@ -18,10 +18,30 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    userType: {
+    role: {
         type: String,
         required: true,
+        default: 'none'
     },
+
+    // new informations
+    school: {
+        type: String,
+        default: 'none'
+    },
+    major: {
+        type: String,
+        default: 'none'
+    },
+    year: {
+        type: Number,
+        default: 0
+    },
+    fullname: {
+        type: String,
+        default: 'none'
+    },
+
     lastInteractedAt: Date,
     createdAt: Date,
     updatedAt: Date,
