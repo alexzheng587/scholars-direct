@@ -13,6 +13,7 @@ export default {
     async resolve({ messageId }) {
         try {
             console.log("Message created subscription");
+            console.log(messageId);
             const message = await MessageModel.findById(messageId);
             return message;
         } catch (err) {
