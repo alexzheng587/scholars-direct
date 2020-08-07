@@ -8,21 +8,21 @@ export default {
     type: MutationResponse,
     name: 'UpdateProfile',
     args: {
-        newFullname: { type: GraphQLString },
-        newSchool: { type: GraphQLString },
-        newMajor: { type: GraphQLString },
-        newYear: { type: GraphQLInt },
-        newRole: { type: GraphQLString },
+        fullname: { type: GraphQLString },
+        school: { type: GraphQLString },
+        major: { type: GraphQLString },
+        year: { type: GraphQLInt },
+        role: { type: GraphQLString },
 
     },
     async resolve(parent, args, context) {
         try {
             let updateOBJ ={ "$set": {
-                "fullname": args.newFullname,
-                    "school": args.newSchool,
-                    "major": args.newMajor,
-                    "year": args.newYear,
-                    "role": args.newRole}
+                "fullname": args.fullname,
+                    "school": args.school,
+                    "major": args.major,
+                    "year": args.year,
+                    "role": args.role}
             };
             ModelUser.findByIdAndUpdate(context.req.user._id,updateOBJ,{new:true},function (err,result) {
                 if (err){
