@@ -73,8 +73,8 @@ Colin: I was responsible for the main question view of the webpage, including im
 
 Alexander: I contributed to the video calling portion of the app by creating a socketio signaling server and writing the code that sets up the WebRTC connection. I also implemented a live messaging service with graphql subscriptions. Finally, I figured out how to deploy everything to heroku and get the backend and frontend working together
 
-Jialin: Worked on UI related to sending contacts and profile page
+Jialin: I have worked on some frontend components and backend routes, such as homedashboard, routes, but my main contribution is the profile Page, which includes building the frontend components using react framework and ui libraries including material-ui and sematic-ui, setting up a database model for profile and backend api routes to query and update presonal profile using mongoose and graphql, and lastly connecting frontend to backend.
 
-Pengwei: Assisted with authentication workflow and helped with dashboard UI and Profile page
+Pengwei: I mainly focused on authentication. It includes login and registration for frontend and backend. Also, I add google Oauth to support google login. And I deploy project into heroku.
 
 ---
