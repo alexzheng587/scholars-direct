@@ -64,15 +64,17 @@ We implemented online video calling technology in our project using WebRTC. It a
 
 The next step would be including a private shared whiteboard for users that are calling each other, and the ability to share screens.
 Another good addition would be enabling a rating system so every student can rank their tutor after a session to promote better tutoring..
+
 ---
+
 **Team Contributions:**
 
 Colin: I was responsible for the main question view of the webpage, including implementing adding questions and filtering questions by tabs, as well as the majority of the frontend direction, including the UI and setting up the general React/Redux structure. Also worked on backend endpoints/operations related to handling questions and contacts and also organized documentation.
 
 Alexander: I contributed to the video calling portion of the app by creating a socketio signaling server and writing the code that sets up the WebRTC connection. I also implemented a live messaging service with graphql subscriptions. Finally, I figured out how to deploy everything to heroku and get the backend and frontend working together
 
-Jialin:
+Jialin: Worked on UI related to sending contacts and profile page
 
-Pengwei: 
+Pengwei: Assisted with authentication workflow and helped with dashboard UI and Profile page
 
 ---
