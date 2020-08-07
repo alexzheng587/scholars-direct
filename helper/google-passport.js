@@ -10,8 +10,7 @@ const GoogleTokenStrategyCallback = (accessToken, refreshToken, profile, done) =
 
 passport.use(new GoogleTokenStrategy({
     clientID: keys.googleAuth.clientID,
-    clientSecret: keys.googleAuth.clientSecret,
-    proxy: true
+    clientSecret: keys.googleAuth.clientSecret
 }, GoogleTokenStrategyCallback));
 
 export const authenticateGoogle = (req, res) => new Promise((resolve, reject) => {

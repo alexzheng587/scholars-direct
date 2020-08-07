@@ -155,6 +155,7 @@ class Header extends React.Component {
                                     onClose={this.handleClose}
                                 >
                                     <MenuItem onClick={this.redirectToProfile}>Profile</MenuItem>
+                                    <MenuItem onClick={this.handleClose}>My account</MenuItem>
                                     <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
                                 </Menu>
                             </section>
