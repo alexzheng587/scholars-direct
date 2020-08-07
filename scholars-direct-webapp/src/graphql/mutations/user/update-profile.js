@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 export const UPDATE_PROFILE = gql`
-mutation UpdateUser($fullname: String, $school: String, $major: String, $year: number, $role: String) {
+mutation UpdateUser($fullname: String, $school: String, $major: String, $year: Int, $role: String) {
   result: UpdateUser(
     fullname: $fullname,
     school: $school,
