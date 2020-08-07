@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from '@apollo/client/react/hoc';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { Button } from 'semantic-ui-react';
 
 import { CALLING_CONTACT_QUERY } from '../../../graphql/queries/contacts/calling-contact';
 import { CallStatuses } from "../../../constants/callStatus";
@@ -104,12 +105,11 @@ class Calling extends React.PureComponent {
                             }
                         </div>
                         {this.props.status === CallStatuses.Calling && (
-                            <button
-                                className="hangup-button"
+                            <Button
                                 onClick={this.cancelCall}
                             >
                                 CANCEL
-                            </button>
+                            </Button>
                         )}
                     </div>
                 )}

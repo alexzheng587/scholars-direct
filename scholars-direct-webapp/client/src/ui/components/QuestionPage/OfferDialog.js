@@ -63,7 +63,7 @@ class OfferDialog extends React.Component {
                 requestMessage: this.state.message,
             }
         });
-        if (!data.result) {
+        if (data.result) {
             await this.props.changeStatus({
                 variables: {
                     questionId: this.props.id,
@@ -72,8 +72,6 @@ class OfferDialog extends React.Component {
             });
         }
         this.handleClose();
-
-
     }
 
     render() {

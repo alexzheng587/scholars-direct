@@ -13,9 +13,6 @@ import { userAction } from "./actions/userAction";
 import jwt_decode from "jwt-decode";
 
 
-// setup mock backend
-// import { configureFakeBackend } from './helpers/mockBackend';
-// configureFakeBackend();
 
 store.dispatch(setToken(window.__JWT_TOKEN__));
 

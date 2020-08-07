@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { graphql } from '@apollo/client/react/hoc';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { Button } from 'semantic-ui-react';
 
 import { CALLING_CONTACT_QUERY } from '../../../graphql/queries/contacts/calling-contact';
 import { CallStatuses } from "../../../constants/callStatus";
@@ -99,18 +100,18 @@ class ReceivingCall extends React.PureComponent {
               {this.props.callingContact.data.user.username} wants to chat!
             </div>
             <div className="display-flex justify-content-center">
-              <button
-                className="accept-button"
+              <Button
+                circular
                 onClick={this.acceptCall}
               >
                 Accept
-              </button>
-              <button
-                className="hangup-button"
+              </Button>
+              <Button
+                  circular
                 onClick={this.ignoreCall}
               >
                 Ignore
-              </button>
+              </Button>
             </div>
           </div>
         )}

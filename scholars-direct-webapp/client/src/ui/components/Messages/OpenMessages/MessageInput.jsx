@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
-import {TextArea} from 'semantic-ui-react';
+import {TextArea, Button} from 'semantic-ui-react';
 import Promise from 'bluebird';
 import { graphql, withApollo } from '@apollo/client/react/hoc';
 import { compose } from 'redux';
@@ -147,13 +147,12 @@ class MessageInput extends React.PureComponent {
                         id="textarea"
                     />
                     <div className="message-send-button-container display-flex justify-content-center">
-                        <button
+                        <Button
+                            icon='send' size='tiny'
                             className="message-send-button"
                             disabled={!this.state.message.trim()}
                             onClick={this.handleSubmit}
-                        >
-                            <i className="fa fa-send" />
-                        </button>
+                        />
                     </div>
                 </div>
             </div>

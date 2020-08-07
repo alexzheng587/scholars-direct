@@ -14,7 +14,6 @@ import { login, googleLogin } from '../../../actions/userAction';
 import { LOGIN_MUTATION } from '../../../graphql/mutations/user/login';
 import { GOOGLE_LOGIN_MUTATION } from '../../../graphql/mutations/user/google-login';
 import { compose } from 'redux';
-import {role} from '../../../constants/role';
 import { GoogleLogin } from 'react-google-login';
 import config from '../../../config.json';
 
@@ -70,9 +69,7 @@ class Login extends React.Component {
             });
         }
     }
-    onFailure = (error) => {
-        alert(error);
-    };
+
     handleChange(e) {
         const {name, value} = e.target;
         this.setState({[name]: value});
@@ -101,20 +98,6 @@ class Login extends React.Component {
         await new Promise(resolve => this.setState({ loading: false }, resolve));
         return this.props.addError(error);
     }
-
-    // componentWillReceiveProps(nextProps, nextContext) {
-    //     console.log(nextProps);
-    //     if (nextProps.auth.loggedIn) {
-    //         console.log("Logged in");
-    //         history.push("/"); // push user to dashboard when they login
-    //     }
-    // }
-
-    // componentDidUpdate() {
-    //     if (this.props.auth.loggedIn) {
-    //         history.push("/");
-    //     }
-    // }
 
     render() {
         //const {alert} = this.props;

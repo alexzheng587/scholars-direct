@@ -52,6 +52,9 @@ class PageLayout extends React.PureComponent {
         this.subscribeToStatusChanges();
         this.subscribeToNewMessages();
         this.subscribeToUserUpdates();
+        if (!this.props.auth.loggedIn) {
+            history.push('/login');
+        }
     }
     /**
      * @param {Object} props before update
