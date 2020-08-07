@@ -15,6 +15,7 @@ import { LOGIN_MUTATION } from '../../../graphql/mutations/user/login';
 import { GOOGLE_LOGIN_MUTATION } from '../../../graphql/mutations/user/google-login';
 import { compose } from 'redux';
 import { GoogleLogin } from 'react-google-login';
+import {Item, Button} from 'semantic-ui-react';
 import config from '../../../config.json';
 
 class Login extends React.Component {
@@ -127,22 +128,20 @@ class Login extends React.Component {
                                         }
                                     </div>
                                     <div className="form-group">
-                                        <button className="btn btn-primary">Login</button>
+                                        <Button primary >Login</Button>
                                         {loggingIn &&
                                         <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                                         }
-                                        <Link to="/register" className="btn btn-link">Register</Link>
+                                        <Link to="/register" className="btn btn-link"><Button secondary >Register</Button></Link>
 
+                                        <GoogleLogin id = "googleButton"
+                                                     clientId={config.GOOGLE_CLIENT_ID}
+                                                     buttonText="Login"
+                                                     onSuccess={this.googleResponse}
+                                                     onFailure={this.onFailure}
+                                        />
                                     </div>
                                 </form>
-                                <div>
-                                    <GoogleLogin
-                                        clientId={config.GOOGLE_CLIENT_ID}
-                                        buttonText="Login"
-                                        onSuccess={this.googleResponse}
-                                        onFailure={this.onFailure}
-                                    />
-                                </div>
                             </div>
                         </div>
                     </div>

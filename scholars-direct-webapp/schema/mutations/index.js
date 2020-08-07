@@ -3,6 +3,7 @@ import Login from './Login';
 import Logout from './Logout';
 import SignupUser from "./Signup";
 import Updateuser from "./Updateuser";
+import UpdateProfile from "./UpdateProfile";
 import ReadMessage from "./ReadMessage";
 import UserTyping from "./UserTyping";
 import CreateMessage from "./CreateMessage";
@@ -28,6 +29,7 @@ export default new GraphQLObjectType({
         ChangeStatus,
         AddContact,
         CreateMessageThread,
-        GoogleLogin
+        GoogleLogin,
+        UpdateProfile
     },
 });
