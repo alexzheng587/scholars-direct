@@ -4,133 +4,271 @@ import {userAction} from "../../../actions/userAction";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import axios from 'axios'
+import { List, Modal, Button, Header,
+    Form,
+    Input,
+    Select,} from 'semantic-ui-react'
+import '../../styles/profile.css'
+
+ /*
+ TODO :
+    - handleSubmit: PUT user info
+    - fetch GET user info, update both profile and form placeholder.
+    - handle Google OAth case: (ie: email cannot be changed)
+
+    - bug: unable to show default value in select drop down
+    - validate email on form submit?
 
 
-
+ */
 class Profile extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             user: {
-                name: "",
-                email: "",
-                birthday: null,
-                role:""
+                fullname: "none",
+                email: "none",
+                role: "none",
+                school: "none",
+                major: "none",
+                year: 0,
+
             },
-            submitted: false,
             google:false,
-            errors: {}
+            errors: {},
+            open: false
         };
+        this.setOpen = this.setOpen.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        // this.handleSubmit = this.handleSubmit.bind(this);
     }
+    setOpen(bool) {
 
-    componentWillReceiveProps(nextProps, nextContext) {
-
-        if (nextProps.errors) {
-            this.setState({
-                errors: nextProps.errors
-            });
-        }
+        this.setState({
+            ...this.state, open: bool
+        });
     }
+    // componentWillReceiveProps(nextProps, nextContext) {
+    //     if (nextProps.errors) {
+    //         this.setState({
+    //             errors: nextProps.errors
+    //         });
+    //     }
+    // }
 
     handleChange(event) {
         const {name, value} = event.target;
-        const {user} = this.state;
-        this.setState({
-            user: {
-                ...user,
-                [name]: value
-            }
-        });
+        const some = this.state;
+        const some2 = this.state.user;
+        this.setState({ ...this.state,user: { ...this.state.user, [name]: value}});
+
     }
 
-    async handleSubmit(event) {
-        event.preventDefault();
-        this.setState({submitted: true});
-        const id = this.props.auth.user.id
-        const {name, birthday, role} = this.state.user
-        if (name && role) {
-            if (this.props.auth.google) {
-                const payload = {name, birthday, role}
-                await axios.put(`/auth/google/${id}`, payload).then(res => {
-                    this.setState({
-                        user: {
-                            name: name,
-                            role: role
-                        }
-                    })
-                })
-            }else{
-                const payload = {name, birthday, role}
-                await axios.put(`/users/${id}`, payload).then(res => {
-                    this.setState({
-                        user: {
-                            name: name,
-                            role: role
-                        }
-                    })
-                })
-            }
-        }
-    }
-
-    async componentDidMount() {
-        const id = this.props.auth.user.id
-        if (this.props.auth.google) {
-            await axios.get(`/auth/google/${id}`).then(info => {
-                console.log("Info:", info.data.role)
-                if (info) {
-                    this.setState({
-                        user: {
-                            name: info.data.name,
-                            role: info.data.role
-                        }
-                    })
-                }
-            })
-        } else {
-            await axios.get(`/users/${id}`).then(info => {
-                console.log("Info:", info.data.role)
-                if (info) {
-                    this.setState({
-                        user: {
-                            name: info.data.name,
-                            role: info.data.role
-                        }
-                    })
-                }
-            })
-        }
-    }
+    // async handleSubmit(event) {
+    //     event.preventDefault();
+    //     const id = this.props.auth.user.id
+    //     const {name, birthday, role} = this.state.user
+    //     if (name && role) {
+    //         if (this.props.auth.google) {
+    //             const payload = {name, birthday, role}
+    //             await axios.put(`/auth/google/${id}`, payload).then(res => {
+    //                 this.setState({
+    //                     user: {
+    //                         name: name,
+    //                         role: role
+    //                     }
+    //                 })
+    //             })
+    //         }else{
+    //             const payload = {name, birthday, role}
+    //             await axios.put(`/users/${id}`, payload).then(res => {
+    //                 this.setState({
+    //                     user: {
+    //                         name: name,
+    //                         role: role
+    //                     }
+    //                 })
+    //             })
+    //         }
+    //     }
+    // }
+    //
+    // async componentDidMount() {
+    //     const id = this.props.auth.user.id
+    //     if (this.props.auth.google) {
+    //         // TODO
+    //         await axios.get(`/auth/google/${id}`).then(info => {
+    //             console.log("Info:", info.data.role)
+    //             if (info) {
+    //                 this.setState(... this.state,{
+    //                     user: {
+    //                         role, fullname, school, major, year, email
+    //                     }
+    //                 })
+    //             }
+    //         })
+    //     } else {
+    //         // TODO
+    //         await axios.get(`/users/${id}`).then(info => {
+    //             console.log("Info:", info.data.role)
+    //             if (info) {
+    //                 this.setState(... this.state,{
+    //                     user: {
+    //                         role, fullname, school, major, year, email
+    //                     }
+    //                 })
+    //             }
+    //         })
+    //     }
+    // }
 
     render() {
 
-        const {user, submitted,errors} = this.state;
-        console.log("state:",this.state)
-        console.log("user:",user)
+        // const {user,errors} = this.state;
+        // console.log("state:",this.state)
+        // console.log("user:",user)
 
         return (
             <Content>
-                <form onSubmit={this.handleSubmit}>
+                <h2>Personal Profile</h2>
+                <List relaxed id="profile-list">
+                    <List.Item>
+                        <List.Icon name='drivers license' size='big' verticalAlign='middle' />
+                        <List.Content>
+                            <List.Header as='a'>Full Name</List.Header>
+                            <List.Description as='a'>{this.state.user.fullname}</List.Description>
+                        </List.Content>
+                    </List.Item>
+                    <List.Item>
+                        <List.Icon name='mail outline' size='big' verticalAlign='middle' />
+                        <List.Content>
+                            <List.Header as='a'>Email</List.Header>
+                            <List.Description as='a'>{this.state.user.email}</List.Description>
+                        </List.Content>
+                    </List.Item>
+                    <List.Item>
+                        <List.Icon name='book' size='big' verticalAlign='middle' />
+                        <List.Content>
+                            <List.Header as='a'>School</List.Header>
+                            <List.Description as='a'>{this.state.user.school} (Year {this.state.user.year})</List.Description>
+                        </List.Content>
+                    </List.Item>
+                    <List.Item>
+                        <List.Icon name='book' size='big' verticalAlign='middle' />
+                        <List.Content>
+                            <List.Header as='a'>Major</List.Header>
+                            <List.Description as='a'>{this.state.user.major}</List.Description>
+                        </List.Content>
+                    </List.Item>
+                    <List.Item>
+                        <List.Icon name='address book' size='big' verticalAlign='middle' />
+                        <List.Content>
+                            <List.Header as='a'>Role</List.Header>
+                            <List.Description as='a'>{this.state.user.role}</List.Description>
+                        </List.Content>
+                    </List.Item>
+                </List>
 
-                    <Label>Name: </Label>
-                    <InputText
-                        name="name"
-                        type="text"
-                        value={user.name}
-                        onChange={this.handleChange}
-                    />
-                    <Label>Role: </Label>
-                    <InputText
-                        name="role"
-                        type="text"
-                        value={user.role}
-                    />
-                    <br></br>
-                    <Button>Update</Button>
-                </form>
+                <Modal
+                    centered = {true}
+                    onClose={() => this.setOpen(false)}
+                    onOpen={() => this.setOpen(true)}
+                    open={this.state.open}
+                    trigger={<Button>Show Modal</Button>}
+                >
+                    <Modal.Header>Edit Your Profile</Modal.Header>
+                    <Modal.Content>
+                        {/*<Modal.Description>*/}
+                        {/*    <Header>Edit Your Profile</Header>*/}
+                        {/*</Modal.Description>*/}
+                        <Form onSubmit={this.handleSubmit}>
+                            <Form.Field required
+                                        control={Input}
+                                        label='Full Name'
+                                        name = 'fullname'
+                                        value={this.state.user.fullname}
+                                        onChange= {this.handleChange}
+                            />
+                            <Form.Field required
+                                        control={Input}
+                                        label='Email'
+                                        name = 'email'
+                                        value={this.state.user.email}
+                                        onChange= {this.handleChange}
+                            />
+                            <Form.Field required
+                                        control={Select}
+                                        label='Role'
+                                        name = 'role'
+                                        options={generatelist(['Student', 'Tutor'])}
+                                        value={this.state.user.role}
+                                        onChange= {this.handleChange}
+
+                            />
+                            <Form.Group widths='equal'>
+                                <Form.Field required
+                                            control={Input}
+                                            label='School'
+                                            name = 'school'
+                                            value={this.state.user.school}
+                                            onChange= {this.handleChange}
+                                />
+
+                                <Form.Field required
+                                            control={Select}
+                                            label='Year'
+                                            name = 'year'
+                                            options={generatelist([1,2,3,4])}
+                                            value={this.state.user.year}
+                                            onChange= {this.handleChange}
+                                />
+
+                                <Form.Field required
+                                            control={Input}
+                                            label='Major'
+                                            name = 'major'
+                                            value={this.state.user.major}
+                                            onChange= {this.handleChange}
+                                />
+                            </Form.Group>
+                            <Form.Field control={Button}>Submit</Form.Field>
+                            {/*<Button type='submit'>Submit</Button>*/}
+                        </Form>
+                    </Modal.Content>
+                    <Modal.Actions>
+                        <Button color='black' onClick={() => this.setOpen(false)}>
+                            Close
+                        </Button>
+                        <Button
+                            content="Save"
+                            labelPosition='right'
+                            icon='checkmark'
+                            onClick={() => this.setOpen(false)}
+                            positive
+                        />
+
+                    </Modal.Actions>
+                </Modal>
+
+                {/*<form onSubmit={this.handleSubmit}>*/}
+
+                {/*    <Label>Name: </Label>*/}
+                {/*    <InputText*/}
+                {/*        name="name"*/}
+                {/*        type="text"*/}
+                {/*        value={user.name}*/}
+                {/*        onChange={this.handleChange}*/}
+                {/*    />*/}
+                {/*    <Label>Role: </Label>*/}
+                {/*    <InputText*/}
+                {/*        name="role"*/}
+                {/*        type="text"*/}
+                {/*        value={user.role}*/}
+                {/*    />*/}
+                {/*    <br></br>*/}
+                {/*    <Button>Update</Button>*/}
+                {/*</form>*/}
             </Content>
         )
     }
@@ -183,17 +321,17 @@ const InputText = styled.input.attrs({
     margin: 5px;
 `
 
-const Button = styled.button.attrs({
-    className: `btn btn-primary`,
-})`
-    margin: 15px 15px 15px 5px;
-`
-
-const CancelButton = styled.a.attrs({
-    className: `btn btn-danger`,
-})`
-    margin: 15px 15px 15px 5px;
-`
+// const Button = styled.button.attrs({
+//     className: `btn btn-primary`,
+// })`
+//     margin: 15px 15px 15px 5px;
+// `
+//
+// const CancelButton = styled.a.attrs({
+//     className: `btn btn-danger`,
+// })`
+//     margin: 15px 15px 15px 5px;
+// `
 Profile.propTypes = {
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
@@ -210,3 +348,7 @@ const actionCreators = {
 
 const connectedProfile = connect(mapStateToProps, actionCreators)(Profile);
 export {connectedProfile as Profile};
+
+function generatelist(array) {
+    return array.map(x=> {return {'text': x, 'value': x}});
+}

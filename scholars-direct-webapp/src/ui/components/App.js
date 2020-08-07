@@ -45,6 +45,8 @@ class App extends React.Component {
                         </Route>
                         <Route path="/videoChat" component={PageLayout}/>
                         <PrivateRoute exact path="/profile" component={Profile} />
+
+                        <Route exact path="/p2" component={Profile} />
                     </Switch>
                 </Router>
                 <Divider/>
