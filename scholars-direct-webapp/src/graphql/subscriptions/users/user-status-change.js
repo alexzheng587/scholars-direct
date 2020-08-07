@@ -3,7 +3,7 @@ import { gql } from '@apollo/client'
 export const USER_STATUS_CHANGE_SUBSCRIPTION = gql`
 subscription($userIds: [ID]) {
   user: UserStatusChange(userIds: $userIds) {
-    id
+    _id
     username
     email
     status

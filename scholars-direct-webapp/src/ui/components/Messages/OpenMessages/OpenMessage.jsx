@@ -21,6 +21,7 @@ class OpenMessageThread extends React.PureComponent {
      * @returns {undefined}
      */
     componentDidMount() {
+        console.log(this.props.currentSession.user._id);
         this.props.openMessageThread.subscribeToMore({
             document: MESSAGE_CREATED_SUBSCRIPTION,
             variables: {
