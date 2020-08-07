@@ -1,0 +1,40 @@
+import React from 'react';
+import {arrayOf, shape, number, string} from 'prop-types';
+import MessageThread from './MessageThread';
+//import '../../../styles/message-threads.scss';
+
+/**
+ * @class MessageThreads
+ * @extends {React.PureComponent}
+ */
+class MessageThreads extends React.PureComponent {
+    /**
+     * render
+     * @returns {JSX.Element} HTML
+     */
+    render() {
+        return (
+            <div className="message-threads display-flex flex-column">
+                {!this.props.threads.length && (
+                    <div className="no-message-threads text-center">
+                        No conversations yet.
+                    </div>
+                )}
+                {this.props.threads.map(thread => (
+                    <MessageThread
+                        currentUserId={this.props.currentUserId}
+                        key={thread.id}
+                        {...thread}
+                    />
+                ))}
+            </div>
+        );
+    }
+}
+
+MessageThreads.propTypes = {
+    currentUserId: string,
+    threads: arrayOf(shape()),
+};
+
+export default MessageThreads;

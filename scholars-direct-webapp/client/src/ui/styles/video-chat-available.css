@@ -1,0 +1,29 @@
+.video-chat-available {
+    background: #7f7f7f;
+    flex-direction: column;
+    position: relative;
+}
+
+.instructions {
+    color: white;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.full-height {
+    height: 850px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}

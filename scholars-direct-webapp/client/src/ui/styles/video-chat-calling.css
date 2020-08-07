@@ -1,0 +1,10 @@
+.video-chat-calling {
+    position: relative;
+}
+
+.call-message {
+    color: white;
+    font-size: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+}

@@ -1,0 +1,25 @@
+.message-thread-link {
+    width: 100%;
+}
+.message-thread-link:hover {
+    border-top: 1px solid ;
+    box-shadow: 0px 2px 2px black;
+}
+.message-thread-link .message-thread {
+    border-bottom: 1px solid ;
+    justify-content: space-between;
+    min-height: 56px;
+    padding: 3px 8px;
+    width: calc(100% - 16px);
+}
+.message-thread-link .message-thread .formatted-date {
+    color: darkgrey;
+    font-size: 12px;
+    margin-right: 3px;
+}
+.message-thread-link .message-thread.unread-message {
+    background: white;
+}
+.message-thread-link .message-thread.unread-message * {
+    font-weight: 900;
+}
