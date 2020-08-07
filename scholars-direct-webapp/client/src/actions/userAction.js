@@ -24,81 +24,17 @@ export function login(user, token) {
         dispatch(setCurrentUser(user, userid.id));
         setAuthToken(token);
         history.push('/');
-        // dispatch(request({ username }));
-        //
-        // userService.login(username, password)
-        //     .then(
-        //         user => {
-        //             dispatch(success(user));
-        //             history.push('/');
-        //         },
-        //         error => {
-        //             dispatch(failure(error.toString()));
-        //             dispatch(alertActions.error(error.toString()));
-        //         }
-        //     );
     };
 }
 
-// function login(user) {
-//     return dispatch => {
-//         axios
-//             .post("/users/login", user)
-//             .then(res => {
-//                 // Save to localStorage
-//                 // Set token to localStorage
-//                 const { token } = res.data;
-//                 localStorage.setItem("jwtToken", token);
-//                 // Set token to Auth header
-//                 setAuthToken(token);
-//                 // Decode token to get user data
-//                 const decoded = jwt_decode(token);
-//                 // Set current user
-//                 console.log("Login_res:",res)
-//                 dispatch(setCurrentUser(decoded));
-//             })
-//             .catch(err =>
-//                 dispatch({
-//                     type: userConstants.LOGIN_FAILURE,
-//                     payload: err.response.data
-//                 })
-//             );
-//     };
-// }
-
 export function googleLogin(user, token) {
     return dispatch => {
-        dispatch(setGoogleCurrentUser(user));
         localStorage.setItem("jwtToken", token);
+        let userid = jwt_decode(token);
+        dispatch(setGoogleCurrentUser(user, userid.id));
         setAuthToken(token);
-        history.push("/"); // re-direct to login on successful register
+        history.push("/");
     }
-    // const options = {
-    //     method: 'POST',
-    //     body: user,
-    //     mode: 'cors',
-    //     cache: 'default'
-    // };
-    // return dispatch => {
-    //     fetch('http://localhost:9000/auth/google', options)
-    //         .then(r => {
-    //             const token = r.headers.get('x-auth-token');
-    //             console.log('r', r)
-    //             console.log('x-auth-token', token)
-    //             r.json().then(user => {
-    //                 if (token) {
-    //                     dispatch(setGoogleCurrentUser(user));
-    //                     history.push("/") // re-direct to login on successful register
-    //                 }
-    //             });
-    //         })
-    //         .catch(err =>
-    //             dispatch({
-    //                 type: userConstants.LOGIN_FAILURE,
-    //                 payload: err.response.data
-    //             })
-    //         );
-    // };
 }
 
 function setCurrentUser(decoded, id) {
@@ -109,10 +45,11 @@ function setCurrentUser(decoded, id) {
     };
 }
 
-function setGoogleCurrentUser(decoded) {
+function setGoogleCurrentUser(decoded, id) {
     return {
         type: userConstants.GOOGLE_LOGIN_SUCCESS,
-        user: decoded
+        user: decoded,
+        userId: id
     };
 }
 

@@ -83,34 +83,22 @@ class OfferDialog extends React.Component {
                     <DialogTitle id="simple-dialog-title">Offer To Help</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Post your solution, or schedule a video meeting with the student who posts the question.
+                            Offer to help the asker by sending them a contact request! Feel free to leave an initial response.
                         </DialogContentText>
                         <TextField
                             onChange={this.setMessage}
                             id="outlined-multiline-flexible"
                             label="Response"
-                            placeholder="Type your solution here"
+                            placeholder="Type your response here"
                             multiline
                             rows={4}
                             variant="outlined"
                             fullWidth
                         />
-
-                        <TextField
-                            onChange={this.setTime}
-                            id="datetime-local"
-                            label="Book a meeting"
-                            type="datetime-local"
-                            defaultValue="2020-05-24T10:30"
-                            margin = 'dense'
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                        />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleSubmit} color="primary">
-                            Send
+                            Send Contact
                         </Button>
                     </DialogActions>
                 </Dialog>

@@ -26,9 +26,6 @@ class Login extends React.Component {
             // this.props.clearAlerts();
         });
 
-        // reset login status
-        // this.props.logout();
-
         this.state = {
             email: "",
             password: "",
