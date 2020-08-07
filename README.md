@@ -15,7 +15,7 @@ Scholars Chat is an online tutoring website where students can post questions an
 ---
 **Project Goal**
 
-We wanted to build a website both for students who are looking for a tutor as well as tutors looking to find students to teach. Students will be able to ask questions and provide additional details and add subject tabs. Tutors will be able to choose from the pool of questions available and contact them for able 
+We wanted to build a website both for students who are looking for a tutor as well as tutors looking to find students to teach. Students will be able to ask questions and provide additional details and add subject tabs. Tutors will be able to choose from the pool of questions available and contact them to answer their questions.
 
 ---
 **Project Task Requirements:**
