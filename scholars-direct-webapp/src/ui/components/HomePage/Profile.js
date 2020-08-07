@@ -2,31 +2,26 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import {googleLogin, login, userAction} from "../../../actions/userAction";
 import {connect} from "react-redux";
-import PropTypes from "prop-types";
+import PropTypes, {arrayOf, func, number, shape} from "prop-types";
 
 
 import axios from 'axios'
 
 import { graphql, withApollo } from '@apollo/client/react/hoc';
 
-import { List, Modal, Button, Header,
+import {
+    List, Modal, Button, Header,
     Form,
     Input,
-    Select,} from 'semantic-ui-react'
+    Select, Segment,
+} from 'semantic-ui-react'
 import '../../styles/profile.css'
 import {UPDATE_PROFILE} from '../../../graphql/mutations/user/update-profile';
 import {QUERY_PROFILE} from '../../../graphql/queries/user/profile';
 import {compose} from "redux";
 
 /*
-TODO :
-   - handleSubmit: PUT user info
-   - fetch GET user info, update both profile and form placeholder.
    - handle Google OAth case: (ie: email cannot be changed)
-
-   - bug: unable to show default value in select drop down
-   - validate email on form submit?
-
 
 */
 class Profile extends Component {
@@ -49,7 +44,7 @@ class Profile extends Component {
         };
         this.setOpen = this.setOpen.bind(this);
         this.handleChange = this.handleChange.bind(this);
-         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
     setOpen(bool) {
 
@@ -65,10 +60,9 @@ class Profile extends Component {
     //     }
     // }
 
-    handleChange(event) {
-        const {name, value} = event.target;
-        const some = this.state;
-        const some2 = this.state.user;
+    handleChange(event, { name, value }) {
+
+
         this.setState({ ...this.state,user: { ...this.state.user, [name]: value}});
 
     }
@@ -82,7 +76,7 @@ class Profile extends Component {
             const {data} = await this.props.updateUser({
                 variables: {
                     fullname: user.fullname,
-                    roles: user.roles,
+                    role: user.role,
                     school: user.school,
                     year: user.year,
                     major: user.major,
@@ -92,192 +86,175 @@ class Profile extends Component {
             const {data} = await this.props.updateUser({
                 variables: {
                     fullname: user.fullname,
-                    roles: user.roles,
+                    role: user.role,
                     school: user.school,
                     year: user.year,
                     major: user.major,
                 },
             });
-            console.log(data);
-        }
 
+        }
+        this.setOpen(false);
     }
 
     async componentDidMount() {
         // try {
-            if (this.props.auth.google) {
-               //todo
-            } else {
-                let data = {}
-                let obj = await this.props.getUser;
-                console.log(obj);
-                console.log("whatttt");
-                this.setState({ ... this.state,
+
+        if (this.props.auth.google) {
+            //todo
+        } else {
+            let data = {}
+            let obj = await this.props.getUser.refetch();
+
+            this.setState({ ... this.state,
                     user: {
-                        fullname: data.fullname,
-                            roles: data.roles,
-                            school: data.school,
-                            year: data.year,
-                            major: data.major,
+                        fullname: this.props.getUser.data.fullname,
+                        role: this.props.getUser.data.role,
+                        school: this.props.getUser.data.school,
+                        year: this.props.getUser.data.year,
+                        major: this.props.getUser.data.major,
                     }
                 }
-                );
+            );
 
-            }
+        }
         // } catch (err) {
-        //
-        //     console.log("Errorr13");
+
         //     console.log(err);
         // }
     }
 
     render() {
 
-        // const {user,errors} = this.state;
-        // console.log("state:",this.state)
-        // console.log("user:",user)
-
         return (
-            <Content>
-                <h2>Personal Profile</h2>
-                <List relaxed id="profile-list">
-                    <List.Item>
-                        <List.Icon name='drivers license' size='big' verticalAlign='middle' />
-                        <List.Content>
-                            <List.Header as='a'>Full Name</List.Header>
-                            <List.Description as='a'>{this.state.user.fullname}</List.Description>
-                        </List.Content>
-                    </List.Item>
-                    <List.Item>
-                        <List.Icon name='mail outline' size='big' verticalAlign='middle' />
-                        <List.Content>
-                            <List.Header as='a'>Email</List.Header>
-                            <List.Description as='a'>{this.state.user.email}</List.Description>
-                        </List.Content>
-                    </List.Item>
-                    <List.Item>
-                        <List.Icon name='book' size='big' verticalAlign='middle' />
-                        <List.Content>
-                            <List.Header as='a'>School</List.Header>
-                            <List.Description as='a'>{this.state.user.school} (Year {this.state.user.year})</List.Description>
-                        </List.Content>
-                    </List.Item>
-                    <List.Item>
-                        <List.Icon name='book' size='big' verticalAlign='middle' />
-                        <List.Content>
-                            <List.Header as='a'>Major</List.Header>
-                            <List.Description as='a'>{this.state.user.major}</List.Description>
-                        </List.Content>
-                    </List.Item>
-                    <List.Item>
-                        <List.Icon name='address book' size='big' verticalAlign='middle' />
-                        <List.Content>
-                            <List.Header as='a'>Role</List.Header>
-                            <List.Description as='a'>{this.state.user.role}</List.Description>
-                        </List.Content>
-                    </List.Item>
-                </List>
+            <div className='pcontainer'>
+                <Segment>
+                    <h2 className='bold-text'>Personal Profile</h2>
+                    <div id = 'content-box'>
+                        <List relaxed id="profile-list">
+                            <List.Item>
+                                <List.Icon name='drivers license' size='big' verticalAlign='middle' />
+                                <List.Content>
+                                    <List.Header as='a'>Full Name</List.Header>
+                                    <List.Description as='a'>{this.state.user.fullname}</List.Description>
+                                </List.Content>
+                            </List.Item>
+                            {/*<List.Item>*/}
+                            {/*    <List.Icon name='mail outline' size='big' verticalAlign='middle' />*/}
+                            {/*    <List.Content>*/}
+                            {/*        <List.Header as='a'>Email</List.Header>*/}
+                            {/*        <List.Description as='a'>{this.state.user.email}</List.Description>*/}
+                            {/*    </List.Content>*/}
+                            {/*</List.Item>*/}
+                            <List.Item>
+                                <List.Icon name='book' size='big' verticalAlign='middle' />
+                                <List.Content>
+                                    <List.Header as='a'>School</List.Header>
+                                    <List.Description as='a'>{this.state.user.school} (Year {this.state.user.year})</List.Description>
+                                </List.Content>
+                            </List.Item>
+                            <List.Item>
+                                <List.Icon name='book' size='big' verticalAlign='middle' />
+                                <List.Content>
+                                    <List.Header as='a'>Major</List.Header>
+                                    <List.Description as='a'>{this.state.user.major}</List.Description>
+                                </List.Content>
+                            </List.Item>
+                            <List.Item>
+                                <List.Icon name='address book' size='big' verticalAlign='middle' />
+                                <List.Content>
+                                    <List.Header as='a'>Role</List.Header>
+                                    <List.Description as='a'>{this.state.user.role}</List.Description>
+                                </List.Content>
+                            </List.Item>
+                        </List>
 
-                <Modal
-                    centered = {true}
-                    onClose={() => this.setOpen(false)}
-                    onOpen={() => this.setOpen(true)}
-                    open={this.state.open}
-                    trigger={<Button>Edit</Button>}
-                >
-                    <Modal.Header>Edit Your Profile</Modal.Header>
-                    <Modal.Content>
-                        {/*<Modal.Description>*/}
-                        {/*    <Header>Edit Your Profile</Header>*/}
-                        {/*</Modal.Description>*/}
-                        <Form onSubmit={this.handleSubmit}>
-                            <Form.Field required
-                                        control={Input}
-                                        label='Full Name'
-                                        name = 'fullname'
-                                        value={this.state.user.fullname}
-                                        onChange= {this.handleChange}
-                            />
-                            {/*<Form.Field required*/}
-                            {/*            control={Input}*/}
-                            {/*            label='Email'*/}
-                            {/*            name = 'email'*/}
-                            {/*            value={this.state.user.email}*/}
-                            {/*            onChange= {this.handleChange}*/}
-                            {/*/>*/}
-                            <Form.Field required
-                                        control={Select}
-                                        label='Role'
-                                        name = 'role'
-                                        options={generatelist(['Student', 'Tutor'])}
-                                        // value={this.state.user.role}
-                                        onChange= {this.handleChange}
+                        <Modal
+                            centered = {true}
+                            onClose={() => this.setOpen(false)}
+                            onOpen={() => this.setOpen(true)}
+                            open={this.state.open}
+                            trigger={<Button primary>Edit Profile</Button>}
+                        >
+                            <Modal.Header>Edit Your Profile</Modal.Header>
+                            <Modal.Content>
+                                {/*<Modal.Description>*/}
+                                {/*    <Header>Edit Your Profile</Header>*/}
+                                {/*</Modal.Description>*/}
+                                <Form onSubmit={this.handleSubmit}>
+                                    <Form.Field required
+                                                control={Input}
+                                                label='Full Name'
+                                                name = 'fullname'
+                                                value={this.state.user.fullname}
+                                                onChange= {this.handleChange}
+                                    />
+                                    {/*<Form.Field required*/}
+                                    {/*            control={Input}*/}
+                                    {/*            label='Email'*/}
+                                    {/*            name = 'email'*/}
+                                    {/*            value={this.state.user.email}*/}
+                                    {/*            onChange= {this.handleChange}*/}
+                                    {/*/>*/}
 
-                            />
-                            <Form.Group widths='equal'>
-                                <Form.Field required
-                                            control={Input}
-                                            label='School'
-                                            name = 'school'
-                                            value={this.state.user.school}
-                                            onChange= {this.handleChange}
-                                />
+                                    <Form.Group widths='equal'>
+                                        <Form.Field required
+                                                    control={Input}
+                                                    label='School'
+                                                    name = 'school'
+                                                    value={this.state.user.school}
+                                                    onChange= {this.handleChange}
+                                        />
 
-                                <Form.Field required
-                                            control={Select}
-                                            label='Year'
-                                            name = 'year'
-                                            options={generatelist([1,2,3,4])}
-                                            // value={this.state.user.year}
-                                            onChange= {this.handleChange}
-                                />
+                                        <Form.Field required
+                                                    control={Select}
+                                                    label='Year'
+                                                    name = 'year'
+                                                    options={generatelist([1,2,3,4])}
+                                                    value={this.state.user.year}
+                                                    onChange= {this.handleChange}
+                                        />
 
-                                <Form.Field required
-                                            control={Input}
-                                            label='Major'
-                                            name = 'major'
-                                            value={this.state.user.major}
-                                            onChange= {this.handleChange}
-                                />
-                            </Form.Group>
-                            <Form.Field control={Button}>Submit</Form.Field>
-                            {/*<Button type='submit'>Submit</Button>*/}
-                        </Form>
-                    </Modal.Content>
-                    <Modal.Actions>
-                        <Button color='black' onClick={() => this.setOpen(false)}>
-                            Close
-                        </Button>
-                        <Button
-                            content="Save"
-                            labelPosition='right'
-                            icon='checkmark'
-                            onClick={() => this.setOpen(false)}
-                            positive
-                        />
+                                        <Form.Field required
+                                                    control={Input}
+                                                    label='Major'
+                                                    name = 'major'
+                                                    value={this.state.user.major}
+                                                    onChange= {this.handleChange}
+                                        />
 
-                    </Modal.Actions>
-                </Modal>
+                                    </Form.Group>
+                                    <Form.Field required
+                                                control={Select}
+                                                label='Role'
+                                                name = 'role'
+                                                options={generatelist(['Student', 'Tutor'])}
+                                                value={this.state.user.role}
+                                                onChange= {this.handleChange}
 
-                {/*<form onSubmit={this.handleSubmit}>*/}
+                                    />
+                                    <Form.Field control={Button}>Submit</Form.Field>
+                                    {/*<Button type='submit'>Submit</Button>*/}
+                                </Form>
+                            </Modal.Content>
+                            <Modal.Actions>
+                                {/*<Button color='black' onClick={() => this.setOpen(false)}>*/}
+                                {/*    Close*/}
+                                {/*</Button>*/}
+                                {/*<Button*/}
+                                {/*    content="Save"*/}
+                                {/*    labelPosition='right'*/}
+                                {/*    icon='checkmark'*/}
+                                {/*    onClick={() => this.setOpen(false)}*/}
+                                {/*    positive*/}
+                                {/*/>*/}
 
-                {/*    <Label>Name: </Label>*/}
-                {/*    <InputText*/}
-                {/*        name="name"*/}
-                {/*        type="text"*/}
-                {/*        value={user.name}*/}
-                {/*        onChange={this.handleChange}*/}
-                {/*    />*/}
-                {/*    <Label>Role: </Label>*/}
-                {/*    <InputText*/}
-                {/*        name="role"*/}
-                {/*        type="text"*/}
-                {/*        value={user.role}*/}
-                {/*    />*/}
-                {/*    <br></br>*/}
-                {/*    <Button>Update</Button>*/}
-                {/*</form>*/}
-            </Content>
+                            </Modal.Actions>
+                        </Modal>
+                    </div >
+                </Segment>
+            </div>
+
         )
     }
 }
@@ -344,7 +321,10 @@ Profile.propTypes = {
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
     updateUser:  PropTypes.func,
-    getUser: PropTypes.func,
+    getUser: shape({
+        data:  shape(),
+        refetch: func,
+    })
 };
 
 const mapStateToProps = state => ({
