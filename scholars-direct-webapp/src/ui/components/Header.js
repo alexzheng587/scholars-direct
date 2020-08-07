@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import AppBar from '@material-ui/core/AppBar';
 import PropTypes from 'prop-types';
 import Toolbar from "@material-ui/core/Toolbar";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import IconButton from "@material-ui/core/IconButton";
 import HomeIcon from '@material-ui/icons/Home';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -20,7 +20,7 @@ import { addError, clearError } from '../../actions/error';
 import {LOGOUT_MUTATION} from '../../graphql/mutations/user/logout';
 import { compose } from 'redux';
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
     navbar: {
         background: "#43D1AF"
     },
@@ -44,132 +44,144 @@ const useStyles = makeStyles((theme) => ({
         marginRight: 16,
         marginLeft: -12
     },
-}));
+});
 
-function Header(props) {
-    const classes = useStyles();
-    const [auth, setAuth] = React.useState(true);
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
+class Header extends React.Component {
+    constructor(props) {
+        super(props);
 
-    const handleChange = (event) => {
-        setAuth(event.target.checked);
+        this.state = {
+            anchorEl: null,
+            anchorReference: 'anchorEl',
+        };
+
+        this.handleMenu = this.handleMenu.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
+        this.redirectToProfile = this.redirectToProfile.bind(this);
+    }
+
+    handleMenu(event) {
+        this.setState({
+            anchorEl: event.currentTarget
+        });
     };
 
-
-
-    const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
+    handleClose() {
+        this.setState({
+            anchorEl: null
+        });
     };
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-    console.log(props.auth);
-
-
-    const handleLogout = async () => {
-        handleClose();
+    handleLogout() { // logoutUser is async
+        this.handleClose();
         //const { data } = await props.logoutUser();
-        logout();
+        this.props.logout();
         history.push("/login");
     }
 
 
-    const redirectToProfile = () => {
-        handleClose();
+    redirectToProfile() {
+        this.handleClose();
         history.push("/profile");
     }
 
-    return (
-        <div className={classes.root}>
-        <AppBar position="static" className={classes.navbar}>
-        <Toolbar>
-            <Link to="/" >
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                <HomeIcon />
-            </IconButton>
-            </Link>
-
-            <Typography variant="h7" className={classes.menuItem}>
-                <Link to="/questions" style={{ textDecoration: 'none', color: "#FFF", }}>
-                    Questions
-                </Link>
-            </Typography>
-
-            <Typography variant="h7" className={classes.menuItem}>
-                <Link to="/videoChat/contacts" style={{ textDecoration: 'none', color: "#FFF", }}>
-                    Video Chat
-                </Link>
-            </Typography>
-
-            <Typography variant="h7" className={classes.menuItem}>
-                <Link to="/aboutUs" style={{ textDecoration: 'none', color: "#FFF", }}>
-                    About
-                </Link>
-            </Typography>
-
-            {!props.auth.loggedIn && (
-                <section className={classes.rightToolbar}>
-                    <Typography variant="h7" className={classes.menuItem}>
-                        <Link to="/login" style={{ textDecoration: 'none', color: "#FFF", }}>
-                            Login
+    render() {
+        const { classes } = this.props;
+        const { anchorEl } = this.state;
+        const open = Boolean(anchorEl);
+        return (
+            <div className={classes.root}>
+                <AppBar position="static" className={classes.navbar}>
+                    <Toolbar>
+                        <Link to="/" >
+                            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                                <HomeIcon />
+                            </IconButton>
                         </Link>
-                    </Typography>
-                </section>
-            )}
-            {props.auth.loggedIn && (
-                <section className={classes.rightToolbar}>
-                    <IconButton
-                        edge="end"
-                        aria-label="account of current user"
-                        aria-controls="menu-appbar"
-                        aria-haspopup="true"
-                        onClick={handleMenu}
-                        color="inherit"
-                    >
-                        <AccountCircle />
-                    </IconButton>
-                    <Menu
-                        id="menu-appbar"
-                        anchorEl={anchorEl}
-                        anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                        keepMounted
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                        open={open}
-                        onClose={handleClose}
-                    >
-                        <MenuItem onClick={redirectToProfile}>Profile</MenuItem>
-                        <MenuItem onClick={handleClose}>My account</MenuItem>
-                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                    </Menu>
-                </section>
-            )}
-        </Toolbar>
-        </AppBar>
-        </div>
-    );
+
+                        <Typography variant="h7" className={classes.menuItem}>
+                            <Link to="/questions" style={{ textDecoration: 'none', color: "#FFF", }}>
+                                Questions
+                            </Link>
+                        </Typography>
+
+                        <Typography variant="h7" className={classes.menuItem}>
+                            <Link to="/videoChat/contacts" style={{ textDecoration: 'none', color: "#FFF", }}>
+                                Video Chat
+                            </Link>
+                        </Typography>
+
+                        <Typography variant="h7" className={classes.menuItem}>
+                            <Link to="/aboutUs" style={{ textDecoration: 'none', color: "#FFF", }}>
+                                About
+                            </Link>
+                        </Typography>
+
+                        {!this.props.auth.loggedIn && (
+                            <section className={classes.rightToolbar}>
+                                <Typography variant="h7" className={classes.menuItem}>
+                                    <Link to="/login" style={{ textDecoration: 'none', color: "#FFF", }}>
+                                        Login
+                                    </Link>
+                                </Typography>
+                            </section>
+                        )}
+                        {this.props.auth.loggedIn && (
+                            <section className={classes.rightToolbar}>
+                                <IconButton
+                                    edge="end"
+                                    aria-label="account of current user"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    onClick={this.handleMenu}
+                                    color="inherit"
+                                >
+                                    <AccountCircle />
+                                </IconButton>
+                                <Menu
+                                    id="menu-appbar"
+                                    anchorEl={this.state.anchorEl}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={open}
+                                    onClose={this.handleClose}
+                                >
+                                    <MenuItem onClick={this.redirectToProfile}>Profile</MenuItem>
+                                    <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                                    <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+                                </Menu>
+                            </section>
+                        )}
+                    </Toolbar>
+                </AppBar>
+            </div>
+        );
+    }
 }
-const mapStateToProps = (state) => { //name is by convention
-    return { auth: state.authentication}; //now it will appear as props
+
+const mapStateToProps = (state) => {
+    return {
+        auth: state.authentication
+    };
 };
 
 Header.propTypes = {
     logoutUser: PropTypes.func,
+    classes: PropTypes.object.isRequired
 };
 
 export default compose(
-    withApollo,
-    connect(mapStateToProps, { addError, clearError }),
+    withStyles(styles),
+    connect(mapStateToProps, { logout, addError, clearError }),
     graphql(LOGOUT_MUTATION, { name: 'logoutUser' }),
 )(Header);
-
-//export default connect(mapStateToProps, {})(Header);
 
 

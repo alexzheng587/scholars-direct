@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
 export const ADD_CONTACT_MUTATION = gql`
-mutation AddUserRequest($requestId: ID) {
-  result: AddUserRequest(requestId: $requestId) {
+mutation addContact($requestId: ID, $requestMessage: String) {
+  result: AddContact(requestId: $requestId, requestMessage: $requestMessage) {
     success
     message
   }

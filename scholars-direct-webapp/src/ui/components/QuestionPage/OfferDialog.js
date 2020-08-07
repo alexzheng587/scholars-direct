@@ -12,6 +12,8 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { compose } from 'redux';
 import { graphql } from '@apollo/client/react/hoc';
 import { ADD_CONTACT_MUTATION } from '../../../graphql/mutations/user/addcontact';
+import { CHANGE_STATUS_MUTATION } from '../../../graphql/mutations/question/update-status';
+import PropTypes from "prop-types";
 
 
 class OfferDialog extends React.Component {
@@ -55,10 +57,20 @@ class OfferDialog extends React.Component {
             detail: this.state.message,
             status: "IN_PROGRESS"
         };
-        // const {data} = await this.props.addContact({
-        //     variables: { recipentId: this.state.studentID }
-        // });
-        this.props.offerHelp(i);
+        const { data } = await this.props.addContact({
+            variables: {
+                requestId: this.props.userId,
+                requestMessage: this.state.message,
+            }
+        });
+        if (!data.result) {
+            await this.props.changeStatus({
+                variables: {
+                    questionId: this.props.id,
+                    status: "In progress"
+                }
+            });
+        }
         this.handleClose();
 
 
@@ -107,6 +119,11 @@ class OfferDialog extends React.Component {
     }
 }
 
+OfferDialog.propTypes = {
+    addContact: PropTypes.func,
+    changeStatus: PropTypes.func,
+};
+
 const mapStateToProps = (state) => {
     return {
         messages: state.messages,
@@ -115,5 +132,6 @@ const mapStateToProps = (state) => {
 
 export default compose(
     connect(mapStateToProps, {offerHelp}),
-    graphql(ADD_CONTACT_MUTATION, {name: 'addContact'})
+    graphql(ADD_CONTACT_MUTATION, {name: 'addContact'}),
+    graphql(CHANGE_STATUS_MUTATION, {name: 'changeStatus'})
 )(OfferDialog);

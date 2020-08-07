@@ -62,7 +62,7 @@ class Question extends React.Component {
                         id: this.props.id,
                         key: this.props.msgKey
                     }); }}/>
-                    <OfferDialog userId={this.props.userId} />
+                    <OfferDialog qid={this.props.id} userId={this.props.userId} />
                     </div>
                 </Item.Extra>
 

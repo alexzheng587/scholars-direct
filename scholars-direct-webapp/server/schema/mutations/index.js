@@ -25,7 +25,7 @@ export default new GraphQLObjectType({
         AddQuestion,
         DeleteQuestion,
         ChangeStatus,
-        //AddContact
+        AddContact,
         GoogleLogin,
     },
 });
