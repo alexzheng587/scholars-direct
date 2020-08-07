@@ -30,6 +30,7 @@ class Profile extends Component {
         super(props);
         this.state = {
             user: {
+                username: "none",
                 fullname: "none",
                 email: "none",
                 role: "none",
@@ -106,6 +107,7 @@ class Profile extends Component {
 
             this.setState({ ... this.state,
                     user: {
+                        username: this.props.getUser.data.username,
                         fullname: this.props.getUser.data.fullname,
                         role: this.props.getUser.data.role,
                         school: this.props.getUser.data.school,
@@ -132,8 +134,8 @@ class Profile extends Component {
                             <List.Item>
                                 <List.Icon name='drivers license' size='big' verticalAlign='middle' />
                                 <List.Content>
-                                    <List.Header as='a'>Full Name</List.Header>
-                                    <List.Description as='a'>{this.state.user.fullname}</List.Description>
+                                    <List.Header as='a'>Username</List.Header>
+                                    <List.Description as='a'>{this.state.user.username}</List.Description>
                                 </List.Content>
                             </List.Item>
                             <List.Item>
@@ -141,6 +143,13 @@ class Profile extends Component {
                                 <List.Content>
                                     <List.Header as='a'>Email</List.Header>
                                     <List.Description as='a'>{this.state.user.email}</List.Description>
+                                </List.Content>
+                            </List.Item>
+                            <List.Item>
+                                <List.Icon name='drivers license' size='big' verticalAlign='middle' />
+                                <List.Content>
+                                    <List.Header as='a'>Full Name</List.Header>
+                                    <List.Description as='a'>{this.state.user.fullname}</List.Description>
                                 </List.Content>
                             </List.Item>
                             <List.Item>
