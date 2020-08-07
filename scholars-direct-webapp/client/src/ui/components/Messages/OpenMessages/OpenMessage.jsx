@@ -21,6 +21,7 @@ class OpenMessageThread extends React.PureComponent {
      * @returns {undefined}
      */
     componentDidMount() {
+        this.props.openMessageThread.refetch();
         this.props.openMessageThread.subscribeToMore({
             document: MESSAGE_CREATED_SUBSCRIPTION,
             variables: {
@@ -110,6 +111,7 @@ OpenMessageThread.propTypes = {
             messages: PropTypes.arrayOf(PropTypes.shape()),
         }),
         subscribeToMore: PropTypes.func,
+        refetch: PropTypes.func
     }),
 };
 

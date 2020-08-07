@@ -28,7 +28,7 @@ export default new GraphQLObjectType({
             type: GraphQLString,
             description: 'the contacts current status: available or offline',
             async resolve(user) {
-                const { data } = await axios.get(`https://vast-brushlands-19296.herokuapp.com/user/${user.id}/status`);
+                const { data } = await axios.get(`https://scholarschat.herokuapp.com/user/${user.id}/status`);
                 return data.status;
             },
         },
@@ -36,7 +36,7 @@ export default new GraphQLObjectType({
             type: GraphQLString,
             description: 'the id of the socket the user is currently connected to',
             async resolve(user) {
-                const { data } = await axios.get(`https://vast-brushlands-19296.herokuapp.com/user/${user.id}/socket-id`);
+                const { data } = await axios.get(`https://scholarschat.herokuapp.com/user/${user.id}/socket-id`);
                 return data.socketId;
             },
         },
