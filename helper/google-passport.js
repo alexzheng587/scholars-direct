@@ -11,6 +11,7 @@ const GoogleTokenStrategyCallback = (accessToken, refreshToken, profile, done) =
 passport.use(new GoogleTokenStrategy({
     clientID: keys.googleAuth.clientID,
     clientSecret: keys.googleAuth.clientSecret,
+    callbackURL: 'auth/google/callback',
     proxy: true
 }, GoogleTokenStrategyCallback));
 
