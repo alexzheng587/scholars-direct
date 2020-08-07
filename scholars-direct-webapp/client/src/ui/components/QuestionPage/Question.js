@@ -58,11 +58,12 @@ class Question extends React.Component {
                         </Label>)}
                     </div>
                     <div>
-                    <Button circular icon='delete' floated='right' onClick={async () => {this.handleDeleteQuestion({
-                        id: this.props.id,
-                        key: this.props.msgKey
-                    }); }}/>
-                    <OfferDialog qid={this.props.id} userId={this.props.userId} />
+                        {this.props.userId === this.props.auth.userId &&
+                        <Button circular icon='delete' floated='right' onClick={async () => {this.handleDeleteQuestion({
+                            id: this.props.id,
+                            key: this.props.msgKey
+                        }); }}/>}
+                        <OfferDialog qid={this.props.id} userId={this.props.userId} />
                     </div>
                 </Item.Extra>
 
@@ -87,7 +88,8 @@ const mapStateToProps = (state) => {
         questions: state.questions.questionList,
         isQuestionsLoading: state.questions.isQuestionsLoading,
         questionError: state.questions.questionError,
-        filterTags: state.filterTags
+        filterTags: state.filterTags,
+        auth: state.authentication
     }
 };
 

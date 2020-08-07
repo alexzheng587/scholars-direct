@@ -51,6 +51,7 @@
     "mongoose-findorcreate": "^3.0.0",
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
+    "passport-google-token": "^0.1.2",
     "passport-jwt": "^4.0.0",
     "prop-types": "^15.7.2",
     "simple-peer": "^9.7.2",
