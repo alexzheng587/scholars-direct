@@ -40,5 +40,35 @@ export default new GraphQLObjectType({
                 return data.socketId;
             },
         },
+
+        // new
+        role: {
+            type: GraphQLString,
+            description: 'the role',
+            resolve: user => user.role,
+        },
+        school: {
+            type: GraphQLString,
+            description: 'the school',
+            resolve: user => user.school,
+        },
+        major: {
+            type: GraphQLString,
+            description: 'the major or faulty',
+            resolve: user => user.major,
+
+        },
+        year: {
+            type: GraphQLInt,
+            description: 'The Year Level (1-4)',
+            resolve: user => user.year,
+
+        },
+        fullname: {
+            type: GraphQLString,
+            description: 'Full name',
+            resolve: user => user.fullname,
+        },
+
     },
 });

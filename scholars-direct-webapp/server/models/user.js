@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema({
     role: {
         type: String,
         required: true,
-        default: 'none'
+        default: 'student'
     },
 
     // new informations

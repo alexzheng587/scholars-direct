@@ -1,26 +1,34 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import {userAction} from "../../../actions/userAction";
+import {googleLogin, login, userAction} from "../../../actions/userAction";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
+
+
 import axios from 'axios'
+
+import { graphql, withApollo } from '@apollo/client/react/hoc';
+
 import { List, Modal, Button, Header,
     Form,
     Input,
     Select,} from 'semantic-ui-react'
 import '../../styles/profile.css'
+import {UPDATE_PROFILE} from '../../../graphql/mutations/user/update-profile';
+import {QUERY_USER_ID} from '../../../graphql/queries/user/id';
+import {compose} from "redux";
 
- /*
- TODO :
-    - handleSubmit: PUT user info
-    - fetch GET user info, update both profile and form placeholder.
-    - handle Google OAth case: (ie: email cannot be changed)
+/*
+TODO :
+   - handleSubmit: PUT user info
+   - fetch GET user info, update both profile and form placeholder.
+   - handle Google OAth case: (ie: email cannot be changed)
 
-    - bug: unable to show default value in select drop down
-    - validate email on form submit?
+   - bug: unable to show default value in select drop down
+   - validate email on form submit?
 
 
- */
+*/
 class Profile extends Component {
 
     constructor(props) {
@@ -41,7 +49,7 @@ class Profile extends Component {
         };
         this.setOpen = this.setOpen.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        // this.handleSubmit = this.handleSubmit.bind(this);
+         this.handleSubmit = this.handleSubmit.bind(this);
     }
     setOpen(bool) {
 
@@ -65,63 +73,64 @@ class Profile extends Component {
 
     }
 
-    // async handleSubmit(event) {
-    //     event.preventDefault();
-    //     const id = this.props.auth.user.id
-    //     const {name, birthday, role} = this.state.user
-    //     if (name && role) {
-    //         if (this.props.auth.google) {
-    //             const payload = {name, birthday, role}
-    //             await axios.put(`/auth/google/${id}`, payload).then(res => {
-    //                 this.setState({
-    //                     user: {
-    //                         name: name,
-    //                         role: role
-    //                     }
-    //                 })
-    //             })
-    //         }else{
-    //             const payload = {name, birthday, role}
-    //             await axios.put(`/users/${id}`, payload).then(res => {
-    //                 this.setState({
-    //                     user: {
-    //                         name: name,
-    //                         role: role
-    //                     }
-    //                 })
-    //             })
-    //         }
-    //     }
-    // }
-    //
-    // async componentDidMount() {
-    //     const id = this.props.auth.user.id
-    //     if (this.props.auth.google) {
-    //         // TODO
-    //         await axios.get(`/auth/google/${id}`).then(info => {
-    //             console.log("Info:", info.data.role)
-    //             if (info) {
-    //                 this.setState(... this.state,{
-    //                     user: {
-    //                         role, fullname, school, major, year, email
-    //                     }
-    //                 })
-    //             }
-    //         })
-    //     } else {
-    //         // TODO
-    //         await axios.get(`/users/${id}`).then(info => {
-    //             console.log("Info:", info.data.role)
-    //             if (info) {
-    //                 this.setState(... this.state,{
-    //                     user: {
-    //                         role, fullname, school, major, year, email
-    //                     }
-    //                 })
-    //             }
-    //         })
-    //     }
-    // }
+    async handleSubmit(event) {
+        event.preventDefault();
+        const user = this.state.user;
+        if (this.props.auth.google) {
+            const id = this.props.auth.user.id
+
+            const {data} = await this.props.updateUser({
+                variables: {
+                    fullname: user.fullname,
+                    roles: user.roles,
+                    school: user.school,
+                    year: user.year,
+                    major: user.major,
+                },
+            })
+        }else{
+            const {data} = await this.props.updateUser({
+                variables: {
+                    fullname: user.fullname,
+                    roles: user.roles,
+                    school: user.school,
+                    year: user.year,
+                    major: user.major,
+                },
+            });
+            console.log(data);
+        }
+
+    }
+
+    async componentDidMount() {
+
+        if (this.props.auth.google) {
+            // // TODO
+            // await axios.get(`/auth/google/${id}`).then(info => {
+            //     console.log("Info:", info.data.role)
+            //     if (info) {
+            //         this.setState(... this.state,{
+            //             user: {
+            //                 role, fullname, school, major, year, email
+            //             }
+            //         })
+            //     }
+            // })
+        } else {
+            // // TODO
+            // await this.props.getUser().then(info => {
+            //
+            //     if (info) {
+            //         this.setState(... this.state,{
+            //             user: {
+            //                 role, fullname, school, major, year, email
+            //             }
+            //         })
+            //     }
+            // })
+        }
+    }
 
     render() {
 
@@ -175,7 +184,7 @@ class Profile extends Component {
                     onClose={() => this.setOpen(false)}
                     onOpen={() => this.setOpen(true)}
                     open={this.state.open}
-                    trigger={<Button>Show Modal</Button>}
+                    trigger={<Button>Edit</Button>}
                 >
                     <Modal.Header>Edit Your Profile</Modal.Header>
                     <Modal.Content>
@@ -190,19 +199,19 @@ class Profile extends Component {
                                         value={this.state.user.fullname}
                                         onChange= {this.handleChange}
                             />
-                            <Form.Field required
-                                        control={Input}
-                                        label='Email'
-                                        name = 'email'
-                                        value={this.state.user.email}
-                                        onChange= {this.handleChange}
-                            />
+                            {/*<Form.Field required*/}
+                            {/*            control={Input}*/}
+                            {/*            label='Email'*/}
+                            {/*            name = 'email'*/}
+                            {/*            value={this.state.user.email}*/}
+                            {/*            onChange= {this.handleChange}*/}
+                            {/*/>*/}
                             <Form.Field required
                                         control={Select}
                                         label='Role'
                                         name = 'role'
                                         options={generatelist(['Student', 'Tutor'])}
-                                        value={this.state.user.role}
+                                        // value={this.state.user.role}
                                         onChange= {this.handleChange}
 
                             />
@@ -220,7 +229,7 @@ class Profile extends Component {
                                             label='Year'
                                             name = 'year'
                                             options={generatelist([1,2,3,4])}
-                                            value={this.state.user.year}
+                                            // value={this.state.user.year}
                                             onChange= {this.handleChange}
                                 />
 
@@ -334,7 +343,9 @@ const InputText = styled.input.attrs({
 // `
 Profile.propTypes = {
     auth: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired
+    errors: PropTypes.object.isRequired,
+    updateUser:  PropTypes.func,
+    getUser: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -346,7 +357,13 @@ const actionCreators = {
 
 };
 
-const connectedProfile = connect(mapStateToProps, actionCreators)(Profile);
+// const connectedProfile = connect(mapStateToProps, actionCreators)(Profile);
+const connectedProfile = compose(
+    withApollo,
+    connect(mapStateToProps, actionCreators),
+    graphql(QUERY_USER_ID, { name: 'getUser'}),
+    graphql(UPDATE_PROFILE, { name: 'updateUser'}),
+)(Profile);
 export {connectedProfile as Profile};
 
 function generatelist(array) {
