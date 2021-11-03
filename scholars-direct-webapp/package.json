@@ -61,7 +61,7 @@
     "socketio-jwt": "^4.6.2",
     "styled-components": "^5.1.1",
     "uuidv4": "^6.2.0",
-    "validator": "^13.1.1",
+    "validator": "^13.7.0",
     "webrtc-adapter": "^7.6.4"
   },
   "devDependencies": {
