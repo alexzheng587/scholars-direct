@@ -33,7 +33,7 @@
     "cors": "^2.8.5",
     "enum": "^2.5.0",
     "esm": "^3.2.25",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-session": "^1.17.1",
     "graphql": "^15.3.0",
     "graphql-passport": "^0.6.3",
